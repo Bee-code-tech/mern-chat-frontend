@@ -1,4 +1,4 @@
-import { useEffect, useState }, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/sidebar";
 import { CiHeart } from "react-icons/ci";
@@ -32,6 +32,25 @@ const Home = () => {
       console.error("Error fetching gallery data:", error);
     }
   };
+  const [topics, setTopics] = useState([]);
+
+  const getTopics = async () => {
+    const res = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/community/topics`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    const data = await res.json();
+    setTopics(data.data);
+  };
+
+  useEffect(() => {
+    getTopics();
+  }, [])
+
+  console.log(topics, 'topics from home page');
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 my-[100px] mx-auto max-w-6xl">
       <Link to={`/community/galleryDetails/${videoData[0]?._id}`}>
@@ -113,12 +132,12 @@ const Home = () => {
         <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300 rounded-lg">
           <div className="p-3 border border-gray-300 rounded-lg">
             {topics && topics.slice(0, 4).map(tp =>
-              <div class="flex justify-between items-center">
+              <div className="flex justify-between items-center" key={tp._id}>
                 <div className="flex flex-row justify-start gap-2 items-center py-2">
-                  <img class="w-16 h-16 rounded-full shadow-lg" src={tp.author.profilePic} alt="Bonnie image" />
+                  <img className="w-16 h-16 rounded-full shadow-lg" src={tp.author.profilePic} alt="Bonnie image" />
                   <div>
-                    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Bonnie Green</h5>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
+                    <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">Bonnie Green</h5>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
                   </div>
                 </div>
                 <div className=" bg-green-500 py-3 text-white px-3 rounded-lg">Read Now</div>
