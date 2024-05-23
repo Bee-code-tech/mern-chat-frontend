@@ -17,6 +17,8 @@ import NewTopic from "./pages/CommunityPage/NewTopic";
 import Profile from "./pages/CommunityPage/Profile";
 import TopicDetail from "./pages/CommunityPage/TopicDetail";
 import Bookmarks from "./pages/CommunityPage/bookmarks";
+import Gallery from "./pages/CommunityPage/Gallery";
+import GalleryDetails from "./pages/CommunityPage/GalleryDetails";
 
 const App = () => {
   const { authUser } = useAuthContext();
@@ -132,6 +134,30 @@ const App = () => {
               authUser ? (
                 <CommunityLayout>
                   <Profile />
+                </CommunityLayout>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/community/gallery"
+            element={
+              authUser ? (
+                <CommunityLayout>
+                  <Gallery />
+                </CommunityLayout>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/community/galleryDetails/:id"
+            element={
+              authUser ? (
+                <CommunityLayout>
+                  <GalleryDetails />
                 </CommunityLayout>
               ) : (
                 <Navigate to="/login" />

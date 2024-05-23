@@ -4,6 +4,8 @@ import { FiBook, FiUser, FiUsers } from "react-icons/fi";
 import { IoHomeOutline } from "react-icons/io5";
 import { NavLink, useLocation } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
+import { TfiGallery } from "react-icons/tfi";
+
 
 const CommunitySidebar = ({ toggleMenu }) => {
   const { logout } = useLogout();
@@ -115,5 +117,10 @@ const sidebarMenuItems = [
     name: "Profile (Community)",
     icon: <FiUser size={24} />,
     url: "/community/profile",
+  },
+  {
+    name: "Gallery",
+    icon: <TfiGallery size={24}/>,
+    url: "/community/gallery",
   },
 ];
