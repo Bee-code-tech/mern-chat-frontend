@@ -12,7 +12,7 @@ const CommunitySidebar = ({ toggleMenu }) => {
   const { pathname } = useLocation();
   return (
     <div
-      className="flex flex-col justify-between  top-20 bg-white fixed pl-1 md:pl-0 w-[180px] xl:w-[200px]"
+      className="flex lg:ml-5 flex-col justify-between top-20 fixed pl-1 md:pl-0 w-[200px] xl:w-[200px]"
       style={{ height: "calc(100vh - 80px)" }}
     >
       <div>
@@ -66,9 +66,8 @@ const CommunitySidebar = ({ toggleMenu }) => {
             logout();
             toggleMenu();
           }}
-          className={`${
-            pathname === "/settings" && "text-[#18BB0C]"
-          } flex items-center cursor-pointer font-medium space-x-4 text-[#999999] my-5`}
+          className={`${pathname === "/settings" && "text-[#18BB0C]"
+            } flex items-center cursor-pointer font-medium space-x-4 text-[#999999] my-5`}
         >
           <span>
             <BiLogOut color="red" size={24} />
@@ -120,7 +119,7 @@ const sidebarMenuItems = [
   },
   {
     name: "Gallery",
-    icon: <TfiGallery size={24}/>,
+    icon: <TfiGallery size={24} />,
     url: "/community/gallery",
   },
 ];

@@ -31,8 +31,21 @@ const Conversation = ({ conversation, lastIdx, emoji, toggleSidebar }) => {
         </div>
 
         <div className="flex flex-col flex-1">
-          <div className="flex gap-3 justify-between">
-            <p className="font-bold text-gray-600">{conversation.fullName}</p>
+          <div className="flex justify-between">
+            <div className="flex gap-1 flex-col">
+              <p className="font-bold text-gray-600">{conversation.fullName}</p>
+              <p className="font-thin text-xs text-gray-600">{conversation?.lastMessage}</p>
+            </div>
+            <div>
+              <p className="font-bold text-xs text-gray-600">{
+                conversation?.messageSendTime
+                  ? new Date(conversation.messageSendTime).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                  : ''
+              }</p>
+            </div>
           </div>
         </div>
       </div>

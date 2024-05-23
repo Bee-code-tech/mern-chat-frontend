@@ -18,8 +18,7 @@ const TopicDetail = () => {
   useEffect(() => {
     const getComments = async () => {
       const res = await fetch(
-        `${
-          import.meta.env.VITE_BACKEND_URL
+        `${import.meta.env.VITE_BACKEND_URL
         }/api/community/topics/comment/${id}`,
         {
           method: "GET",
@@ -60,8 +59,7 @@ const TopicDetail = () => {
     const incrementTopicView = async () => {
       try {
         await fetch(
-          `${
-            import.meta.env.VITE_BACKEND_URL
+          `${import.meta.env.VITE_BACKEND_URL
           }/api/community/topics/incrementViewCount/${id}`,
           {
             method: "POST",
@@ -105,8 +103,7 @@ const TopicDetail = () => {
 
   const handleTopicReaction = async (payload) => {
     const res = await fetch(
-      `${
-        import.meta.env.VITE_BACKEND_URL
+      `${import.meta.env.VITE_BACKEND_URL
       }/api/community/topics/reactions/toggle`,
       {
         method: "POST",
@@ -126,8 +123,7 @@ const TopicDetail = () => {
   };
   const handleTopicCommentReaction = async (payload) => {
     const res = await fetch(
-      `${
-        import.meta.env.VITE_BACKEND_URL
+      `${import.meta.env.VITE_BACKEND_URL
       }/api/community/topics/comment/reactions/toggle`,
       {
         method: "POST",
@@ -147,7 +143,7 @@ const TopicDetail = () => {
   };
 
   return (
-    <div className="shadow-lg rounded-lg p-6 mb-5">
+    <div className="shadow-lg rounded-lg p-6 mb-5 lg:mx-10">
       <div className="rounded-lg border p-6">
         <h2 className="font-bold text-xl">{topic.title}</h2>
         <div className="flex gap-4 my-4">
