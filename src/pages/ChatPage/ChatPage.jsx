@@ -9,7 +9,6 @@ const Home = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  console.log(isSidebarOpen, 'isjhfgjhgxfhgzxghhkgxfh');
 
   return (
     <div className="container mx-auto max-w-5xl">

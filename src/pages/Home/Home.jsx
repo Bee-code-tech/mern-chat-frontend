@@ -9,10 +9,15 @@ import mainImage from "../../assets/Main.png";
 
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/sidebar";
+import useGetConversations from "../../hooks/useGetConversations";
+import Conversation from "../../components/sidebar/Conversation";
 
 const Home = () => {
 
   const [topics, setTopics] = useState([]);
+  const { loading, conversations } = useGetConversations();
+
+  console.log(conversations, 'conversions');
 
   const getTopics = async () => {
     const res = await fetch(
@@ -34,11 +39,11 @@ const Home = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 my-[100px] mx-auto max-w-6xl">
-      <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300 rounded-lg">
+      <div className="bg-white shadow-md p-6 border border-gray-300 rounded-lg">
         <img src={mainImage} alt="imageImage" />
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300 rounded-lg">
+      <div className="bg-white shadow-md p-6 border border-gray-300 rounded-lg">
         <div className="p-3 border border-gray-300 rounded-lg">
           <div className="grid grid-cols-3 gap-4 mt-4">
             <img src={image1} alt="Image 1" className="rounded-lg" />
@@ -52,7 +57,7 @@ const Home = () => {
       </div>
 
       <div>
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300 rounded-lg">
+        <div className="bg-white shadow-md p-6 border border-gray-300 rounded-lg">
           <div className="p-3 border border-gray-300 rounded-lg">
             {topics && topics.slice(0, 4).map(tp =>
               <div class="flex justify-between items-center">
@@ -75,13 +80,31 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300 rounded-lg">
-        <div className="p-3 border border-gray-300 rounded-lg flex justify-center">
+      <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300">
+        <div className="p-3 border border-gray-300 bg-green-500 rounded-lg flex justify-center">
           <Link to="/chatPage">
-            <div className="grid grid-cols-1 sm:grid-cols-1">
-              <div className="h-[300px] overflow-y-auto">
-                <Sidebar />
-              </div>
+            <div className="py-2 flex flex-col overflow-auto w-full">
+              {conversations.map((conversation, idx) => (
+                <div
+                  className={`flex gap-2 border items-center w-full hover:bg-sky-500 rounded p-2 py-1 cursor-pointer`}
+                >
+                  <div className={`avatar}`}>
+                    <div className="w-12 rounded-full">
+                      <img src={conversation.profilePic} alt={conversation.fullName} />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col flex-1">
+                    <div className="flex gap-3 justify-between">
+                      <p className="font-bold text-gray-600">{conversation.fullName}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {loading ? (
+                <span className="loading loading-spinner mx-auto"></span>
+              ) : null}
             </div>
           </Link>
         </div>
