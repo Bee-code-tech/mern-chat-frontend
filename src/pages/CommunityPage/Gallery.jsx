@@ -98,7 +98,7 @@ const Gallery = () => {
   };
   return (
     <>
-      <div className="mx-10 mb-10 flex justify-between items-center">
+      <div className="mx-10 mb-10 flex justify-between items-center mt-28">
         <button
           className="btn bg-[#18BB0C] text-white"
           onClick={() => document.getElementById("my_modal_5").showModal()}
@@ -162,16 +162,19 @@ const Gallery = () => {
                   xl={{ span: 6 }}
                 >
                   {item?.image && (
-                    <Link to={`/community/galleryDetails/${item?._id}`}>
+                    <Link to={`/galleryDetails/${item?._id}`}>
                       <div className="card card-compact  w-full  shadow-xl max-w-64 ">
                         <figure>
-                          <img src={item?.image} className="rounded-xl object-cover" />
+                          <img
+                            src={item?.image}
+                            className="rounded-xl object-cover"
+                          />
                         </figure>
                       </div>
                     </Link>
                   )}
                   {item?.video && (
-                    <Link to={`/community/galleryDetails/${item?._id}`}>
+                    <Link to={`/galleryDetails/${item?._id}`}>
                       <div className="card card-compact bg-base-content shadow-xl image-full bg-none max-w-64 max-h-36">
                         <figure>
                           <img
