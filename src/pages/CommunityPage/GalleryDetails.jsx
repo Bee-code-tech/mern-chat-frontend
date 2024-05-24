@@ -50,7 +50,7 @@ const GalleryDetails = () => {
   return (
     <>
       <div className="mx-10 mb-10 flex justify-start items-center">
-        <Link to="/community/gallery">
+        <Link to="/gallery">
           <button className="btn bg-[#18BB0C] text-white">
             <span className="flex items-center">
               <FaAngleLeft color="white" size="1.2em" />
@@ -74,7 +74,7 @@ const GalleryDetails = () => {
                   lg={{ span: 6 }}
                   xl={{ span: 6 }}
                 >
-                  <Link to={`/community/galleryDetails/${item?._id}`}>
+                  <Link to={`/galleryDetails/${item?._id}`}>
                     <div className="card card-compact rounded w-full  shadow-xl">
                       <figure>
                         <img src={item?.image} className="rounded-lg" />

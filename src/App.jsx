@@ -141,24 +141,20 @@ const App = () => {
             }
           />
           <Route
-            path="/community/gallery"
+            path="/gallery"
             element={
               authUser ? (
-                <CommunityLayout>
                   <Gallery />
-                </CommunityLayout>
               ) : (
                 <Navigate to="/login" />
               )
             }
           />
           <Route
-            path="/community/galleryDetails/:id"
+            path="/galleryDetails/:id"
             element={
               authUser ? (
-                <CommunityLayout>
                   <GalleryDetails />
-                </CommunityLayout>
               ) : (
                 <Navigate to="/login" />
               )
