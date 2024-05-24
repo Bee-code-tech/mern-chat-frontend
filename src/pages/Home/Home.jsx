@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/sidebar";
 import { CiHeart } from "react-icons/ci";
 import { FaRegPlayCircle } from "react-icons/fa";
+import useGetConversations from "../../hooks/useGetConversations";
 
 const Home = () => {
   const [galleryData, setGalleryData] = useState([]);
   const [videoData, setVideoData] = useState([]);
   const [imageData, setImageData] = useState([]);
+
   useEffect(() => {
     fetchGalleryData();
   }, []);
@@ -33,6 +35,9 @@ const Home = () => {
     }
   };
   const [topics, setTopics] = useState([]);
+  const { loading, conversations } = useGetConversations();
+
+  console.log(conversations, 'conversions');
 
   const getTopics = async () => {
     const res = await fetch(
@@ -50,7 +55,8 @@ const Home = () => {
     getTopics();
   }, []);
 
-  console.log(topics, "topics from home page");
+  // console.log(topics, 'topics from home page');
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 my-[100px] mx-auto max-w-6xl">
       <Link to={`/galleryDetails/${videoData[0]?._id}`}>
@@ -126,7 +132,7 @@ const Home = () => {
       </div>
 
       <div>
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300 rounded-lg">
+        <div className="bg-white shadow-md p-6 border border-gray-300 rounded-lg">
           <div className="p-3 border border-gray-300 rounded-lg">
             {topics &&
               topics.slice(0, 4).map((tp) => (
@@ -159,15 +165,51 @@ const Home = () => {
       </div>
 
       <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300 ">
-        <div className="p-3 border border-gray-300 rounded-lg flex justify-center">
-          <Link to="/chatPage">
-            <div className="grid grid-cols-1 sm:grid-cols-1">
-              <div className="h-[300px] overflow-y-auto">
-                <Sidebar />
-              </div>
+        <div className="p-3 border border-gray-300 rounded-lg">
+          <Link>
+            <div className="py-2 flex flex-col overflow-auto w-full">
+              {conversations.map((conversation, idx) => (
+                <>
+                  <div
+                    className={`flex gap-2 border items-center w-full hover:bg-sky-500 rounded p-2 py-1 cursor-pointer`}
+                  >
+                    <div className={`avatar}`}>
+                      <div className="w-12 rounded-full">
+                        <img src={conversation.profilePic} alt={conversation.fullName} />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col flex-1">
+                      <div className="flex justify-between">
+                        <div className="flex gap-1 flex-col">
+                          <p className="font-bold text-gray-600">{conversation.fullName}</p>
+                          <p className="font-thin text-xs text-gray-600">{conversation?.lastMessage}</p>
+                        </div>
+                        <div>
+                          <p className="font-bold text-xs text-gray-600">{
+                            conversation?.messageSendTime
+                              ? new Date(conversation.messageSendTime).toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                              })
+                              : ''
+                          }</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ))}
+
+              {loading ? (
+                <span className="loading loading-spinner mx-auto"></span>
+              ) : null}
             </div>
           </Link>
         </div>
+        <Link to='/chatpage' className="flex justify-end py-8">
+          <button className="font-bold">Go To Chat Page</button>
+        </Link>
       </div>
     </div>
   );

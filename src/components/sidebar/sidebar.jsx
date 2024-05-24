@@ -13,7 +13,7 @@ const Sidebar = ({ toggleSidebar }) => {
       className="border h-full overflow-y-auto rounded-lg w-full p-4 flex flex-col"
       onClick={handleClick}
     >
-      <SearchInput />
+      {/* <SearchInput /> */}
       <div className="divider px-3"></div>
       <Conversations toggleSidebar={toggleSidebar} />
     </div>

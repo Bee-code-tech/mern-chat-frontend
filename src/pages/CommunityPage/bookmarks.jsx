@@ -10,8 +10,7 @@ const Bookmarks = () => {
   useEffect(() => {
     const getTopics = async () => {
       const res = await fetch(
-        `${
-          import.meta.env.VITE_BACKEND_URL
+        `${import.meta.env.VITE_BACKEND_URL
         }/api/community/topics?bookmarks=true`,
         {
           method: "GET",
@@ -30,8 +29,7 @@ const Bookmarks = () => {
 
   const handleBookmark = async (payload) => {
     const res = await fetch(
-      `${
-        import.meta.env.VITE_BACKEND_URL
+      `${import.meta.env.VITE_BACKEND_URL
       }/api/community/topics/bookmarks/toggle`,
       {
         method: "POST",
@@ -50,7 +48,7 @@ const Bookmarks = () => {
   };
 
   return (
-    <section className="space-y-5">
+    <section className="space-y-5 px-10">
       {topics.length > 0 ? (
         <div className="space-y-8">
           {topics &&

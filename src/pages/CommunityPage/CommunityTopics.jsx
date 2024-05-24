@@ -80,7 +80,7 @@ const CommunityTopics = () => {
   }
 
   return (
-    <section className="space-y-5">
+    <section className="space-y-5 px-10">
       <div className="flex justify-end">
         <a
           href="/community/topics/new"
