@@ -1,6 +1,8 @@
 import React from "react";
 import { timeAgo } from "../../utils/timeDifference";
 
+// testing someting 
+
 const Comments = ({ comments, handleTopicCommentReaction }) => {
   return (
     <div>
