@@ -11,7 +11,7 @@ const CommunitySidebar = ({ toggleMenu }) => {
   const { pathname } = useLocation();
   return (
     <div
-      className="flex lg:ml-5 flex-col justify-between top-20 fixed pl-1 md:pl-0 w-[200px] xl:w-[200px]"
+      className="flex lg:ml-5 flex-col justify-between top-20 fixed pl-1 md:pl-0 w-[400px] xl:w-[200px] bg-white"
       style={{ height: "calc(100vh - 80px)" }}
     >
       <div>
