@@ -12,12 +12,12 @@ const Home = () => {
   return (
     <div className="container mx-auto max-w-5xl">
       <div
-        className="flex  lg:max-w-6xl mx-auto gap-5 mt-2 lg:mt-32  rounded-lg  max-w-6xl "
+        className="flex lg:max-w-6xl mx-auto gap-5 mt-2 lg:mt-32  rounded-lg"
         style={{ height: "calc(100vh - 200px)" }}
       >
         {/* Sidebar */}
         <div
-          className={`w-full !h-full  ${isSidebarOpen ? "" : "hidden lg:block"
+          className={`w-full !h-full  ${isSidebarOpen ? "" : "lg:block"
             } `}
         >
           <Sidebar toggleSidebar={toggleSidebar} />
