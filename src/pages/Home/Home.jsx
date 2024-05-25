@@ -53,13 +53,13 @@ const Home = () => {
 
   useEffect(() => {
     getTopics();
-  }, [])
+  }, []);
 
   // console.log(topics, 'topics from home page');
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 my-[100px] mx-auto max-w-6xl">
-      <Link to={`/community/galleryDetails/${videoData[0]?._id}`}>
+      <Link to={`/galleryDetails/${videoData[0]?._id}`}>
         <div className="card card-compactbg-white p-6 w-full shadow-md image-full bg-white border border-gray-300">
           <figure>
             <img
@@ -94,26 +94,23 @@ const Home = () => {
 
       <div className="bg-white shadow-md p-6 border border-gray-300 ">
         <div className="p-3 border border-gray-300 ">
-          <div className="grid grid-cols-3 gap-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  gap-4 mt-4 ">
             {imageData.slice(0, 5).map((image, index) => (
-              <Link
-                to={`/community/galleryDetails/${image?._id}`}
-                key={image?._id.$oid}
-              >
-                <div className="card card-compact shadow-xl max-w-64 max-h-36">
+              <Link to={`/galleryDetails/${image?._id}`} key={image?._id.$oid}>
+                <div className="card card-compact shadow-xl w-full  md:max-w-64 max-h-36">
                   <figure>
                     <img
                       src={image?.image}
                       alt={`Image ${index + 1}`}
-                      className="rounded-xl"
+                      className="rounded-xl object-contain"
                     />
                   </figure>
                 </div>
               </Link>
             ))}
             {imageData?.length > 5 && (
-              <Link to="/community/gallery/">
-                <div className="card card-compact bg-base-content shadow-xl image-full bg-none max-w-64 max-h-36">
+              <Link to="/gallery/">
+                <div className="card card-compact bg-base-content shadow-xl rounded-xl image-full bg-none w-full lg:max-w-64 max-h-36">
                   <figure>
                     <img
                       src="https://i.ibb.co/CMLfZkc/pexels-inspiredimages-157543.jpg"
@@ -137,23 +134,32 @@ const Home = () => {
       <div>
         <div className="bg-white shadow-md p-6 border border-gray-300 rounded-lg">
           <div className="p-3 border border-gray-300 rounded-lg">
-            {topics && topics.slice(0, 4).map(tp =>
-              <div className="flex justify-between items-center" key={tp._id}>
-                <div className="flex flex-row justify-start gap-2 items-center py-2">
-                  <img className="w-16 h-16 rounded-full shadow-lg" src={tp.author.profilePic} alt="Bonnie image" />
-                  <div>
-                    <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">Bonnie Green</h5>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
+            {topics &&
+              topics.slice(0, 4).map((tp) => (
+                <div className="flex justify-between items-center" key={tp._id}>
+                  <div className="flex flex-row justify-start gap-2 items-center py-2">
+                    <img
+                      className="w-16 h-16 rounded-full shadow-lg"
+                      src={tp.author.profilePic}
+                      alt="Bonnie image"
+                    />
+                    <div>
+                      <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                        Bonnie Green
+                      </h5>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                        Visual Designer
+                      </span>
+                    </div>
+                  </div>
+                  <div className=" bg-green-500 py-3 text-white px-3 rounded-lg">
+                    Read Now
                   </div>
                 </div>
-                <div className=" bg-green-500 py-3 text-white px-3 rounded-lg">Read Now</div>
-              </div>
-            )}
+              ))}
           </div>
           <div className="w-full flex justify-end px-6 py-2 font-bold">
-            <Link to={"/community/topics"}>
-              Read More
-            </Link>
+            <Link to={"/community/topics"}>Read More</Link>
           </div>
         </div>
       </div>
