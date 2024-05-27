@@ -60,7 +60,7 @@ const Login = () => {
                         </div>
                         <div>
                             <label for="password" className="sr-only">Password</label>
-                            <input id="password" name="password" type="password" autocomplete="current-password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="Password" value={password}
+                            <input id="password" name="password" type="password" autocomplete="current-password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" value={password}
                                 onChange={(e) => setPassword(e.target.value)} />
                         </div>
                     </div>
@@ -95,11 +95,7 @@ const Login = () => {
                     </div>
                 </form>
 
-                {/* <div className="flex justify-center items-center">
-                    <button onClick={handleClick} style={{ backgroundColor: '#DB4437', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-                        Sign in with Google
-                    </button>
-                </div> */}
+               
 
                 <p className="mt-2 text-center text-sm text-gray-600">
                     Don't have an account? <Link to="/signup" className="font-medium text-green-600 hover:text-green-500">Sign up</Link>
