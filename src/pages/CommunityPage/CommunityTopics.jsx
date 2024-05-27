@@ -81,7 +81,7 @@ const CommunityTopics = () => {
   }
 
   return (
-    <section className="space-y-5 px-10">
+    <section className="space-y-5 px-3">
       <div className="flex justify-end">
         <Link to='/community/topics/new'
           className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 

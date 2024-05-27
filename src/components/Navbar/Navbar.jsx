@@ -25,11 +25,11 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white shadow-lg w-screen fixed flex items-center z-50 h-20 top-0 px-10">
+      <nav className="bg-white shadow-lg w-screen fixed flex items-center z-50 h-20 top-0 lg:px-10 px-0 md:px-10">
         <div className="container mx-auto px-4 py-2 flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <Link to="/">
-              <img src={logoImage} alt="Logo" className="h-8" />
+              <img src={logoImage} alt="Logo" className="lg:h-8 md:h-8 h-6 " />
             </Link>
           </div>
 

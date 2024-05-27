@@ -11,16 +11,16 @@ const CommunitySidebar = ({ toggleMenu }) => {
   const { pathname } = useLocation();
   return (
     <div
-      className="flex lg:ml-5 flex-col justify-between top-20 fixed pl-1 md:pl-0 w-[400px] xl:w-[200px] bg-white"
+      className="flex flex-col items-center pt-10 justify-between top-20 bottom-0 fixed border-r lg:w-[350px] w-[330px]  xl:w-[450px] bg-white"
       style={{ height: "calc(100vh - 80px)" }}
     >
-      <div>
+      <div className="flex flex-col gap-1">
         {sidebarMenuItems.map((item) => (
           <NavLink
             to={item.url}
             key={item.name}
             className={({ isActive }) =>
-              isActive ? "text-[#18BB0C]" : "text-[#999999] "
+              isActive ? "text-[#18BB0C]  " : "text-[#999999] "
             }
           >
             <div onClick={toggleMenu}>

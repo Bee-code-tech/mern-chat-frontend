@@ -150,13 +150,13 @@ const Profile = () => {
 
   return (
     <section className="space-y-5">
-      <div className="border border-[#18BB0C] max-w-3xl mx-auto rounded-lg p-5  shadow-md">
+      <div className="border border-[#18BB0C] max-w-3xl  rounded-lg py-5 mx-auto shadow-md">
         <h3 className="my-2 flex items-center justify-center text-xl font-bold">
           Update Basic Info
         </h3>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-w-sm md:max-w-xl mx-auto"
+          className="w-[90%] md:max-w-xl mx-auto"
         >
           <div className="mb-5">
             <label

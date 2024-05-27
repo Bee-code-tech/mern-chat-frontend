@@ -47,7 +47,7 @@ const Contributions = () => {
   };
 
   return (
-    <section className="space-y-5 px-10">
+    <section className="space-y-5 px-3">
       <div className="flex justify-end">
         
        <Link to='/community/topics'

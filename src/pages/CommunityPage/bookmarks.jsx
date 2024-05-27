@@ -49,7 +49,7 @@ const Bookmarks = () => {
   };
 
   return (
-    <section className="space-y-5 px-10">
+    <section className="space-y-5 px-3">
       {topics.length > 0 ? (
         <div className="space-y-8">
           {topics &&
