@@ -11,7 +11,7 @@ const CommunitySidebar = ({ toggleMenu }) => {
   const { pathname } = useLocation();
   return (
     <div
-      className="flex flex-col items-center pt-10 justify-between top-20 bottom-0 fixed border-r lg:w-[350px] w-[330px]  xl:w-[450px] bg-white"
+      className="flex z-[50] flex-col items-center pt-10 justify-between top-20 bottom-0 fixed border-r lg:w-[350px] w-[330px]  xl:w-[450px] bg-white"
       style={{ height: "calc(100vh - 80px)" }}
     >
       <div className="flex flex-col gap-1">
@@ -84,7 +84,7 @@ const sidebarMenuItems = [
   {
     name: "Home",
     icon: <IoHomeOutline size={24} />,
-    url: "/community/home",
+    url: "/",
   },
   {
     name: "Topics",

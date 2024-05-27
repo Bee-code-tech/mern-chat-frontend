@@ -30,7 +30,14 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={authUser ? <Home /> : <Navigate to={"/login"} />}
+            element={authUser ? (
+              <CommunityLayout>
+                <Home />
+              </CommunityLayout>
+          )
+             :
+             ( <Navigate to={"/login"} />)
+          }
           />
           <Route
             path="/login"

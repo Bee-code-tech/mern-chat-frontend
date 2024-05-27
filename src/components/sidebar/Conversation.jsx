@@ -18,7 +18,7 @@ const Conversation = ({ conversation, lastIdx, emoji, toggleSidebar }) => {
       <div
         className={`flex gap-8 items-center hover:bg-green-400 
         border-b
-        rounded  py-3 cursor-pointer
+        rounded  p-3 cursor-pointer
             ${isSelected ? "bg-green-400" : ""}
             `}
         onClick={() => {
@@ -36,7 +36,7 @@ const Conversation = ({ conversation, lastIdx, emoji, toggleSidebar }) => {
           <div className="flex justify-between">
             <div className="flex gap-3 flex-col">
               <p className="font-bold text-gray-600">{conversation.fullName}</p>
-              <p className="font-thin text-xs text-gray-600">{conversation?.lastMessage}</p>
+              <p className="font-thin text-sm text-gray-600">{conversation?.lastMessage}</p>
             </div>
             <div>
               <p className="font-bold text-xs text-gray-600">{

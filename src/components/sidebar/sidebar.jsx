@@ -33,7 +33,7 @@ const Sidebar = ({ toggleSidebar }) => {
     {/* Main body  */}
     <div className="border p-2 border-green-300 rounded-[20px]">
      <div
-      className="border h-auto overflow-y-auto rounded-[20px] w-full p-8 flex flex-col"
+      className="border h-auto overflow-y-auto rounded-[20px] w-full p-2 lg:p-8 md:p-8 flex flex-col"
       onClick={handleClick}
     >
       {/* <SearchInput /> */}

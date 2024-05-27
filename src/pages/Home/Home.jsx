@@ -10,10 +10,10 @@ import DynamicTable from "../../components/DynamicTable/DynamicTable";
 
 
 const data = [
-  { topic: 'React', contribution: 56, last: '20 days ago', appreciation: '🏆 (15)' },
-  { topic: 'Tailwind', contribution: 34, last: '3 days ago', appreciation: '🏆 (13)' },
-  { topic: 'JavaScript', contribution: 78, last: '20 days ago', appreciation: '🏆 (33)' },
-  { topic: 'Node.js', contribution: 67, last: '9 days ago', appreciation: '🏆 (50)' },
+  { topic: 'React', contribution: 56,  appreciation: '🏆 (15)' },
+  { topic: 'Tailwind', contribution: 34,  appreciation: '🏆 (13)' },
+  { topic: 'JavaScript', contribution: 78,  appreciation: '🏆 (33)' },
+  { topic: 'Node.js', contribution: 67,  appreciation: '🏆 (50)' },
 ];
 
 const Home = () => {
@@ -71,10 +71,10 @@ const Home = () => {
   // console.log(topics, 'topics from home page');
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-12 my-[130px] mx-auto max-w-6xl">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-12 lg:gap-8 md:gap-8 my-[20px] mx-auto max-w-6xl">
       
       {/* first grid item  */}
-      <div>
+      <div className="mb-8"> 
         {/* Video  */}
         <Link to={`/galleryDetails/${videoData[0]?._id}`}>
           <div className="border border-green-300 p-2 rounded-[20px] ">
@@ -112,8 +112,8 @@ const Home = () => {
       </div>
 
       {/* second grid item  */}
-     <div >
-        <div className="p-2 border h-[330px] border-green-300 rounded-[20px]">
+     <div className="mb-8" >
+        <div className="p-2 border h-auto border-green-300 rounded-[20px]">
           <div className="bg-white h-full p-2 border rounded-[20px] border-gray-300 ">
               {/* Video list */}
                 <div className="grid items-center justify-center w-full h-full grid-cols-1 md:grid-cols-2  lg:grid-cols-3  gap-3 p-3  ">
@@ -169,7 +169,7 @@ const Home = () => {
      </div>
 
       {/* third grid item  */}
-      <div>
+      <div >
             <div className="bg-white  p-2 border border-green-300 rounded-[20px]">
               <div className="border border-grey-300 rounded-[20px] p-4 ">
               <DynamicTable data={data} />
