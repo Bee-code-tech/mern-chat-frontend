@@ -6,6 +6,7 @@ const Bookmarks = () => {
   const [topics, setTopics] = useState([]);
   console.log("🚀 ~ Bookmarks ~ topics:", topics);
   const [refetchTopics, setRefetchTopics] = useState(false);
+  
 
   useEffect(() => {
     const getTopics = async () => {

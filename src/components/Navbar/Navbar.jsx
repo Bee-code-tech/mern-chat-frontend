@@ -5,6 +5,7 @@ import logoImage from "../../assets/Biopic.png";
 import { useAuthContext } from "../../context/AuthContext";
 import useLogout from "../../hooks/useLogout";
 import CommunitySidebar from "../communitySidebar/CommunitySidebar";
+import defaultImg from '../../assets/hu2.png';
 
 const Navbar = () => {
   const { authUser } = useAuthContext();
@@ -16,13 +17,15 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  console.log(authUser);
+
   const handleMenuItemClick = () => {
     setIsMenuOpen(false);
   };
 
   return (
     <>
-      <nav className="bg-white shadow-lg w-screen fixed flex items-center z-20 h-20 top-0 px-10">
+      <nav className="bg-white shadow-lg w-screen fixed flex items-center z-50 h-20 top-0 px-10">
         <div className="container mx-auto px-4 py-2 flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <Link to="/">
@@ -49,17 +52,45 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center space-x-4">
             {authUser && (
               <>
-                <span className="text-gray-600">
-                  Welcome, {authUser.username}
-                </span>
-                {!loading ? (
-                  <BiLogOut
-                    className="w-6 h-6 text-black cursor-pointer"
-                    onClick={logout}
-                  />
-                ) : (
-                  <span className="loading loading-spinner"></span>
-                )}
+                 <div className="flex items-center justify-center gap-2 border border-gray-300 p-0.5 rounded-full">
+                    {/* Profile picture dropdown menu  */}
+                      <div className="flex-none">
+                            <div className="dropdown dropdown-end">
+                              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                  <img alt="Tailwind CSS Navbar component" src={authUser.profilePic || defaultImg } />
+                                </div>
+                              </div>
+                              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-[300px] ">
+                                <li>
+                                  <Link to='/community/profile' className="justify-between">
+                                    Profile
+                                  </Link>
+                                </li>
+                                <li><a>Settings</a></li>
+                                <li ><a>Logout
+                                {!loading ? (
+                        <>
+                        <span className="badge p-4">
+
+                          <BiLogOut
+                            className="w-6 h-6 text-black cursor-pointer"
+                            onClick={logout}
+                            />
+                          </span>
+                        </>
+                      ) : (
+                        <span className="loading loading-spinner"></span>
+                      )}
+                                  </a></li>
+                                  
+                              </ul>
+                            </div>
+                      </div> 
+
+                     {/* userName     */}
+                     <p className="mr-4">{authUser.fullName}</p>
+                  </div>            
               </>
             )}
           </div>
@@ -76,3 +107,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

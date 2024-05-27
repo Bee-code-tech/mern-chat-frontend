@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import Comments from "../../components/CommunityTopic/Comments";
 import { formatViewCount } from "../../utils/formatNumber";
 import { timeAgo } from "../../utils/timeDifference";
+import defaultImg from '../../assets/hu2.png'
+import { FaCirclePlus } from "react-icons/fa6";
 
 const TopicDetail = () => {
   const [topic, setTopic] = useState({});
@@ -149,7 +151,7 @@ const TopicDetail = () => {
         <div className="flex gap-4 my-4">
           <img
             className="rounded-full size-16"
-            src={topic?.author?.profilePic}
+            src={topic?.author?.profilePic || defaultImg}
             alt="profileAvatar"
           />
           <div>
@@ -211,9 +213,12 @@ const TopicDetail = () => {
         <p className="font-medium text-2xl">Comments ({comments.length}):</p>
         <button
           onClick={() => setShowModal(true)}
-          className="text-base text-[#18BB0C] py-3 px-10 border border-[#18BB0C] rounded hover:bg-[#18BB0C] hover:text-white"
+          className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 
+          rounded-lg border-[#18BB0C] px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C]
+           hover:text-white text-sm flex items-center justify-center gap-2"
         >
-          add comment
+          <FaCirclePlus />
+          Add comment
         </button>
       </div>
       <div>

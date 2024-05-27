@@ -1,5 +1,6 @@
 import React from "react";
 import { timeAgo } from "../../utils/timeDifference";
+import defaultImg from '../../assets/hu2.png'
 
 // testing someting 
 
@@ -27,7 +28,7 @@ const Comment = ({ comment, handleTopicCommentReaction }) => {
     <div className="flex gap-4 my-4">
       <img
         className="rounded-full size-16"
-        src={comment?.author?.profilePic}
+        src={comment?.author?.profilePic || defaultImg}
         alt="profileAvatar"
       />
       <div>

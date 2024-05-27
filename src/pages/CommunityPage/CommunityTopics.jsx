@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import CommunityTopic from "../../components/CommunityTopic/CommunityTopic";
-
+import { FaCirclePlus } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 const CommunityTopics = () => {
   const [topics, setTopics] = useState([]);
   const [refetchTopics, setRefetchTopics] = useState(false);
@@ -82,12 +83,14 @@ const CommunityTopics = () => {
   return (
     <section className="space-y-5 px-10">
       <div className="flex justify-end">
-        <a
-          href="/community/topics/new"
-          className="border border-[#18BB0C] px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C] hover:text-white text-xl"
+        <Link to='/community/topics/new'
+          className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 
+          rounded-lg border-[#18BB0C] px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C]
+           hover:text-white text-xl flex items-center justify-center gap-2"
         >
+          <FaCirclePlus />
           Create new
-        </a>
+        </Link>
       </div>
       {topics.length > 0 ? (
         <div className="space-y-8">

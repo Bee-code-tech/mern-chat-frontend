@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { isBookmarked } from "../../utils/isBookmarked";
 import { timeAgo } from "../../utils/timeDifference";
+import demo from "../../assets/hu2.png"
 
 const CommunityTopic = (props) => {
   const { authUser } = useAuthContext();
@@ -20,6 +21,8 @@ const CommunityTopic = (props) => {
     handleDelete,
   } = props;
   const navigate = useNavigate();
+
+  console.log({'author ' : author});
 
   return (
     <div className="rounded-lg p-6 border ">
@@ -62,7 +65,7 @@ const CommunityTopic = (props) => {
       <div className="flex gap-4 my-4">
         <img
           className="rounded-full size-16"
-          src={author.profilePic}
+          src={author.profilePic || demo}
           alt="profileAvatar"
         />
         <div>
