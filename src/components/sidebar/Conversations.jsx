@@ -7,7 +7,7 @@ const Conversations = ({ toggleSidebar }) => {
 
   return (
     <div className="py-2 flex flex-col overflow-auto">
-      <div className="py-2 flex flex-col overflow-auto">
+      <div className="py-2 flex flex-col overflow-auto gap-4">
         {conversations.map((conversation, idx) => (
           <Conversation
             toggleSidebar={toggleSidebar}

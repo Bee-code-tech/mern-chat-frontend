@@ -16,8 +16,10 @@ const Conversation = ({ conversation, lastIdx, emoji, toggleSidebar }) => {
   return (
     <>
       <div
-        className={`flex gap-2 border items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer
-            ${isSelected ? "bg-sky-500" : ""}
+        className={`flex gap-8 items-center hover:bg-green-400 
+        border-b
+        rounded  py-3 cursor-pointer
+            ${isSelected ? "bg-green-400" : ""}
             `}
         onClick={() => {
           setSelectedConversation(conversation);
@@ -25,14 +27,14 @@ const Conversation = ({ conversation, lastIdx, emoji, toggleSidebar }) => {
         }}
       >
         <div className={`avatar ${isOnline ? "online" : ""}`}>
-          <div className="w-12 rounded-full">
+          <div className="w-14 rounded-full">
             <img src={conversation.profilePic} alt={conversation.fullName} />
           </div>
         </div>
 
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col mb-2 flex-1">
           <div className="flex justify-between">
-            <div className="flex gap-1 flex-col">
+            <div className="flex gap-3 flex-col">
               <p className="font-bold text-gray-600">{conversation.fullName}</p>
               <p className="font-thin text-xs text-gray-600">{conversation?.lastMessage}</p>
             </div>
@@ -50,7 +52,6 @@ const Conversation = ({ conversation, lastIdx, emoji, toggleSidebar }) => {
         </div>
       </div>
 
-      {!lastIdx && <div className="divider my-0 py-0 h-1" />}
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MessageContainer from "../../components/messages/MessageContainer";
 import Sidebar from "../../components/sidebar/sidebar";
+
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

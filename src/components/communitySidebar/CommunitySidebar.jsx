@@ -104,7 +104,7 @@ const sidebarMenuItems = [
   {
     name: "Community Circle",
     icon: <FiUsers size={24} />,
-    url: "/chatpage",
+    url: "/chatPage",
   },
   {
     name: "Notifications",
