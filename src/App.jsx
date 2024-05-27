@@ -42,8 +42,17 @@ const App = () => {
           />
           <Route
             path="/chatPage"
-            element={authUser ? <ChatPage /> : <Navigate to="/login" />}
+            element={
+              authUser ? (
+                <CommunityLayout>
+                  <ChatPage />
+                </CommunityLayout>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
+          
           <Route
             path="/community/home"
             element={
@@ -128,6 +137,7 @@ const App = () => {
               )
             }
           />
+        
           <Route
             path="/community/profile"
             element={
