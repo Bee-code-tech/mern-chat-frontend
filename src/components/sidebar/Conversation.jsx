@@ -1,3 +1,4 @@
+import moment from "moment";
 import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
 
@@ -16,10 +17,10 @@ const Conversation = ({ conversation, lastIdx, emoji, toggleSidebar }) => {
   return (
     <>
       <div
-        className={`flex gap-8 items-center hover:bg-green-400 
+        className={`flex md:gap-8 gap-3 lg:gap-8 items-center hover:bg-green-200 
         border-b
-        rounded  p-3 cursor-pointer
-            ${isSelected ? "bg-green-400" : ""}
+        rounded-lg md:p-3 p-1 lg:p-3 cursor-pointer
+            ${isSelected ? "bg-green-200 text-white" : ""}
             `}
         onClick={() => {
           setSelectedConversation(conversation);
@@ -41,10 +42,7 @@ const Conversation = ({ conversation, lastIdx, emoji, toggleSidebar }) => {
             <div>
               <p className="font-bold text-xs text-gray-600">{
                 conversation?.messageSendTime
-                  ? new Date(conversation.messageSendTime).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })
+                  ? moment(conversation.messageSendTime).format('hh:mm A')
                   : ''
               }</p>
             </div>

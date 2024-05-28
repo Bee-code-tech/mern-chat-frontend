@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import CommunityDashboard from "./pages/CommunityPage/CommunityDashboard";
+// import CommunityDashboard from "./pages/CommunityPage/CommunityDashboard";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
@@ -60,18 +60,7 @@ const App = () => {
             }
           />
           
-          <Route
-            path="/community/home"
-            element={
-              authUser ? (
-                <CommunityLayout>
-                  <CommunityDashboard />
-                </CommunityLayout>
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
+         
           <Route
             path="/community/topics"
             element={

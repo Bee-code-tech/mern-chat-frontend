@@ -1,4 +1,6 @@
 import { BsSend } from "react-icons/bs";
+import { FaPlus } from "react-icons/fa6";
+import { MdZoomOutMap } from "react-icons/md";
 import useSendMessage from "../../hooks/useSendMessage";
 import { useRef, useState } from "react";
 import InputEmoji from "react-input-emoji";
@@ -65,21 +67,15 @@ const MessageInput = () => {
 
 
     return (
-        <form className='px-4 my-3' onSubmit={handleSubmit}>
-            <div className='w-full relative'>
-                <input
-                    type='text'
-                    className='border text-sm rounded-lg block w-full p-2.5  bg-white text-white'
-                    placeholder='Send a message'
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                />
+        <form className='p-3 bg-slate-200  gap-0 md:gap-3 lg:gap-3 w-full flex items-center justify-between' onSubmit={handleSubmit}>
+                
+                <MdZoomOutMap  className=' hidden lg:block md:block text-[32px] mr-3 cursor-pointer text-black '  />
 
                 {/* image shareing */}
-                <div className='absolute right-[70px] bottom-[6px] flex items-center'>
+                <div className=''>
                     <div className="icons">
                         <label htmlFor="file">
-                            <img src="./img.png" alt="" style={{ height: '30px', width: '30px', cursor: 'pointer', color: 'black', backgroundColor: 'black' }} />
+                            <FaPlus className='h-12 cursor-pointer text-black ' />
                         </label>
                         <input
                             type="file"
@@ -93,26 +89,13 @@ const MessageInput = () => {
                     </div>
                 </div>
 
-                {/* emoji section start here */}
-                {/* <div className="absolute right-[100px] bottom-[-5px] flex items-center border-gray-600 text-white" style={{ width: 'calc(100% - 80px)', color: 'white' }}>
-                    <InputEmoji
-                        value={newMessage}
-                        onChange={handleChange}
-                        cleanOnEnter
-                        onEnter={handleOnEnter}
-                        placeholder="Type a message"
-                        className='border text-sm w-full rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 text-white !important'
-                        style={{ backgroundColor: 'gray', color: 'white' }}
-                    />
-                </div> */}
-
                 {file && (
                     <div className="absolute right-[70px] bottom-[6px] flex items-center">
                         <img src={URL.createObjectURL(file)} alt="Selected File" style={{ height: '30px', width: 'auto' }} />
                     </div>
                 )}
 
-                <div className="absolute right-[100px] bottom-[-5px] flex items-center" style={{ width: 'calc(100% - 86px)' }}>
+                
 
                     <InputEmoji
                         value={newMessage}
@@ -120,19 +103,24 @@ const MessageInput = () => {
                         cleanOnEnter
                         onEnter={handleOnEnter}
                         placeholder="Type a message"
-                        className='border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 text-white !important'
-                        style={{ color: 'white', width: '70%' }}
+                        className=' text-lg rounded-lg block w-[100px] p-3 bg-gray-700 border-gray-600 '
                     />
-                </div>
-                {/* emoji section end here */}
-
-
-
+                
                 {/* end image shareing */}
-                <button type='submit' className='absolute right-[30px] bottom-[14px] flex items-center'>
-                    {loading ? <div className='loading loading-spinner'></div> : <BsSend />}
+                <button type='submit' className=' flex items-center'>
+                    {loading ? 
+                    <span className="bg-[#18BB0C] rounded-md p-2 lg:p-3 md:p-3 flex items-center justify-center ">
+                        <div className='loading loading-spinner'>
+
+</div>
+                    </span>
+                     :
+                    <div className="bg-[#18BB0C] hover:shadow-lg rounded-md p-2 lg:p-3 md:p-3 flex items-center justify-center ">
+                     <BsSend className="text-white text-xl font-bold" />
+
+                    </div>
+                     }
                 </button>
-            </div>
         </form >
     );
 };

@@ -11,7 +11,7 @@ const CommunitySidebar = ({ toggleMenu }) => {
   const { pathname } = useLocation();
   return (
     <div
-      className="flex z-[50] flex-col items-center pt-10 justify-between top-20 bottom-0 fixed border-r lg:w-[350px] w-[330px]  xl:w-[450px] bg-white"
+      className="flex z-40 flex-col items-center pt-10 justify-between top-20 bottom-0 fixed border-r lg:w-[350px] w-[330px]  xl:w-[450px] bg-white"
       style={{ height: "calc(100vh - 80px)" }}
     >
       <div className="flex flex-col gap-1">
@@ -66,7 +66,7 @@ const CommunitySidebar = ({ toggleMenu }) => {
             toggleMenu();
           }}
           className={`${pathname === "/settings" && "text-[#18BB0C]"
-            } flex items-center cursor-pointer font-medium space-x-4 text-[#999999] my-5`}
+            } flex items-center cursor-pointer mb-24 font-medium space-x-4 text-[#999999] my-5`}
         >
           <span>
             <BiLogOut color="red" size={24} />

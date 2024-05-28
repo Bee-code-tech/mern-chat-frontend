@@ -24,12 +24,14 @@ const Home = () => {
           <Sidebar toggleSidebar={toggleSidebar} />
         </div>
       </div>
-      <div className="mx-auto w-fit">
+      <div className="mx-auto w-fit p-1">
         <div
           onClick={() => setIsSidebarOpen(false)}
-          className={`fixed z-[100] flex items-center justify-center ${isSidebarOpen ? 'visible opacity-100' : 'invisible opacity-0'} inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}
+          className={`fixed z-[100] p-1 flex items-center justify-center ${isSidebarOpen ? 'visible opacity-100' : 'invisible opacity-0'} inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}
         >
-          <div onClick={(e_) => e_.stopPropagation()} className={`text- absolute h-[70vh] rounded-lg bg-white p-6 drop-shadow-lg dark:bg-gray-800 dark:text-white ${isSidebarOpen ? 'scale-1 opacity-1 duration-300' : 'scale-0 opacity-0 duration-150'}`}>
+          <div onClick={(e_) => e_.stopPropagation()} 
+          className={` absolute h-[70vh] border overflow-hidden border-green-500 rounded-xl bg-white 
+          drop-shadow-lg shadow-xl dark:text-white ${isSidebarOpen ? 'scale-1 opacity-1 duration-300' : 'scale-0 opacity-0 duration-150'}`}>
             <MessageContainer onMenuClick={toggleSidebar} />
           </div>
         </div>

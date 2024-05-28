@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { BiLogOut, BiMenu, BiX } from "react-icons/bi";
+import { CiSettings } from "react-icons/ci";
+import { IoHomeOutline } from "react-icons/io5";
+import { CgProfile } from "react-icons/cg";
 import { Link, useLocation } from "react-router-dom";
 import logoImage from "../../assets/Biopic.png";
 import { useAuthContext } from "../../context/AuthContext";
@@ -25,7 +28,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white shadow-lg w-screen fixed flex items-center z-[70000] h-20 top-0 lg:px-10 px-0 md:px-10">
+      <nav className="bg-white shadow-lg w-screen fixed flex items-center z-50 h-20 top-0 lg:px-10 px-0 md:px-10">
         <div className="container mx-auto px-4 py-2 flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <Link to="/">
@@ -33,66 +36,94 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {isMenuOpen ? (
-            <div className="lg:hidden">
-              <BiX
-                className="w-8 h-8 text-gray-700 cursor-pointer"
-                onClick={toggleMenu}
-              />
-            </div>
-          ) : (
-            <div className="lg:hidden">
-              <BiMenu
-                className="w-8 h-8 text-gray-700 cursor-pointer"
-                onClick={toggleMenu}
-              />
-            </div>
-          )}
+      
 
-          <div className="hidden lg:flex items-center space-x-4">
+          <div className="flex items-center space-x-4">
+         
             {authUser && (
               <>
-                 <div className="flex items-center justify-center gap-2 border border-gray-300 p-0.5 rounded-full">
+                 <div className="flex items-center justify-center gap-2 border border-gray-300 p-0 lg:p-0.5 rounded-full">
                     {/* Profile picture dropdown menu  */}
                       <div className="flex-none">
                             <div className="dropdown dropdown-end">
                               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                <div className="w-10 rounded-full">
+                                <div className="w-8 lg:w-10 rounded-full">
                                   <img alt="Tailwind CSS Navbar component" src={authUser.profilePic || defaultImg } />
                                 </div>
                               </div>
-                              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-[300px] ">
-                                <li>
-                                  <Link to='/community/profile' className="justify-between">
-                                    Profile
-                                  </Link>
-                                </li>
-                                <li><a>Settings</a></li>
-                                <li ><a>Logout
-                                {!loading ? (
-                        <>
-                        <span className="badge p-4">
+                              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-6 z-[1] p-4  bg-base-100 rounded-box w-[300px] shadow-md ">
 
-                          <BiLogOut
-                            className="w-6 h-6 text-black cursor-pointer"
-                            onClick={logout}
-                            />
-                          </span>
-                        </>
-                      ) : (
-                        <span className="loading loading-spinner"></span>
-                      )}
-                                  </a></li>
+                                <li className="h-10 font-light p-2">
+                                    <a>
+                                      <IoHomeOutline  className="w-6 h-6 text-black cursor-pointer" />
+                                      <Link to='/' className="justify-between">
+                                        Home
+                                      </Link>
+                                    </a>
+                                </li>
+
+                                <li className="h-10 font-light p-2">
+                                  <a >
+                                    <CiSettings  className="w-6 h-6 text-black cursor-pointer" />
+                                    <Link to='' className="justify-between">
+                                        Settings
+                                    </Link>
+                                  </a>
+                                </li>
+
+
+                                <li className="h-10 font-light p-2">
+                                     <a>
+                                      <CgProfile  className="w-6 h-6 text-black cursor-pointer"/>
+                                        <Link to='/community/profile' className="justify-between">
+                                          Profile
+                                        </Link>
+                                     </a>
+                                </li>
+
+                                <li  className="h-10 font-light p-2"><a>
+                                  
+                                {!loading ? (
+                                <>
+                                  <span className="">
+
+                                  <BiLogOut
+                                    className="w-6 h-6 text-black cursor-pointer"
+                                    onClick={logout}
+                                    />
+                                  </span>
+                                </>
+                                  ) : (
+                                 <span className="loading loading-spinner"></span>
+                                  )}
+                                  Logout </a>
+                                </li>
                                   
                               </ul>
                             </div>
                       </div> 
 
                      {/* userName     */}
-                     <p className="mr-4">{authUser.fullName}</p>
+                     <p className="mr-4 hidden md:block lg:block">{authUser.fullName}</p>
                   </div>            
               </>
             )}
+
+          {isMenuOpen ? (
+                      <div className="lg:hidden">
+                        <BiX
+                          className="w-8 h-8 text-gray-700 cursor-pointer"
+                          onClick={toggleMenu}
+                        />
+                      </div>
+                    ) : (
+                      <div className="lg:hidden">
+                        <BiMenu
+                          className="w-8 h-8 text-gray-700 cursor-pointer"
+                          onClick={toggleMenu}
+                        />
+                      </div>
+                    )}
           </div>
         </div>
       </nav>

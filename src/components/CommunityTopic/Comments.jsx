@@ -8,7 +8,7 @@ const Comments = ({ comments, handleTopicCommentReaction }) => {
   return (
     <div>
       {comments &&
-        comments.map((comment, index) => (
+        comments.reverse().map((comment, index) => (
           <React.Fragment key={comment._id}>
             <Comment
               comment={comment}

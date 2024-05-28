@@ -16,6 +16,7 @@ const TopicDetail = () => {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [refetch, setRefetch] = useState(false);
+  const [commentText, setCommentText] = useState('')
 
   useEffect(() => {
     const getComments = async () => {
@@ -79,10 +80,21 @@ const TopicDetail = () => {
     incrementTopicView();
   }, [id]);
 
-  const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = (data) => postComment({ ...data, topicId: id });
-  const postComment = async (payload) => {
+  // const onSubmit = (data) => postComment({ ...data, topicId: id });
+
+  const handleInputChange = (e) => {
+    setCommentText(e.target.value);
+  };
+
+  const postComment = async (e) => {
+    // e.preventDefault();
+    if (!commentText) {
+      return toast.error("Comment cannot be empty");
+    }
+
+    const payload = { comment: commentText, topicId: id };
+
     const res = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/comment`,
       {
@@ -97,8 +109,7 @@ const TopicDetail = () => {
     if (!data.success) {
       return toast.error(data.msg);
     }
-    reset();
-    setShowModal(false);
+    
     toast.success(data.msg);
     setRefetch(!refetch);
   };
@@ -211,15 +222,16 @@ const TopicDetail = () => {
       <hr className="my-8" />
       <div className="my-8 flex justify-between items-center">
         <p className="font-medium text-2xl">Comments ({comments.length}):</p>
-        <button
-          onClick={() => setShowModal(true)}
-          className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 
-          rounded-lg border-[#18BB0C] px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C]
-           hover:text-white text-sm flex items-center justify-center gap-2"
-        >
-          <FaCirclePlus />
-          Add comment
-        </button>
+       
+            <button
+             className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 
+             rounded-lg border-[#18BB0C] px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C]
+              hover:text-white text-sm flex items-center justify-center gap-2"
+             onClick={()=>document.getElementById('my_modal_1').showModal()}>
+               <FaCirclePlus />
+            Add Comment
+              </button>
+       
       </div>
       <div>
         <Comments
@@ -227,19 +239,46 @@ const TopicDetail = () => {
           handleTopicCommentReaction={handleTopicCommentReaction}
         />
       </div>
-      <>
+
+      <dialog id="my_modal_1" className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Comment</h3>
+            <div className="modal-action flex-col">
+              <form method="dialog">   
+                      <textarea
+                        className="g-gray-50 mb-3 w-full h-[150px] border border-gray-400 text-gray-900 
+                        text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5"
+                        value={commentText}
+                        onChange={handleInputChange}
+                        >                       
+                      </textarea>                  
+                <button 
+                 
+                onClick={()=>postComment(commentText)}
+                className="bg-[#18BB0C] mt-2  transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110  px-4 py-2 rounded-md text-white ml-[270px] ">
+                  Close
+                  </button>
+              </form>
+
+            </div>
+          </div>
+      </dialog> 
+      
+     
+
+      {/* <>
         {showModal ? (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
               <div className="relative w-auto my-6 mx-auto max-w-3xl">
                 {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/* <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"> */}
                   {/*header*/}
-                  <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+                  {/* <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                     <h3 className="text-3xl font-semibold">Add Comment</h3>
-                  </div>
+                  </div> */}
                   {/*body*/}
-                  <form onSubmit={handleSubmit(onSubmit)}>
+                  {/* <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="relative p-6 flex-auto">
                       <textarea
                         {...register("comment")}
@@ -250,7 +289,7 @@ const TopicDetail = () => {
                       ></textarea>
                     </div>
                     {/*footer*/}
-                    <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                    {/* <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
@@ -264,15 +303,15 @@ const TopicDetail = () => {
                       >
                         Add
                       </button>
-                    </div>
-                  </form>
+                    </div> */}
+                  {/* </form>
                 </div>
               </div>
-            </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+            </div> */}
+            {/* <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
           </>
-        ) : null}
-      </>
+        ) : null}  
+      </> */}
     </div>
   );
 };

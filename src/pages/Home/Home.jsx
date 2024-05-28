@@ -7,6 +7,8 @@ import useGetConversations from "../../hooks/useGetConversations";
 import logo from "../../assets/Biopic.png";
 import { GoInfo } from "react-icons/go";
 import DynamicTable from "../../components/DynamicTable/DynamicTable";
+import Conversation from "../../components/sidebar/Conversation";
+import { getRandomEmoji } from "../../utils/emojis";
 
 
 const data = [
@@ -197,7 +199,13 @@ const Home = () => {
                 <div className=" flex flex-col overflow-auto w-full">
                   {conversations.slice(0,4).reverse().map((conversation, idx) => (
                     <>
-                      <div key={idx}
+                    <Conversation
+                     key={conversation._id}
+                     conversation={conversation}
+                     emoji={getRandomEmoji()}
+                     lastIdx={idx === conversations.length - 1}
+                    />
+                      {/* <div key={idx}
                         className={`flex gap-2 mb-2 ${idx < conversations.length - 1 ? 'border-b' : ''} items-center w-full hover:bg-green-50 duration-150 transition-all ease-in rounded-[20px] p-2 py-3 cursor-pointer`}
                       >
                         <div className={`avatar}`}>
@@ -227,7 +235,7 @@ const Home = () => {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </>
                   ))}
 
