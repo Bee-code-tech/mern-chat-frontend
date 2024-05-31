@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 const useGetConversations = () => {
   const [loading, setLoading] = useState(false);
   const [conversations, setConversations] = useState([]);
+  const [isConvEmpty, setIsConvEmpty] = useState(false)
 
   useEffect(() => {
     const getConversations = async () => {
@@ -24,13 +25,16 @@ const useGetConversations = () => {
       } catch (error) {
         toast.error(error.message);
       } finally {
-        setLoading(false);
+        setTimeout(() => setLoading(false), 1500)
+        if(data.lenght === 0){
+          setIsConvEmpty(true)
+        }
       }
     };
 
     getConversations();
   }, []);
 
-  return { loading, conversations };
+  return { isConvEmpty, loading, conversations };
 };
 export default useGetConversations;

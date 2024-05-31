@@ -30,7 +30,7 @@ const Home = () => {
           className={`fixed z-[100] p-1 flex items-center justify-center ${isSidebarOpen ? 'visible opacity-100' : 'invisible opacity-0'} inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}
         >
           <div onClick={(e_) => e_.stopPropagation()} 
-          className={` absolute h-[70vh] border overflow-hidden border-green-500 rounded-xl bg-white 
+          className={` absolute  h-[70vh] border overflow-hidden border-green-500 rounded-xl bg-white 
           drop-shadow-lg shadow-xl dark:text-white ${isSidebarOpen ? 'scale-1 opacity-1 duration-300' : 'scale-0 opacity-0 duration-150'}`}>
             <MessageContainer onMenuClick={toggleSidebar} />
           </div>

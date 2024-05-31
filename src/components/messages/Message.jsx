@@ -16,6 +16,7 @@ const Message = ({ message }) => {
     const alignRight = fromMe ? "chat-end" : "chat-start"; // Adjusted alignment logic
     const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
     const bubbleBgColor = fromMe ? "bg-green-500" : "bg-gray-200"; // Different background colors for sender and receiver
+    const txtColor = fromMe ? "text-white" : "text-black"; // Different background colors for sender and receiver
 
     const isFile = message.file;
     const isImage = message.file && /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(message.file);
@@ -50,10 +51,10 @@ const Message = ({ message }) => {
                         <p className="text-xs text-black">{formattedTime}</p>
                     </div>
                     <div className={`chat-bubble ${bubbleBgColor}  `}>
-                        <p className="lg:text-lg text-white text-[15px]">
+                        <p className={`lg:text-lg ${textColor} text-[15px]`}>
                         {message.message}
                         </p> 
-                    <p className="block mt-2 text-white text-[10px] self-end font-thin">
+                    <p className={`block mt-2 ${textColor} text-[10px] self-end font-thin`}>
                     {formattedTime}
                     </p>
                     </div>

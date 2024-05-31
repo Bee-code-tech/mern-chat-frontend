@@ -5,10 +5,15 @@ import { CiHeart } from "react-icons/ci";
 import { FaRegPlayCircle } from "react-icons/fa";
 import useGetConversations from "../../hooks/useGetConversations";
 import logo from "../../assets/Biopic.png";
+import fallback from "../../assets/upload.png"
+import fallbackForum from "../../assets/forum.png"
+import fallbackComm from "../../assets/community.png"
 import { GoInfo } from "react-icons/go";
 import DynamicTable from "../../components/DynamicTable/DynamicTable";
 import Conversation from "../../components/sidebar/Conversation";
+import GallerySkeleton from "../../components/skeletons/GallerySkeleton";
 import { getRandomEmoji } from "../../utils/emojis";
+import ConversationSkeleton from "../../components/skeletons/ConversationSkeleton";
 
 
 const data = [
@@ -22,12 +27,21 @@ const Home = () => {
   const [galleryData, setGalleryData] = useState([]);
   const [videoData, setVideoData] = useState([]);
   const [imageData, setImageData] = useState([]);
-
+  const [loadingImageData, setLoadingImageData] = useState(false);
+ const [isEmpty, setIsEmpty] = useState(false)
+ const [isMoodalOpen, setIsMoodalOpen] = useState(false)
+ 
   useEffect(() => {
     fetchGalleryData();
   }, []);
 
+  // modal popup for conversations 
+  const handleClickConversation = ()=> {
+      setIsMoodalOpen(true)
+  }
+
   const fetchGalleryData = async () => {
+    setLoadingImageData(true);
     try {
       const res = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/community/gallery/data`,
@@ -43,13 +57,18 @@ const Home = () => {
       setVideoData(videos);
       setImageData(images);
       setGalleryData(data);
+      
+      setTimeout(()=> setLoadingImageData(false), 2000)
+       if(images.length === 0 || videos.length === 0){
+          setIsEmpty(true);
+     }
       console.log(data);
     } catch (error) {
       console.error("Error fetching gallery data:", error);
     }
   };
   const [topics, setTopics] = useState([]);
-  const { loading, conversations } = useGetConversations();
+  const { isConvEmpty, loading, conversations } = useGetConversations();
 
   console.log(conversations, 'conversions');
 
@@ -76,7 +95,7 @@ const Home = () => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-12 lg:gap-8 md:gap-8 my-[20px] mx-auto max-w-6xl">
       
       {/* first grid item  */}
-      <div className="mb-8"> 
+      <div className="mb-6"> 
         {/* Video  */}
         <Link to={`/galleryDetails/${videoData[0]?._id}`}>
           <div className="border border-green-300 p-2 rounded-[20px] ">
@@ -114,11 +133,23 @@ const Home = () => {
       </div>
 
       {/* second grid item  */}
-     <div className="mb-8" >
+     <div className="mb-6" >
         <div className="p-2 border h-auto border-green-300 rounded-[20px]">
           <div className="bg-white h-full p-2 border rounded-[20px] border-gray-300 ">
-              {/* Video list */}
+            <Link to="/gallery/">
+            
+          {!loadingImageData && isEmpty && (
+              <div className="w-full h-[220px] rounded-xl flex flex-col items-center justify-center -mb-4">
+                <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
+                 <img src={fallback} alt="" className="block h-[214px] object-cover" />
+                </div>
+                  <h1 className="text-center text-xl font-bold">Click to Upload</h1>
+              </div>
+            )}
+            </Link>
+              {/* Pic list */}
                 <div className="grid items-center justify-center w-full h-full grid-cols-1 md:grid-cols-2  lg:grid-cols-3  gap-3 p-3  ">
+                  {loadingImageData && [...Array(6)].map((_, idx) =>  <GallerySkeleton key={idx}/> ) }
                   {imageData.slice(0, 5).map((image, index) => (
                     <>
                     <Link to={`/galleryDetails/${image?._id}`} key={image?._id.$oid}>
@@ -135,6 +166,7 @@ const Home = () => {
                     
                     </>
                   ))}
+                 
                   {imageData?.length > 5 && (
                     <Link to="/gallery/">
                       <div className="card card-compact bg-base-content shadow-xl rounded-xl image-full bg-none w-full lg:max-w-64 max-h-46">
@@ -154,6 +186,7 @@ const Home = () => {
                       </div>
                     </Link>
                   )}
+                 
                 </div>
               {/* Video list end */}
           </div>
@@ -195,18 +228,25 @@ const Home = () => {
      <div>
         <div className="bg-white rounded-[20px] p-2 border border-green-300 ">
             <div className="p-2 border border-gray-300 rounded-[20px]">
-              <Link>
+
+          <Link to='/chatpage' >
+            {!loading && isConvEmpty && (
+              <div className="w-full h-[320px] rounded-xl flex flex-col items-center justify-center -mb-4">
+                <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
+                 <img src={fallbackForum} alt="" className="block h-[214px] object-cover" />
+                </div>
+                  <h1 className="text-center text-xl font-bold">Connect with others</h1>
+              </div>
+            )}
+          </Link>
+           
+              <div>
                 <div className=" flex flex-col overflow-auto w-full">
                   {conversations.slice(0,4).reverse().map((conversation, idx) => (
                     <>
-                    <Conversation
-                     key={conversation._id}
-                     conversation={conversation}
-                     emoji={getRandomEmoji()}
-                     lastIdx={idx === conversations.length - 1}
-                    />
-                      {/* <div key={idx}
+                      <div key={idx}
                         className={`flex gap-2 mb-2 ${idx < conversations.length - 1 ? 'border-b' : ''} items-center w-full hover:bg-green-50 duration-150 transition-all ease-in rounded-[20px] p-2 py-3 cursor-pointer`}
+                        onClick={() => handleClickConversation()}
                       >
                         <div className={`avatar}`}>
                           <div className="w-12 rounded-full">
@@ -235,15 +275,17 @@ const Home = () => {
                             </div>
                           </div>
                         </div>
-                      </div> */}
+                      </div>
                     </>
                   ))}
 
                   {loading ? (
-                    <span className="loading loading-spinner mx-auto"></span>
+                    <span>
+                      { [...Array(4)].map((arr, idx) => <ConversationSkeleton key={idx} /> )}
+                    </span>
                   ) : null}
                 </div>
-              </Link>
+              </div>
             </div>
         </div>
 

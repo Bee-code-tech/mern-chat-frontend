@@ -98,7 +98,7 @@ const Gallery = () => {
   };
   return (
     <>
-      <div className="mx-10 mb-10 flex justify-between items-center mt-28">
+      <div className="container px-4 mx-auto mb-10 flex justify-between items-center mt-28">
         <button
           className="btn bg-[#18BB0C] text-white"
           onClick={() => document.getElementById("my_modal_5").showModal()}
@@ -147,7 +147,8 @@ const Gallery = () => {
           <IoInformationCircleOutline color="#18BB0C" size="2em" />
         </button>
       </div>
-      <div className="border-2 border-[#18BB0C] rounded-xl p-3 mx-5">
+     <div className="px-4">
+     <div className=" container  mx-auto border-2 border-[#18BB0C] rounded-xl p-3 ">
         <div className="border-2 rounded-lg px-8 py-9 bg-white">
           <Row gutter={[24, 16]}>
             {galleryData?.map((item, index) => {
@@ -198,6 +199,7 @@ const Gallery = () => {
           </Row>
         </div>
       </div>
+     </div>
     </>
   );
 };

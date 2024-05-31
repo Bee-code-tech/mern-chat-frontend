@@ -1,4 +1,5 @@
 import { getRandomEmoji } from "../../utils/emojis";
+import ConversationSkeleton from "../skeletons/ConversationSkeleton";
 import useGetConversations from "./../../hooks/useGetConversations";
 import Conversation from "./Conversation";
 
@@ -19,7 +20,11 @@ const Conversations = ({ toggleSidebar }) => {
         ))}
 
         {loading ? (
-          <span className="loading loading-spinner mx-auto"></span>
+          <span className="">
+            {
+              [...Array(7).map((_, idx) => <ConversationSkeleton key={idx }/> )]
+            }
+          </span>
         ) : null}
       </div>
     </div>

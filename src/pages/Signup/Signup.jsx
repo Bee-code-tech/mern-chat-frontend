@@ -7,6 +7,7 @@ const Signup = () => {
     const [inputs, setInputs] = useState({
         fullName: "",
         username: "",
+        email: "",
         password: "",
         confirmPassword: "",
         gender: "",
@@ -24,10 +25,10 @@ const Signup = () => {
         await signup(inputs);
     };
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen  overflow-y-auto flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    <h2 className="mt-14 text-center text-3xl font-extrabold text-gray-900">
                         Sign up for an account
                     </h2>
                 </div>
@@ -42,6 +43,11 @@ const Signup = () => {
                         <label for="username" className="block text-sm font-medium text-gray-700">Username</label>
                         <input id="username" name="username" type="text" autocomplete="username" value={inputs.username}
                             onChange={(e) => setInputs({ ...inputs, username: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
+                    </div>
+                    <div>
+                        <label for="email" className="block text-sm font-medium text-gray-700">Email</label>
+                        <input id="email" name="email" type="text" autocomplete="email" value={inputs.email}
+                            onChange={(e) => setInputs({ ...inputs, email: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
                     </div>
                     <div>
                         <label for="password" className="block text-sm font-medium text-gray-700">Password</label>

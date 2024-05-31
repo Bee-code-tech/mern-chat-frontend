@@ -49,7 +49,7 @@ const GalleryDetails = () => {
 
   return (
     <>
-      <div className="mx-10 mb-10 flex justify-start items-center">
+      <div className="container mx-auto mb-10 flex justify-start items-center">
         <Link to="/gallery">
           <button className="btn bg-[#18BB0C] text-white">
             <span className="flex items-center">
@@ -60,7 +60,7 @@ const GalleryDetails = () => {
         </Link>
       </div>
 
-      <div className="border-2 border-[#18BB0C] rounded-xl p-5 mx-5">
+      <div className="border-2 border-[#18BB0C] rounded-xl p-5 container mx-auto">
         <div className="border-2 rounded-lg px-8 py-9 bg-white">
           <Row gutter={[24, 16]}>
             {galleryData.slice(0, 4)?.map((item, index) => {
