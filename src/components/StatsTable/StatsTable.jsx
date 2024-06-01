@@ -14,7 +14,7 @@ const StatsTable = ({data}) => {
           {data.map((row, index) => (
             <div
               key={index}
-              className={`${index % 2 == 0 ? 'bg-green-100' : 'bg-white border'} grid grid-cols-4 text-center gap-3 bg-white p-3  border-gray-200 rounded-lg mb-2 `}
+              className={`${index % 2 == 0 ? 'bg-green-50' : 'bg-white border'} grid grid-cols-4 text-center gap-3 bg-white p-3  border-gray-200 rounded-lg mb-2 `}
             >
               <div className="font-thin text-sm text-gray-600 text-left">{index + 1}</div>
               <div className="font-thin text-sm text-gray-600 text-left">{row.topic}</div>
