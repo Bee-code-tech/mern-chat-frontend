@@ -17,6 +17,7 @@ import ConversationSkeleton from "../../components/skeletons/ConversationSkeleto
 import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
 import MessageContainer from "../../components/messages/MessageContainer";
+import vidFallback from '../../assets/vid.png'
 
 
 const data = [
@@ -105,11 +106,12 @@ const Home = () => {
         {/* Video  */}
         <Link to={`/galleryDetails/${videoData[0]?._id}`}>
           <div className="border border-green-300 p-2 rounded-[20px] ">
-          <div className="card card-compactbg-white p-4 w-full image-full bg-white border border-gray-300">
-            <figure>
+          <div className="card hover:card-compactbg-white  p-4 w-full 
+          image-full bg-white border border-gray-300">
+            <figure className="bg-transparent">
               <img
-                src="https://i.ibb.co/CMLfZkc/pexels-inspiredimages-157543.jpg"
-                className="rounded-lg w-full object-cover"
+                src={vidFallback}
+                className="rounded-lg w-[200px]  object-cover"
               />
             </figure>
             <div className="card-body">
@@ -118,7 +120,7 @@ const Home = () => {
                 <div className="card-body items-center justify-center">
                   <FaRegPlayCircle
                     size="2.5em"
-                    className="text-white hover:text-green-500"
+                    className="text-white  hover:scale-120  hover:text-green-500"
                     style={{ cursor: "pointer" }}
                   />
                 </div>

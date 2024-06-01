@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { FaRegPlayCircle } from "react-icons/fa";
+import picf from '../../assets/upload.png'
 
 const Gallery = () => {
   const { authUser } = useAuthContext();
@@ -149,54 +150,72 @@ const Gallery = () => {
       </div>
      <div className="px-4">
      <div className=" container  mx-auto border-2 border-[#18BB0C] rounded-xl p-3 ">
-        <div className="border-2 rounded-lg px-8 py-9 bg-white">
-          <Row gutter={[24, 16]}>
-            {galleryData?.map((item, index) => {
-              const key = `col-${index}`;
-              return (
-                <Col
-                  key={key}
-                  xs={{ span: 24 }}
-                  sm={{ span: 12 }}
-                  md={{ span: 12 }}
-                  lg={{ span: 6 }}
-                  xl={{ span: 6 }}
-                >
-                  {item?.image && (
-                    <Link to={`/galleryDetails/${item?._id}`}>
-                      <div className="card card-compact  w-full  shadow-xl max-w-64 ">
-                        <figure>
-                          <img
-                            src={item?.image}
-                            className="rounded-xl object-cover"
-                          />
-                        </figure>
-                      </div>
-                    </Link>
-                  )}
-                  {item?.video && (
-                    <Link to={`/galleryDetails/${item?._id}`}>
-                      <div className="card card-compact bg-base-content shadow-xl image-full bg-none max-w-64 max-h-36">
-                        <figure>
-                          <img
-                            src="https://i.ibb.co/CMLfZkc/pexels-inspiredimages-157543.jpg"
-                            className="rounded-lg w-full object-cover"
-                          />
-                        </figure>
-                        <div className="card-body items-center justify-center">
-                          <FaRegPlayCircle
-                            size="2.5em"
-                            className="text-white hover:text-green-500"
-                            style={{ cursor: "pointer" }}
-                          />
-                        </div>
-                      </div>
-                    </Link>
-                  )}
-                </Col>
-              );
-            })}
-          </Row>
+        <div className="border-2 rounded-lg px-8 py-9  h-auto">
+          {
+            galleryData.length <= 0 ? (
+             <>
+              <div className="flex justify-center flex-col w-full  items-center">
+                <div className="h-[430px] w-full flex justify-center items-center">
+                <img src={picf} alt="" className="h-[100%]" />
+                
+
+                </div>
+                <h1 className="text-xl font-bold">No Gallery Found</h1>
+              </div>
+             </>
+            ) : (
+             <>
+                <Row gutter={[24, 16]}>
+                  {galleryData?.map((item, index) => {
+                    const key = `col-${index}`;
+                    return (
+                      <Col
+                        key={key}
+                        xs={{ span: 24 }}
+                        sm={{ span: 12 }}
+                        md={{ span: 12 }}
+                        lg={{ span: 6 }}
+                        xl={{ span: 6 }}
+                      >
+                        {item?.image && (
+                          <Link to={`/galleryDetails/${item?._id}`}>
+                            <div className="card card-compact  w-full  shadow-xl max-w-64 ">
+                              <figure>
+                                <img
+                                  src={item?.image}
+                                  className="rounded-xl object-cover"
+                                />
+                              </figure>
+                            </div>
+                          </Link>
+                        )}
+                        {item?.video && (
+                          <Link to={`/galleryDetails/${item?._id}`}>
+                            <div className="card card-compact bg-base-content shadow-xl image-full bg-none max-w-64 max-h-36">
+                              <figure>
+                                <img
+                                  src="https://i.ibb.co/CMLfZkc/pexels-inspiredimages-157543.jpg"
+                                  className="rounded-lg w-full object-cover"
+                                />
+                              </figure>
+                              <div className="card-body items-center justify-center">
+                                <FaRegPlayCircle
+                                  size="2.5em"
+                                  className="text-white hover:text-green-500"
+                                  style={{ cursor: "pointer" }}
+                                />
+                              </div>
+                            </div>
+                          </Link>
+                        )}
+                      </Col>
+                    );
+                  })}
+              </Row>
+             </>
+            )
+          }
+          
         </div>
       </div>
      </div>
