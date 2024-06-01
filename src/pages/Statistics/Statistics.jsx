@@ -6,12 +6,12 @@ const Statistics = () => {
 
   const tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly', 'All Time'];
   const data = [
-    { topic: 'React', reactions: 56, rate: '🏆 (15)' },
-    { topic: 'Tailwind', reactions: 34, rate: '🏆 (13)' },
-    { topic: 'JavaScript', reactions: 78, rate: '🏆 (33)' },
-    { topic: 'Node.js', reactions: 67, rate: '🏆 (50)' },
-    { topic: 'Node.js', reactions: 67, rate: '🏆 (50)' },
-    { topic: 'Node.js', reactions: 67, rate: '🏆 (50)' },
+    { topic: 'React', reactions: '56k+', rate: '🏆 (15)' },
+    { topic: 'Tailwind', reactions: '34k+', rate: '🏆 (13)' },
+    { topic: 'JavaScript', reactions: '780k+', rate: '🏆 (33)' },
+    { topic: 'Node.js', reactions: '67k+', rate: '🏆 (50)' },
+    { topic: 'Node.js', reactions: '670', rate: '🏆 (50)' },
+    { topic: 'Node.js', reactions: '6,700', rate: '🏆 (50)' },
   ];
   const contents = {
     'Daily': <StatsTable data={data} />,

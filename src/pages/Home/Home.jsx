@@ -213,7 +213,16 @@ const Home = () => {
       <div >
             <div className="bg-white  p-2 border border-green-300 rounded-[20px]">
               <div className="border border-grey-300 rounded-[20px] p-4 ">
-              <DynamicTable data={data} />
+              {isEmpty ? (
+                <div className="w-full h-[300px] rounded-xl flex flex-col items-center justify-center -mb-4">
+                <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
+                 <img src={fallbackComm} alt="" className="block h-[214px] object-cover" />
+                </div>
+                  <h1 className="text-center text-xl font-bold">No Posts Yet</h1>
+              </div>
+              ) : (
+                <DynamicTable data={data} />
+              )}
               </div>
             </div>
              {/* Info text  */}

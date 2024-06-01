@@ -117,7 +117,7 @@ const sidebarMenuItems = [
     url: "/notification",
   },
   {
-    name: "Profile (Community)",
+    name: "My Profile",
     icon: <FiUser size={24} />,
     url: "/community/profile",
   },
