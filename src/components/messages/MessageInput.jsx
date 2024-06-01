@@ -97,14 +97,17 @@ const MessageInput = () => {
 
                 
 
-                    <InputEmoji
+                  <div className="w-[300px] sm:w-[310px] lg:w-[550px] md:w-[450px]">
+                  <InputEmoji
                         value={newMessage}
                         onChange={handleChange}
                         cleanOnEnter
                         onEnter={handleOnEnter}
                         placeholder="Type a message"
-                        className=' text-lg rounded-lg block w-[100px] p-3 bg-gray-700 border-gray-600 '
+                        className=' text-lg  rounded-lg block
+                         w-[100px] p-3 bg-gray-700 border-gray-600 '
                     />
+                  </div>
                 
                 {/* end image shareing */}
                 <button type='submit' className=' flex items-center'>

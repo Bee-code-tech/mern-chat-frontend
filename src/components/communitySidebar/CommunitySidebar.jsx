@@ -1,7 +1,7 @@
 import { BiLogOut } from "react-icons/bi";
 import { CiBellOn, CiBookmark, CiStar } from "react-icons/ci";
 import { FiBook, FiUser, FiUsers } from "react-icons/fi";
-import { IoHomeOutline } from "react-icons/io5";
+import { IoHomeOutline, IoStatsChartOutline } from "react-icons/io5";
 import { NavLink, useLocation } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 
@@ -66,7 +66,7 @@ const CommunitySidebar = ({ toggleMenu }) => {
             toggleMenu();
           }}
           className={`${pathname === "/settings" && "text-[#18BB0C]"
-            } flex items-center cursor-pointer mb-24 font-medium space-x-4 text-[#999999] my-5`}
+            } flex items-center cursor-pointer mb-20 font-medium space-x-4 text-[#999999] my-5`}
         >
           <span>
             <BiLogOut color="red" size={24} />
@@ -107,9 +107,14 @@ const sidebarMenuItems = [
     url: "/chatPage",
   },
   {
+    name: 'Statistics',
+    icon:  <IoStatsChartOutline size={24} />,
+    url: "/community/statistics",
+  },
+  {
     name: "Notifications",
     icon: <CiBellOn size={24} />,
-    url: "/community/notifications",
+    url: "/notification",
   },
   {
     name: "Profile (Community)",

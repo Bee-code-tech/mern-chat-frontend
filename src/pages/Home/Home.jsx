@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Sidebar from "../../components/sidebar/sidebar";
+import Sidebar from "../../components/sidebar/ChatList";
 import { CiHeart } from "react-icons/ci";
 import { FaRegPlayCircle } from "react-icons/fa";
 import useGetConversations from "../../hooks/useGetConversations";
@@ -14,6 +14,9 @@ import Conversation from "../../components/sidebar/Conversation";
 import GallerySkeleton from "../../components/skeletons/GallerySkeleton";
 import { getRandomEmoji } from "../../utils/emojis";
 import ConversationSkeleton from "../../components/skeletons/ConversationSkeleton";
+import { useSocketContext } from "../../context/SocketContext";
+import useConversation from "../../zustand/useConversation";
+import MessageContainer from "../../components/messages/MessageContainer";
 
 
 const data = [
@@ -29,16 +32,15 @@ const Home = () => {
   const [imageData, setImageData] = useState([]);
   const [loadingImageData, setLoadingImageData] = useState(false);
  const [isEmpty, setIsEmpty] = useState(false)
- const [isMoodalOpen, setIsMoodalOpen] = useState(false)
- 
+ const [isModalOpen, setIsModalOpen] = useState(false)
+  const {onlineUsers} = useSocketContext
+  const {selectedConversation, setSelectedConversation} = useConversation()
   useEffect(() => {
     fetchGalleryData();
   }, []);
 
   // modal popup for conversations 
-  const handleClickConversation = ()=> {
-      setIsMoodalOpen(true)
-  }
+
 
   const fetchGalleryData = async () => {
     setLoadingImageData(true);
@@ -70,8 +72,7 @@ const Home = () => {
   const [topics, setTopics] = useState([]);
   const { isConvEmpty, loading, conversations } = useGetConversations();
 
-  console.log(conversations, 'conversions');
-
+ 
   const getTopics = async () => {
     const res = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/api/community/topics`,
@@ -89,6 +90,11 @@ const Home = () => {
     getTopics();
   }, []);
 
+  const toggleModal = () => {
+   setIsModalOpen(!isModalOpen);
+   console.log('toggle modal,' + isModalOpen);
+   console.log('selected conv,' + selectedConversation);
+  }
   // console.log(topics, 'topics from home page');
 
   return (
@@ -242,14 +248,18 @@ const Home = () => {
            
               <div>
                 <div className=" flex flex-col overflow-auto w-full">
-                  {conversations.slice(0,4).reverse().map((conversation, idx) => (
-                    <>
+                  {conversations.slice(0,4).reverse().map((conversation, idx) => {
+                    const isOnline = onlineUsers?.includes(conversation._id)
+                   return  ( <>
                       <div key={idx}
                         className={`flex gap-2 mb-2 ${idx < conversations.length - 1 ? 'border-b' : ''} items-center w-full hover:bg-green-50 duration-150 transition-all ease-in rounded-[20px] p-2 py-3 cursor-pointer`}
-                        onClick={() => handleClickConversation()}
+                        onClick={() => {
+                          setSelectedConversation(conversation);
+                          toggleModal();
+                        }}
                       >
-                        <div className={`avatar}`}>
-                          <div className="w-12 rounded-full">
+                        <div className={`avatar ${isOnline ? "online" : ""}`}>
+                          <div className="w-14 rounded-full">
                             <img src={conversation.profilePic} alt={conversation.fullName} />
                           </div>
                         </div>
@@ -269,15 +279,15 @@ const Home = () => {
                                   })
                                   : ''
                               }</p>
-                              <span className="bg-green-400 mt-3 text-white h-3 w-3 rounded-full p-3 flex items-center justify-center text-sm ">
+                              {/* <span className="bg-green-400 mt-3 text-white h-3 w-3 rounded-full p-3 flex items-center justify-center text-sm ">
                                 8
-                              </span>
+                              </span> */}
                             </div>
                           </div>
                         </div>
                       </div>
                     </>
-                  ))}
+                  )})}
 
                   {loading ? (
                     <span>
@@ -303,6 +313,22 @@ const Home = () => {
         
      </div>
 
+
+    {/* chat modal  */}
+   <div className="container mx-auto max-w-5xl">
+   <div className="mx-auto w-fit p-1">
+        <div
+          onClick={() => setIsModalOpen(false)}
+          className={`fixed z-[100] p-1 flex items-center justify-center ${isModalOpen ? 'visible opacity-100' : 'invisible opacity-0'} inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}
+        >
+          <div onClick={(e_) => e_.stopPropagation()} 
+          className={` absolute  h-[70vh] border overflow-hidden border-green-500 rounded-xl bg-white 
+          drop-shadow-lg shadow-xl dark:text-white ${isModalOpen ? 'scale-1 opacity-1 duration-300' : 'scale-0 opacity-0 duration-150'}`}>
+            <MessageContainer />
+          </div>
+        </div>
+      </div>
+   </div>
 
     </div>
   );

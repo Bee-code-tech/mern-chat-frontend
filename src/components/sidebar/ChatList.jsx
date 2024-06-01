@@ -5,7 +5,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { GoInfo } from "react-icons/go";
 
-const Sidebar = ({ toggleSidebar }) => {
+const ChatList = ({ toggleSidebar }) => {
   const handleClick = (e) => {
     // Prevent click propagation to parent
     e.stopPropagation();
@@ -44,4 +44,4 @@ const Sidebar = ({ toggleSidebar }) => {
   );
 };
 
-export default Sidebar;
+export default ChatList;

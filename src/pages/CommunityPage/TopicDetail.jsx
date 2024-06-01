@@ -256,7 +256,7 @@ const TopicDetail = () => {
                  
                 onClick={()=>postComment(commentText)}
                 className="bg-[#18BB0C] mt-2  transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110  px-4 py-2 rounded-md text-white ml-[270px] ">
-                  Close
+                  Add
                   </button>
               </form>
 

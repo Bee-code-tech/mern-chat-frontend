@@ -1,6 +1,6 @@
 import { useState } from "react";
 import MessageContainer from "../../components/messages/MessageContainer";
-import Sidebar from "../../components/sidebar/sidebar";
+import ChatList from "../../components/sidebar/ChatList";
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -16,12 +16,12 @@ const Home = () => {
         className="flex lg:max-w-6xl mx-auto gap-5 mt-2 lg:mt-8  rounded-lg"
         style={{ height: "calc(100vh - 10px)" }}
       >
-        {/* Sidebar */}
+        {/* cha */}
         <div
           className={`w-full !h-full  ${isSidebarOpen ? "" : "lg:block"
             } `}
         >
-          <Sidebar toggleSidebar={toggleSidebar} />
+          <ChatList toggleSidebar={toggleSidebar} />
         </div>
       </div>
       <div className="mx-auto w-fit p-1">
@@ -30,9 +30,9 @@ const Home = () => {
           className={`fixed z-[100] p-1 flex items-center justify-center ${isSidebarOpen ? 'visible opacity-100' : 'invisible opacity-0'} inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}
         >
           <div onClick={(e_) => e_.stopPropagation()} 
-          className={` absolute  h-[70vh] border overflow-hidden border-green-500 rounded-xl bg-white 
+          className={` absolute mx-auto h-[70vh] border overflow-hidden border-green-500 rounded-xl bg-white 
           drop-shadow-lg shadow-xl dark:text-white ${isSidebarOpen ? 'scale-1 opacity-1 duration-300' : 'scale-0 opacity-0 duration-150'}`}>
-            <MessageContainer onMenuClick={toggleSidebar} />
+            <MessageContainer />
           </div>
         </div>
       </div>

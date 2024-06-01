@@ -18,6 +18,9 @@ const useGetConversations = () => {
           }
         );
         const data = await res.json();
+        if(data.lenght === 0){
+          setIsConvEmpty(true)
+        }
         if (data.error) {
           throw new Error(data.error);
         }
@@ -26,9 +29,7 @@ const useGetConversations = () => {
         toast.error(error.message);
       } finally {
         setTimeout(() => setLoading(false), 1500)
-        if(data.lenght === 0){
-          setIsConvEmpty(true)
-        }
+        
       }
     };
 

@@ -14,15 +14,13 @@ const Conversations = ({ toggleSidebar }) => {
             toggleSidebar={toggleSidebar}
             key={conversation._id}
             conversation={conversation}
-            emoji={getRandomEmoji()}
-            lastIdx={idx === conversations.length - 1}
           />
         ))}
 
         {loading ? (
           <span className="">
             {
-              [...Array(7).map((_, idx) => <ConversationSkeleton key={idx }/> )]
+              [...Array(7)].map((_, idx) => <ConversationSkeleton key={idx }/> )
             }
           </span>
         ) : null}

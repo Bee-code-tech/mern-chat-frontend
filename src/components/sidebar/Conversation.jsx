@@ -2,7 +2,7 @@ import moment from "moment";
 import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
 
-const Conversation = ({ conversation, lastIdx, emoji, toggleSidebar }) => {
+const Conversation = ({ conversation, toggleSidebar }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
 
   const isSelected = selectedConversation?._id === conversation._id;
@@ -20,7 +20,7 @@ const Conversation = ({ conversation, lastIdx, emoji, toggleSidebar }) => {
         className={`flex md:gap-8 gap-3 lg:gap-8 items-center hover:bg-green-200 
         border-b
         rounded-lg md:p-3 p-1 lg:p-3 cursor-pointer
-            ${isSelected ? "bg-green-200 text-white" : ""}
+            ${isSelected ? "" : ""}
             `}
         onClick={() => {
           setSelectedConversation(conversation);
