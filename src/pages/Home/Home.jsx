@@ -43,8 +43,8 @@ const Home = () => {
 
 
   const fetchGalleryData = async () => {
-    setLoadingImageData(true);
     try {
+      setLoadingImageData(true);
       const res = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/community/gallery/data`,
         {
