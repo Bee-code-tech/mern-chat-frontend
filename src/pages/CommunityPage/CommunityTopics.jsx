@@ -30,7 +30,6 @@ const CommunityTopics = () => {
       const data = await res.json();
       if (!data.success) {
         return toast.error(data.msg);
-        setLoading(false);
       }
       setTopics(data.data);
       setTimeout(() => setLoading(false) , 2000)
@@ -57,6 +56,8 @@ const CommunityTopics = () => {
     toast.success(data.msg);
     setRefetchTopics(!refetchTopics);
   };
+
+  console.log(topics);
 
   if (loading) {
     return (

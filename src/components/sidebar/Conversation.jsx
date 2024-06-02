@@ -1,18 +1,43 @@
 import moment from "moment";
 import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
+import { timeAgo } from "../../utils/timeDifference";
+import { useAuthContext } from "../../context/AuthContext";
+import useGetMessages from "../../hooks/useGetMessages";
+import useListenMessages from "../../hooks/useListenMessages";
+import { useState, useEffect } from "react";
 
 const Conversation = ({ conversation, toggleSidebar }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
+  const { messages } = useGetMessages();
+  const [latestMessage, setLatestMessage] = useState(null);
+
+  useListenMessages();
 
   const isSelected = selectedConversation?._id === conversation._id;
   const { onlineUsers } = useSocketContext();
+  const { authUser } = useAuthContext();
   const isOnline = onlineUsers.includes(conversation._id);
 
-  console.log("onlineUsers:", onlineUsers);
-  console.log("isOnline:", isOnline);
-  console.log(selectedConversation);
-  // <MessageContainer onMenuClick={toggleSidebar} />
+  useEffect(() => {
+    console.log("messages:", messages);
+    console.log("conversation:", conversation);
+    console.log("authUser:", authUser);
+    console.log('latestemessage: ', latestMessage);
+  
+    const mySenderMessages = messages.filter(
+      message => message?.senderId === conversation?._id && message?.receiverId === authUser?._id
+    );
+
+    const latest = mySenderMessages.length > 0 
+      ? mySenderMessages[mySenderMessages.length - 1] 
+      : { message: conversation?.lastMessage, createdAt: conversation?.messageSendTime };
+
+    setLatestMessage(latest);
+  }, [messages, conversation, authUser]);
+  
+
+  console.log('latestMessage outside:', latestMessage);
 
   return (
     <>
@@ -37,20 +62,20 @@ const Conversation = ({ conversation, toggleSidebar }) => {
           <div className="flex justify-between">
             <div className="flex gap-3 flex-col">
               <p className="font-bold text-gray-600">{conversation.fullName}</p>
-              <p className="font-thin text-sm text-gray-600">{conversation?.lastMessage}</p>
+              <p className="font-thin text-sm text-gray-600">{latestMessage?.message ? `${conversation.fullName} : ${latestMessage.message}` : `Chat with ${conversation.fullName}`}</p>
             </div>
             <div>
               <p className="font-bold text-xs text-gray-600">{
-                conversation?.messageSendTime
-                  ? moment(conversation.messageSendTime).format('hh:mm A')
+                latestMessage?.createdAt
+                  ? timeAgo(latestMessage.createdAt)
                   : ''
               }</p>
             </div>
           </div>
         </div>
       </div>
-
     </>
   );
 };
+
 export default Conversation;

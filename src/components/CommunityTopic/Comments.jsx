@@ -44,7 +44,7 @@ const Comment = ({ comment, handleTopicCommentReaction }) => {
         </p>
         <button
           onClick={() => handleTopicCommentReaction({ commentId: comment._id })}
-          className="flex items-center justify-center px-[20px] py-4 gap-2 border rounded-[40px] mt-4"
+          className="flex items-center justify-center px-[20px] py-2 gap-2 border rounded-[40px] mt-4"
         >
           <img
             src="../../../public/32px-Emoji_u1f64f.svg.png"

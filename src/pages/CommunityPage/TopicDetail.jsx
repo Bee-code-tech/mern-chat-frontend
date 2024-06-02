@@ -158,7 +158,7 @@ const TopicDetail = () => {
   return (
     <div className="shadow-lg rounded-lg p-6 mb-5 lg:mx-10">
       <div className="rounded-lg border p-6">
-        <h2 className="font-bold text-xl">{topic.title}</h2>
+        <h2 className="font-bold text-xl">{topic?.title}</h2>
         <div className="flex gap-4 my-4">
           <img
             className="rounded-full size-16"
@@ -183,7 +183,10 @@ const TopicDetail = () => {
           dangerouslySetInnerHTML={{ __html: topic?.body }}
         />
       </div>
-      <div className="my-6 font-medium text-[#999999] text-[15px] flex gap-4 items-center">
+      <div className="my-6 font-medium
+       text-[#999999] text-[15px]
+       
+       flex flex-row flex-wrap lg:flex-row md:flex-row gap-4 items-center">
         {topic.createdAt && (
           <p>{format(parseISO(topic.createdAt), "h:mm a")}</p>
         )}
@@ -206,7 +209,7 @@ const TopicDetail = () => {
         <div className="size-1 bg-[#999999] rounded-full"></div>
         <button
           onClick={() => handleTopicReaction({ topicId: topic._id })}
-          className="flex items-center justify-center px-[20px] py-4 gap-2 border rounded-[40px]"
+          className="flex items-center justify-center px-[20px] py-2 gap-2 border rounded-[40px]"
         >
           <img
             src="../../../public/32px-Emoji_u1f64f.svg.png"

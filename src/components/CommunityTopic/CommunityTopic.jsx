@@ -22,7 +22,7 @@ const CommunityTopic = (props) => {
   } = props;
   const navigate = useNavigate();
 
-  console.log({'author ' : author});
+  console.log({'single data' : props});
 
   return (
     <div className="rounded-lg p-6 border ">
