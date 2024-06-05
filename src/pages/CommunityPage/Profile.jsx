@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import DeleteAccountModal from "../../components/DeleteAccountModal/DeleteAccountModal";
 import { useAuthContext } from "../../context/AuthContext";
+import { LiaEdit } from "react-icons/lia";
 
 const Profile = () => {
   const { setAuthUser } = useAuthContext();
@@ -12,6 +13,10 @@ const Profile = () => {
   const [refetch, setRefetch] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [usersData, setUsersData] = useState({})
+
+  const cloudName = "di36rc30e";
+  const uploadPreset = "mrh3qf9";
 
   useEffect(() => {
     const getUser = async () => {
@@ -20,6 +25,8 @@ const Profile = () => {
         { withCredentials: true }
       );
       const userData = user.data.data;
+    setUsersData(userData)
+
 
       setValue("fullName", userData.fullName);
       setValue("username", userData.username);
@@ -40,6 +47,39 @@ const Profile = () => {
     console.log("🚀 ~ handleChange ~ file:", file);
     setSelectedImage(file);
   };
+
+  const handleFile = async (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset);
+  
+    try {
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        formData
+      );
+  
+      const imageRes = response.data.secure_url;
+  
+  
+       await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users`,
+        {profilePic : imageRes},
+        {
+          withCredentials: true, // Include credentials for authenticated requests
+        }
+      );
+
+      
+  
+      
+    } catch (error) {
+      console.error("Error updating image:", error);
+    }
+  }
+  
 
   const onSubmit = async (data) => {
     if (selectedImage) {
@@ -158,7 +198,30 @@ const Profile = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="w-[90%] md:max-w-xl mx-auto"
         >
-          <div className="mb-5">
+            {/* profile picture  */}
+          <div className="w-[200px] h-[200px] mb-8 flex mx-auto mt-10 rounded-full  relative">
+            <div className="overflow-hidden rounded-full w-full  hover:scale-110 transition ease-in-out duration-300  h-full">
+              <img
+                src={usersData?.profilePic}
+                alt={`Profile image of ${usersData?.fullName}`}
+                className="block rounded-full  w-full h-full object-cover object-center"
+              />
+              <input 
+                type="file" 
+                accept='image/jpg, image/jpeg, image/png'
+                onChange={handleFile}
+                className="absolute  inset-0 w-full h-full opacity-0 cursor-pointer" 
+              />
+            </div>
+            {/* <div className="bg-white absolute bottom-2 right-3 shadow-xl p-3 z-10 rounded-full">
+
+        </div> */}
+            <label htmlFor="file"> 
+            <LiaEdit className="text-black absolute cursor-pointer bottom-2 right-2 bg-white shadow-lg p-3 z-10 rounded-full" size="54px"/>
+            </label>
+          </div>
+     
+          <div className="my-5">
             <label
               htmlFor="fullName"
               className="block mb-2 text-sm font-medium "
@@ -244,21 +307,7 @@ const Profile = () => {
             />
           </div>
 
-          <div className="mb-5">
-            <label
-              htmlFor="profilePic"
-              className="block mb-2 text-sm font-medium "
-            >
-              Profile Picture
-            </label>
-            <input
-              name="profilePic"
-              type="file"
-              className="bg-gray-50 border border-gray-[#18BB0C] text-gray-900 text-sm rounded-lg focus:ring-green-400 focus:border-green-400 block w-full p-2.5 "
-              {...register("profilePic")}
-              onChange={handleChange}
-            />
-          </div>
+          
           <div className="mb-5">
             <label
               htmlFor="contactAddress"

@@ -19,6 +19,7 @@ import useConversation from "../../zustand/useConversation";
 import MessageContainer from "../../components/messages/MessageContainer";
 import vidFallback from '../../assets/vid.png'
 import StatsSkeleton from "../../components/skeletons/StatsSkeleton";
+import moment from "moment";
 
 
 const data = [
@@ -322,15 +323,14 @@ const Home = () => {
                           <div className="flex justify-between">
                             <div className="flex gap-1 flex-col">
                               <p className="font-bold text-gray-600">{conversation.fullName}</p>
-                              <p className="font-thin text-xs text-gray-600">{conversation?.lastMessage}</p>
+                              <p className="font-thin text-xs text-gray-600">
+                                {conversation?.lastMessage ? `${conversation?.fullName} : ${conversation?.lastMessage}` : `Start Chatting  "${conversation?.fullName}"`}
+                                </p>
                             </div>
                             <div>
                               <p className="font-bold text-xs text-gray-600">{
                                 conversation?.messageSendTime
-                                  ? new Date(conversation.messageSendTime).toLocaleTimeString([], {
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                  })
+                                  ? moment(conversation?.messageSendTime).format('hh : mm : ss a')
                                   : ''
                               }</p>
                               {/* <span className="bg-green-400 mt-3 text-white h-3 w-3 rounded-full p-3 flex items-center justify-center text-sm ">
