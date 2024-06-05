@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
-
-import TopicSkeleton from '../../components/skeletons/TopicSkeleton'
 import { useEffect } from 'react'
 import NotificationCard from './NotificationCard'
 import picf from '../../assets/note.png'
+import NotificationSkeleton from '../../components/skeletons/NotificationSkeleton'
 
 const Notification = () => {
     const [loading, setLoading] = useState(false)
@@ -15,7 +14,20 @@ const Notification = () => {
       
         setTopics[[...Array(3)]]
      
+        const fetchUserData = async () => {
+          const res = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/users/me`,
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          );
 
+          const data = await res.json()
+          console.log(data.data);
+        }
+
+        fetchUserData()
     }, [])
     
 
@@ -23,7 +35,7 @@ const Notification = () => {
     return (
       <div className="flex items-start flex-col gap-4 justify-center mt-8" role="status">
         {
-          [...Array(3)].map((_, idx) => <TopicSkeleton key={idx} />)
+          [...Array(3)].map((_, idx) => <NotificationSkeleton key={idx} />)
         }
       </div>
     );
