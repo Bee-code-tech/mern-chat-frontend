@@ -18,6 +18,7 @@ import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
 import MessageContainer from "../../components/messages/MessageContainer";
 import vidFallback from '../../assets/vid.png'
+import StatsSkeleton from "../../components/skeletons/StatsSkeleton";
 
 
 const data = [
@@ -32,12 +33,16 @@ const Home = () => {
   const [videoData, setVideoData] = useState([]);
   const [imageData, setImageData] = useState([]);
   const [loadingImageData, setLoadingImageData] = useState(false);
+  const [dailyData, setDailyData] = useState([]);
+  const [loadingDailyData, setLoadingDailyData] = useState(false);
+  const [isDailyEmpty, setIsDailyEmpty] = useState(false);
  const [isEmpty, setIsEmpty] = useState(false)
  const [isModalOpen, setIsModalOpen] = useState(false)
   const {onlineUsers} = useSocketContext
   const {selectedConversation, setSelectedConversation} = useConversation()
   useEffect(() => {
     fetchGalleryData();
+    fetchDailyStats()
   }, []);
 
   // modal popup for conversations 
@@ -70,6 +75,36 @@ const Home = () => {
       console.error("Error fetching gallery data:", error);
     }
   };
+
+    
+  const fetchDailyStats = async () => {
+    try {
+      setLoadingDailyData(true);
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/daily`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+
+      const topics = await res.json();
+     
+
+      
+      if(topics.topics.length === 0){
+         setIsDailyEmpty(true);
+       }
+
+       setDailyData(topics.topics.slice(0, 4))
+       setLoadingDailyData(false)
+
+      console.log('daily Data:', dailyData);
+    } catch (error) {
+      console.error("Error fetching gallery data:", error);
+    }
+  };
+
   const [topics, setTopics] = useState([]);
   const { isConvEmpty, loading, conversations } = useGetConversations();
 
@@ -215,16 +250,24 @@ const Home = () => {
       <div >
             <div className="bg-white  p-2 border border-green-300 rounded-[20px]">
               <div className="border border-grey-300 rounded-[20px] p-4 ">
-              {isEmpty ? (
-                <div className="w-full h-[300px] rounded-xl flex flex-col items-center justify-center -mb-4">
-                <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
-                 <img src={fallbackComm} alt="" className="block h-[214px] object-cover" />
-                </div>
-                  <h1 className="text-center text-xl font-bold">No Posts Yet</h1>
-              </div>
-              ) : (
-                <DynamicTable data={data} />
-              )}
+              {loadingImageData && [...Array(4)].map((_, idx) =>  <StatsSkeleton key={idx}/> ) }
+                
+                {!loadingDailyData && isDailyEmpty && (
+                  <div className="w-full h-[300px] rounded-xl flex flex-col items-center justify-center -mb-4">
+                  <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
+                   <img src={fallbackComm} alt="" className="block h-[214px] object-cover" />
+                  </div>
+                    <h1 className="text-center text-xl font-bold">No Posts Yet</h1>
+                  </div>
+                )}
+              
+              {
+               !loadingDailyData && !isDailyEmpty && dailyData.length > 0 && (
+                  
+                  <DynamicTable data={dailyData} />
+               )
+              }
+  
               </div>
             </div>
              {/* Info text  */}
@@ -261,8 +304,8 @@ const Home = () => {
                 <div className=" flex flex-col overflow-auto w-full">
                   {conversations.slice(0,4).reverse().map((conversation, idx) => {
                     const isOnline = onlineUsers?.includes(conversation._id)
-                   return  ( <>
-                      <div key={idx}
+                   return  ( <div key={idx}>
+                      <div 
                         className={`flex gap-2 mb-2 ${idx < conversations.length - 1 ? 'border-b' : ''} items-center w-full hover:bg-green-50 duration-150 transition-all ease-in rounded-[20px] p-2 py-3 cursor-pointer`}
                         onClick={() => {
                           setSelectedConversation(conversation);
@@ -297,7 +340,7 @@ const Home = () => {
                           </div>
                         </div>
                       </div>
-                    </>
+                    </div>
                   )})}
 
                   {loading ? (

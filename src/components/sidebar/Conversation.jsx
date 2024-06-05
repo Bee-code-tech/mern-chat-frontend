@@ -62,7 +62,7 @@ const Conversation = ({ conversation, toggleSidebar }) => {
           <div className="flex justify-between">
             <div className="flex gap-3 flex-col">
               <p className="font-bold text-gray-600">{conversation.fullName}</p>
-              <p className="font-thin text-sm text-gray-600">{latestMessage?.message ? `${conversation.fullName} : ${latestMessage.message}` : `Chat with ${conversation.fullName}`}</p>
+              <p className="font-thin text-sm text-gray-600">{latestMessage?.message ? `${conversation.fullName} : ${latestMessage.message}` : `Start Chatting  "${conversation.fullName}"`}</p>
             </div>
             <div>
               <p className="font-bold text-xs text-gray-600">{
