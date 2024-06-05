@@ -3,6 +3,10 @@ import StatsTable from '../../components/StatsTable/StatsTable';
 
 const Statistics = () => {
   const [activeTab, setActiveTab] = useState('Daily');
+  const [dailyData, setDailyData] = useState([])
+  const [weeklyData, setWeeklyData] = useState([])
+  const [monthlyData, setMonthlyData] = useState([])
+  const [yearlyData, setYearlyData] = useState([])
 
   const tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly', 'All Time'];
   const data = [
@@ -15,10 +19,10 @@ const Statistics = () => {
   ];
   const contents = {
     'Daily': <StatsTable data={data} />,
-    'Weekly': <StatsTable data={data} />,
-    'Monthly': <StatsTable data={data} />,
-    'Yearly': <StatsTable data={data} />,
-    'All Time': <StatsTable data={data} />,
+    'Weekly': <StatsTable data={weeklyData} />,
+    'Monthly': <StatsTable data={monthlyData} />,
+    'Yearly': <StatsTable data={yearlyData} />,
+    'All Time': <StatsTable data={dailyData} />,
   };
 
   return (
@@ -47,10 +51,10 @@ const Statistics = () => {
         </label>
       </div>
 
-      <div className="mt-8">
+      {/* <div className="mt-8">
         <h1 className='font-bold text-3xl'>Christiano Ronaldo</h1>
         <p className='font-thin leading-7 mt-2'>Search result (300+ outcomes)</p>
-      </div>
+      </div> */}
 
       
       <div className="mt-4">

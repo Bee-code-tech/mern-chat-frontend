@@ -59,7 +59,7 @@ const Notification = () => {
             ))}
         </div>
       ) : (
-        <div className="flex h-[600px] mt-12 justify-center flex-col w-full  items-center">
+        <div className="flex h-auto mt-12 justify-center flex-col w-full  items-center">
         <div className="h-full overflow-hidden md:w-[50%] lg:w-[60%] w-[100%] mx-auto flex justify-center items-center">
         <img src={picf} alt="" className="w-[100% ]  object-cover" />
         
