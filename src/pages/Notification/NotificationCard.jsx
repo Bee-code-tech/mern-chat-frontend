@@ -1,13 +1,9 @@
 
-
-
-import { FaRegTrashAlt } from "react-icons/fa";
-import { isBookmarked } from "../../utils/isBookmarked";
+import moment from "moment";
 import { timeAgo } from "../../utils/timeDifference";
-import demo from "../../assets/hu2.png"
 import {useState} from 'react'
 
-const NotificationCard = () => {
+const NotificationCard = ({data}) => {
   
     const [loading, setLoading] = useState()
 
@@ -15,7 +11,7 @@ const NotificationCard = () => {
   return (
     <div className="rounded-lg p-6 border ">
       <div className="flex items-center justify-between">
-        <h2 className="font-bold text-xl">Test 2 Posted A Comment</h2>
+        <h2 className="font-bold text-xl">{data.name} Posted A Comment</h2>
 
        
        
@@ -23,14 +19,14 @@ const NotificationCard = () => {
       <div className="flex gap-4 my-4">
         <img
           className="rounded-full size-16"
-          src='https://avatar.iran.liara.run/public/boy?username=oppkskd'
+          src={data.profilePic}
           alt="profileAvatar"
         />
         <div>
           
-          <p className="text-[#666666] font-medium"> <span className="font-bold">Comment:</span> "Nice Write up"</p>
+          <p className="text-[#666666] font-medium"> <span className="font-bold">Comment:</span> {data.comment}</p>
           <p className="text-[#999999] font-medium mt-4 text-sm">
-            4 mins ago
+            {moment(data.createdAt).calendar()}
           </p>
         </div>
       </div>

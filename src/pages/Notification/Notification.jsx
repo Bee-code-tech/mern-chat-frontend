@@ -5,25 +5,32 @@ import NotificationSkeleton from '../../components/skeletons/NotificationSkeleto
 
 const Notification = () => {
     const [loading, setLoading] = useState(false)
-    const [topics, setTopics] = useState(['2', '3', '4', '5'])
+    const [notifications, setNotifcations] = useState([])
 
     useEffect(() => {
 
       // setTimeout(() => setLoading(true), 3000)
       
-        setTopics[[...Array(3)]]
      
         const fetchUserData = async () => {
-          const res = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/users/me`,
-            {
-              method: "GET",
-              credentials: "include",
-            }
-          );
-
-          const data = await res.json()
-          console.log(data.data);
+          try {
+            setLoading(true)
+            const res = await fetch(
+              `${import.meta.env.VITE_BACKEND_URL}/api/users/me`,
+              {
+                method: "GET",
+                credentials: "include",
+              }
+            );
+  
+            const data = await res.json()
+            console.log(data.data.notifications);
+            setNotifcations(data.data.notifications)
+          } catch (error) {
+            console.log(error)
+          }
+          setLoading(false)
+          
         }
 
         fetchUserData()
@@ -42,11 +49,11 @@ const Notification = () => {
 
   return (
     <section className="space-y-5 px-3 mt-12">
-      {topics.length > 0 ? (
+      {notifications.length > 0 ? (
         <div className="space-y-8">
-          {topics &&
-            topics.map((_, idx) => (
-              <NotificationCard
+          {notifications &&
+            notifications.map((notification, idx) => (
+              <NotificationCard data={notification}
                 key={idx}
               />
             ))}
