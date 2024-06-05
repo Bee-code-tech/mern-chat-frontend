@@ -81,7 +81,7 @@ const Home = () => {
     try {
       setLoadingDailyData(true);
       const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/daily`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/weekly`,
         {
           method: "GET",
           credentials: "include",
