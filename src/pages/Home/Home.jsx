@@ -250,9 +250,9 @@ const Home = () => {
       <div >
             <div className="bg-white  p-2 border border-green-300 rounded-[20px]">
               <div className="border border-grey-300 rounded-[20px] p-4 ">
-              {loadingImageData && [...Array(4)].map((_, idx) =>  <StatsSkeleton key={idx}/> ) }
+              {loadingImageData && !isDailyEmpty && [...Array(4)].map((_, idx) =>  <StatsSkeleton key={idx}/> ) }
                 
-                {!loadingDailyData && isDailyEmpty && (
+                {loadingDailyData && isDailyEmpty && (
                   <div className="w-full h-[300px] rounded-xl flex flex-col items-center justify-center -mb-4">
                   <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
                    <img src={fallbackComm} alt="" className="block h-[214px] object-cover" />
