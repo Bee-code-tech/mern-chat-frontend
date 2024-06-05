@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StatsTable from '../../components/StatsTable/StatsTable';
+import { FaSearch } from 'react-icons/fa';
 
 const Statistics = () => {
   const [activeTab, setActiveTab] = useState('Daily');
@@ -7,23 +8,137 @@ const Statistics = () => {
   const [weeklyData, setWeeklyData] = useState([])
   const [monthlyData, setMonthlyData] = useState([])
   const [yearlyData, setYearlyData] = useState([])
+  const [input, setInput] = useState('')
+  const [occurrences, setOccurrences] = useState(0)
 
-  const tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly', 'All Time'];
-  const data = [
-    { topic: 'React', reactions: '56k+', rate: '🏆 (15)' },
-    { topic: 'Tailwind', reactions: '34k+', rate: '🏆 (13)' },
-    { topic: 'JavaScript', reactions: '780k+', rate: '🏆 (33)' },
-    { topic: 'Node.js', reactions: '67k+', rate: '🏆 (50)' },
-    { topic: 'Node.js', reactions: '670', rate: '🏆 (50)' },
-    { topic: 'Node.js', reactions: '6,700', rate: '🏆 (50)' },
-  ];
+  const tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly'];
+ 
   const contents = {
-    'Daily': <StatsTable data={data} />,
+    'Daily': <StatsTable data={dailyData} />,
     'Weekly': <StatsTable data={weeklyData} />,
     'Monthly': <StatsTable data={monthlyData} />,
     'Yearly': <StatsTable data={yearlyData} />,
     'All Time': <StatsTable data={dailyData} />,
+    
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const fetchSearch = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/search?query=${input}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+       const result = await res.json()
+
+       setOccurrences(result.occurrences)
+      
+      } catch (error) {
+        console.error("Error fetching gallery data:", error);
+      }
+    };
+    fetchSearch()
+  }
+
+  useEffect(() => {
+    const fetchDailyStats = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/daily`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+  
+        const topics = await res.json();
+       
+  
+        
+        
+  
+      setDailyData(topics.topics)
+      } catch (error) {
+        console.error("Error fetching gallery data:", error);
+      }
+    };
+
+    const fetchWeeklyStats = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/weekly`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+  
+        const topics = await res.json();
+       
+  
+        
+        
+  
+      setWeeklyData(topics.topics)
+      } catch (error) {
+        console.error("Error fetching gallery data:", error);
+      }
+    };
+
+    const fetchMonthlyStats = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/monthly`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+  
+        const topics = await res.json();
+       
+  
+        
+        
+  
+      setMonthlyData(topics.topics)
+      } catch (error) {
+        console.error("Error fetching gallery data:", error);
+      }
+    };
+
+    const fetchYearlyStats = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/yearly`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+  
+        const topics = await res.json();
+       
+  
+        
+        
+  
+      setYearlyData(topics.topics)
+      } catch (error) {
+        console.error("Error fetching gallery data:", error);
+      }
+    };
+
+    fetchYearlyStats()
+    fetchMonthlyStats()
+    fetchDailyStats();
+    fetchWeeklyStats();
+  }, [])
 
   return (
     <div className="max-full mx-auto">
@@ -45,16 +160,28 @@ const Statistics = () => {
       <h2 className="text-2xl w-full mb-6 lg:mb-0 md:mb-0 font-bold">
         Search Topics
       </h2>
-        <label className="input input-bordered rounded-lg md:w-1/2 w-full lg:w-1/2  flex items-center gap-2">
-            <input type="text" className="grow" placeholder="Search for topics" />
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
-        </label>
+        <form onSubmit={handleSubmit} className='md:w-[60rem] w-full lg:w-[60rem] relative flex items-center justify-center gap-2'>
+          <input
+           type="text" placeholder='Search for topics'
+          className='w-full p-4 rounded-lg border
+           border-slate-300 bg-transparent focus:outline-green-300 h-12'
+           onChange={(e) => setInput(e.target.value)}
+           />
+          
+          <button type='submit'  className='absolute right-5 cursor-pointer ease-in-out hover:scale-110 duration-300 transition'>
+            <FaSearch />
+          </button>
+        </form>
       </div>
 
-      {/* <div className="mt-8">
-        <h1 className='font-bold text-3xl'>Christiano Ronaldo</h1>
-        <p className='font-thin leading-7 mt-2'>Search result (300+ outcomes)</p>
-      </div> */}
+      <div className="mt-8">
+        <h1 className='font-bold text-3xl capitalize'>{input}</h1>
+        <p className='font-thin leading-7 mt-2'>{
+          input && (` 
+            Search result (${occurrences} ${occurrences <= 1 ? 'outcome' : 'outcomes'})`
+          )
+        }</p>
+      </div>
 
       
       <div className="mt-4">

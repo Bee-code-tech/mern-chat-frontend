@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaArrowDown, FaArrowRightArrowLeft, FaArrowUp } from 'react-icons/fa6';
 
 const StatsTable = ({data}) => {
 
@@ -11,18 +12,40 @@ const StatsTable = ({data}) => {
             <div className="font-bold text-left">Reactions</div>
             <div className="font-bold text-left">Rates</div>
           </div>
-          {data.map((row, index) => (
-            <div
+          {data.map((row, index) => {
+            let condition = ''
+
+            const result = row.results
+   
+            if(result === 'goUp' ) {
+              condition = 'text-green-400'
+            }
+            if(result === 'comeDown') {
+             condition = 'text-red-400'
+            }
+            if(result === 'noChange') {
+             condition = 'text-gray-600'
+            }
+            
+           return (   <div
               key={index}
               className={`${index % 2 == 0 ? 'bg-green-200' : 'bg-white border'} grid grid-cols-4 text-center gap-3 bg-white p-3  border-gray-200 rounded-lg mb-2 `}
             >
               <div className="font-thin text-sm text-gray-600 text-left">{index + 1}</div>
               <div className="font-thin text-sm text-gray-600 text-left">{row.topic}</div>
-              <div className="font-thin text-sm text-gray-600 text-left">{row.reactions}</div>
-              <div className="font-thin text-sm text-gray-600 text-left">{row.rate}
-               <span className="text-green-600 ml-0.5">+3</span></div>
+              <div className="font-thin text-sm text-gray-600 text-left">{row.Reactions}</div>
+              <div className="font-thin text-sm text-gray-600 flex items-center
+           justify-center gap-2">
+            {row.rate}
+            <span className={`${condition} ml-0.5`}>
+            {row.results === 'goUp' && (<FaArrowUp /> )  }
+            {row.results === 'comeDown' && (<FaArrowDown /> )  }
+            {row.results === 'noChange' && (<FaArrowRightArrowLeft />)}
+
+            </span>
+          </div>
             </div>
-          ))}
+          )})}
         </div>
       );
 }
