@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/ChatList";
-import { CiHeart } from "react-icons/ci";
 import { FaRegPlayCircle } from "react-icons/fa";
 import useGetConversations from "../../hooks/useGetConversations";
 import logo from "../../assets/Biopic.png";
@@ -10,9 +9,7 @@ import fallbackForum from "../../assets/forum.png"
 import fallbackComm from "../../assets/community.png"
 import { GoInfo } from "react-icons/go";
 import DynamicTable from "../../components/DynamicTable/DynamicTable";
-import Conversation from "../../components/sidebar/Conversation";
 import GallerySkeleton from "../../components/skeletons/GallerySkeleton";
-import { getRandomEmoji } from "../../utils/emojis";
 import ConversationSkeleton from "../../components/skeletons/ConversationSkeleton";
 import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
