@@ -1,42 +1,14 @@
-// import { useEffect, useState } from "react";
-// import useConversation from "../zustand/useConversation";
-// import toast from "react-hot-toast";
 
-// const useGetMessages = () => {
-// 	const [loading, setLoading] = useState(false);
-// 	const { messages, setMessages, selectedConversation } = useConversation();
-
-// 	useEffect(() => {
-// 		const getMessages = async () => {
-// 			setLoading(true);
-// 			try {
-// 				const res = await fetch(`/api/messages/${selectedConversation._id}`);
-// 				const data = await res.json();
-// 				console.log("Fetched messages:", data); // Add this debug log
-
-// 				if (data.error) throw new Error(data.error);
-// 				setMessages(data);
-// 			} catch (error) {
-// 				toast.error(error.message);
-// 			} finally {
-// 				setLoading(false);
-// 			}
-// 		};
-
-// 		if (selectedConversation?._id) getMessages();
-// 	}, [selectedConversation?._id, setMessages]);
-
-// 	return { messages, loading };
-// };
-// export default useGetMessages;
 
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useConversation from "../zustand/useConversation";
+import { useAuthContext } from "../context/AuthContext";
 
 const useGetMessages = () => {
   const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedConversation } = useConversation();
+  const {authUser} = useAuthContext()
 
   useEffect(() => {
     const getMessages = async () => {
@@ -48,7 +20,11 @@ const useGetMessages = () => {
           }`,
           {
             method: "GET",
-            credentials: "include", // This includes cookies and other credentials in the request
+            credentials: "include", 
+            headers: {
+              Authorization: `Bearer ${authUser.token}`,
+            }
+            // This includes cookies and other credentials in the request
           }
         );
         const data = await res.json();
@@ -72,6 +48,9 @@ const useGetMessages = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/files/${filename}`,
         {
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          },
           credentials: "include", // This includes cookies and other credentials in the request
         }
       );

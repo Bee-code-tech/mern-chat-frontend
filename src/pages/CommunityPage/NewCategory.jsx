@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../../context/AuthContext";
 const NewCategory = () => {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => postTopicCategory(data);
+  const {authUser} = useAuthContext()
 
   const postTopicCategory = async (payload) => {
     const res = await fetch(
@@ -10,7 +12,9 @@ const NewCategory = () => {
       {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          Authorization: `Bearer ${authUser.token}`,
+          "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       }
     );

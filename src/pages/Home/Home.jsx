@@ -17,6 +17,7 @@ import MessageContainer from "../../components/messages/MessageContainer";
 import vidFallback from '../../assets/vid.png'
 import StatsSkeleton from "../../components/skeletons/StatsSkeleton";
 import moment from "moment";
+import { useAuthContext } from "../../context/AuthContext";
 
 
 const data = [
@@ -25,9 +26,12 @@ const data = [
   { topic: 'JavaScript', contribution: 78,  appreciation: '🏆 (33)' },
   { topic: 'Node.js', contribution: 67,  appreciation: '🏆 (50)' },
 ];
+const token = localStorage.getItem('token');
 
 const Home = () => {
   const [galleryData, setGalleryData] = useState([]);
+  const { authUser } = useAuthContext()
+  
   const [videoData, setVideoData] = useState([]);
   const [imageData, setImageData] = useState([]);
   const [loadingImageData, setLoadingImageData] = useState(false);
@@ -38,6 +42,8 @@ const Home = () => {
  const [isModalOpen, setIsModalOpen] = useState(false)
   const {onlineUsers} = useSocketContext
   const {selectedConversation, setSelectedConversation} = useConversation()
+
+
   useEffect(() => {
     fetchGalleryData();
     fetchDailyStats()
@@ -46,16 +52,37 @@ const Home = () => {
   // modal popup for conversations 
 
 
+// Test data for DynamicTable component
+const data = [
+  { topic: 'React', contribution: 56, appreciation: '🏆 (15)' },
+  { topic: 'Tailwind', contribution: 34, appreciation: '🏆 (13)' },
+  { topic: 'JavaScript', contribution: 78, appreciation: '🏆 (33)' },
+  { topic: 'Node.js', contribution: 67, appreciation: '🏆 (50)' },
+];
+
+
+
   const fetchGalleryData = async () => {
     try {
       setLoadingImageData(true);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error("No token found in localStorage");
+        return;
+      }
       const res = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/community/gallery/data`,
         {
           method: "GET",
-          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          },
         }
       );
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
 
       const data = await res.json();
       const videos = data.filter((item) => item.video);
@@ -63,62 +90,89 @@ const Home = () => {
       setVideoData(videos);
       setImageData(images);
       setGalleryData(data);
-      
-      setTimeout(()=> setLoadingImageData(false), 2000)
-       if(images.length === 0 || videos.length === 0){
-          setIsEmpty(true);
-     }
+
+      setTimeout(() => setLoadingImageData(false), 2000);
+      if (images.length === 0 || videos.length === 0) {
+        setIsEmpty(true);
+      }
       console.log(data);
     } catch (error) {
       console.error("Error fetching gallery data:", error);
     }
   };
 
-    
   const fetchDailyStats = async () => {
     try {
       setLoadingDailyData(true);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error("No token found in localStorage");
+        return;
+      }
       const res = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/weekly`,
         {
           method: "GET",
-          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          },
         }
       );
 
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
       const topics = await res.json();
-     
 
-      
-      if(topics.topics.length === 0){
-         setIsDailyEmpty(true);
-       }
+      if (topics.topics.length === 0) {
+        setIsDailyEmpty(true);
+      }
 
-       setDailyData(topics.topics.slice(0, 4))
-       setLoadingDailyData(false)
+      setDailyData(topics.topics.slice(0, 4));
+      setLoadingDailyData(false);
 
       console.log('daily Data:', dailyData);
     } catch (error) {
-      console.error("Error fetching gallery data:", error);
+      console.error("Error fetching daily stats:", error);
     }
   };
+
+  const getTopics = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error("No token found in localStorage");
+        return;
+      }
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/community/topics`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      setTopics(data.data);
+    } catch (error) {
+      console.error("Error fetching topics:", error);
+    }
+  };
+
+ 
+
+
+
+
+
 
   const [topics, setTopics] = useState([]);
   const { isConvEmpty, loading, conversations } = useGetConversations();
 
  
-  const getTopics = async () => {
-    const res = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/community/topics`,
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    );
-    const data = await res.json();
-    console.log(data);
-    setTopics(data.data);
-  };
 
   useEffect(() => {
     getTopics();

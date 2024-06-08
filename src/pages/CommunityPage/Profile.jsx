@@ -7,7 +7,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { LiaEdit } from "react-icons/lia";
 
 const Profile = () => {
-  const { setAuthUser } = useAuthContext();
+  const { setAuthUser, authUser } = useAuthContext();
   const { register, handleSubmit, setValue, reset } = useForm();
   const [selectedImage, setSelectedImage] = useState(null);
   const [refetch, setRefetch] = useState(false);
@@ -22,7 +22,11 @@ const Profile = () => {
     const getUser = async () => {
       const user = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/me`,
-        { withCredentials: true }
+        { 
+        headers: {
+          Authorization: `Bearer ${authUser.token}`,
+        } 
+        }
       );
       const userData = user.data.data;
     setUsersData(userData)
@@ -68,7 +72,9 @@ const Profile = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/users`,
         {profilePic : imageRes},
         {
-          withCredentials: true, // Include credentials for authenticated requests
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          }  // Include credentials for authenticated requests
         }
       );
 
@@ -82,43 +88,19 @@ const Profile = () => {
   
 
   const onSubmit = async (data) => {
-    if (selectedImage) {
-      try {
-        const imgBBUrl = `https://api.imgbb.com/1/upload?key=${
-          import.meta.env.VITE_IMAGE_BB_API_KEY
-        }`;
-        const formData = new FormData();
-        formData.append("image", selectedImage);
-
-        axios
-          .post(imgBBUrl, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((response) => {
-            console.log("Image uploaded successfully:", response.data.data);
-            setImageUrl(response.data.data.display_url);
-          })
-          .catch((error) => {
-            console.error("Error uploading image:", error);
-            alert("Error uploading image. Please try again.");
-          });
-      } catch (error) {
-        console.error("Error uploading profile picture:", error);
-        return; // Handle error (optional: display error message to user)
-      }
-    }
+    
 
     // Send data to backend with imageUrl (if available)
-    const backendData = { ...data, profilePic: imageUrl }; // Create data object with imageUrl
+    const backendData = { ...data }; // Create data object with imageUrl
 
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/users`,
         backendData,
         {
-          withCredentials: true, // Include credentials for authenticated requests
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          }  // Include credentials for authenticated requests
         }
       );
 
@@ -140,7 +122,9 @@ const Profile = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/auth/changePass`,
         payload,
         {
-          withCredentials: true, // Include credentials for authenticated requests
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          }  // Include credentials for authenticated requests
         }
       );
       console.log("🚀 ~ handlePasswordChange ~ response:", response);
@@ -167,7 +151,9 @@ const Profile = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/users/deleteAccount`,
 
         {
-          withCredentials: true, // Include credentials for authenticated requests
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          }  // Include credentials for authenticated requests
         }
       );
       console.log("🚀 ~ handleDeleteAccount ~ response:", response);

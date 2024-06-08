@@ -7,11 +7,13 @@ import { useAuthContext } from "../../context/AuthContext";
 import { FaRegPlayCircle } from "react-icons/fa";
 import picf from '../../assets/upload.png'
 
+
 const Gallery = () => {
   const { authUser } = useAuthContext();
   const [file, setFile] = useState();
   const [descriptions, setDescriptions] = useState("");
   const [galleryData, setGalleryData] = useState([]);
+  
 
   useEffect(() => {
     fetchGalleryData();
@@ -24,6 +26,9 @@ const Gallery = () => {
         {
           method: "GET",
           credentials: "include",
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          },
         }
       );
 
@@ -77,6 +82,9 @@ const Gallery = () => {
       const res = await fetch(uploadUrl, {
         method: "POST",
         credentials: "include",
+        headers: {
+          Authorization: `Bearer ${authUser.token}`,
+        },
         body: formData,
       });
 

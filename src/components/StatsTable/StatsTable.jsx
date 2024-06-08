@@ -29,12 +29,12 @@ const StatsTable = ({data}) => {
             
            return (   <div
               key={index}
-              className={`${index % 2 == 0 ? 'bg-green-200' : 'bg-white border'} grid grid-cols-4 text-center gap-3 bg-white p-3  border-gray-200 rounded-lg mb-2 `}
+              className={`${index % 2 == 0 ? ' bg-slate-300 text-grey-300 ' : 'bg-white border'} grid grid-cols-4 text-center gap-3 bg-white p-3  border-gray-200 rounded-lg mb-2 `}
             >
-              <div className="font-thin text-sm text-gray-600 text-left">{index + 1}</div>
-              <div className="font-thin text-sm text-gray-600 text-left">{row.topic}</div>
-              <div className="font-thin text-sm text-gray-600 text-left">{row.Reactions}</div>
-              <div className="font-thin text-sm text-gray-600 flex items-center
+              <div className="font-thin text-sm  text-left">{index + 1}</div>
+              <div className="font-thin text-sm  text-left">{row.topic}</div>
+              <div className="font-thin text-sm  text-left">{row.Reactions}</div>
+              <div className="font-thin text-sm  flex items-center
            justify-center gap-2">
             {row.rate}
             <span className={`${condition} ml-0.5`}>

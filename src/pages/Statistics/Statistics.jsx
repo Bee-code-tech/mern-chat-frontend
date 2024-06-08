@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import StatsTable from '../../components/StatsTable/StatsTable';
 import { FaSearch } from 'react-icons/fa';
+import { useAuthContext } from '../../context/AuthContext';
 
 const Statistics = () => {
   const [activeTab, setActiveTab] = useState('Daily');
@@ -10,6 +11,7 @@ const Statistics = () => {
   const [yearlyData, setYearlyData] = useState([])
   const [input, setInput] = useState('')
   const [occurrences, setOccurrences] = useState(0)
+  const {authUser} = useAuthContext()
 
   const tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly'];
  
@@ -32,6 +34,9 @@ const Statistics = () => {
           {
             method: "GET",
             credentials: "include",
+            headers: {
+              Authorization: `Bearer ${authUser.token}`,
+            },
           }
         );
        const result = await res.json()
@@ -53,6 +58,9 @@ const Statistics = () => {
           {
             method: "GET",
             credentials: "include",
+            headers: {
+              Authorization: `Bearer ${authUser.token}`,
+            },
           }
         );
   
@@ -75,6 +83,9 @@ const Statistics = () => {
           {
             method: "GET",
             credentials: "include",
+            headers: {
+              Authorization: `Bearer ${authUser.token}`,
+            },
           }
         );
   
@@ -97,6 +108,9 @@ const Statistics = () => {
           {
             method: "GET",
             credentials: "include",
+            headers: {
+              Authorization: `Bearer ${authUser.token}`,
+            }
           }
         );
   
@@ -119,6 +133,9 @@ const Statistics = () => {
           {
             method: "GET",
             credentials: "include",
+            headers: {
+              Authorization: `Bearer ${authUser.token}`,
+            }
           }
         );
   

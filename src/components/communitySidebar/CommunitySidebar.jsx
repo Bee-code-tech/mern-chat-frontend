@@ -4,6 +4,7 @@ import { FiBook, FiUser, FiUsers } from "react-icons/fi";
 import { IoHomeOutline, IoStatsChartOutline } from "react-icons/io5";
 import { NavLink, useLocation } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
+import { MdConnectWithoutContact } from "react-icons/md";
 
 
 const CommunitySidebar = ({ toggleMenu }) => {
@@ -24,7 +25,7 @@ const CommunitySidebar = ({ toggleMenu }) => {
             }
           >
             <div onClick={toggleMenu}>
-              <div className="flex items-center font-medium space-x-4 my-5">
+              <div className="flex items-center font-medium space-x-4 my-4">
                 <span>{item.icon}</span>
                 <span className="!truncate">{item.name}</span>
               </div>
@@ -34,32 +35,7 @@ const CommunitySidebar = ({ toggleMenu }) => {
       </div>
 
       <div>
-        {/* <Link to={"/help"}>
-          <div
-            onClick={toggleMenu}
-            className={`${
-              pathname === "/help" && "text-[#18BB0C]"
-            } flex items-center font-medium space-x-4 text-[#999999] my-5`}
-          >
-            <span>
-              <IoHelpCircleOutline size={24} />
-            </span>
-            <span>Help & Support</span>
-          </div>
-        </Link>
-        <Link to={"/settings"}>
-          <div
-            onClick={toggleMenu}
-            className={`${
-              pathname === "/settings" && "text-[#18BB0C]"
-            } flex items-center font-medium space-x-4 text-[#999999] my-5`}
-          >
-            <span>
-              <GoGear size={24} />
-            </span>
-            <span>Settings</span>
-          </div>
-        </Link> */}
+        
         <div
           onClick={() => {
             logout();
@@ -105,6 +81,11 @@ const sidebarMenuItems = [
     name: "Community Circle",
     icon: <FiUsers size={24} />,
     url: "/chatPage",
+  },
+  {
+    name: "Connect",
+    icon: <MdConnectWithoutContact size={24} />,
+    url: "/community/connect",
   },
   {
     name: 'Statistics',

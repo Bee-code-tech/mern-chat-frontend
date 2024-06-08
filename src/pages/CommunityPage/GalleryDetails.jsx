@@ -3,11 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import { FaAngleLeft } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import picfallback from '../../assets/upload.png'
+import { useAuthContext } from "../../context/AuthContext";
 
 const GalleryDetails = () => {
   const { id } = useParams();
   const [gallerySingleData, setGallerySingleData] = useState();
   const [galleryData, setGalleryData] = useState([]);
+  const {authUser} = useAuthContext()
 
   useEffect(() => {
     fetchGalleryData();
@@ -21,6 +23,9 @@ const GalleryDetails = () => {
         {
           method: "GET",
           credentials: "include",
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          },
         }
       );
 
@@ -38,6 +43,9 @@ const GalleryDetails = () => {
         {
           method: "GET",
           credentials: "include",
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          },
         }
       );
 

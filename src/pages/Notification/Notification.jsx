@@ -2,11 +2,12 @@ import React, {useState, useEffect} from 'react'
 import NotificationCard from './NotificationCard'
 import picf from '../../assets/note.png'
 import NotificationSkeleton from '../../components/skeletons/NotificationSkeleton'
+import { useAuthContext } from '../../context/AuthContext'
 
 const Notification = () => {
     const [loading, setLoading] = useState(false)
     const [notifications, setNotifcations] = useState([])
-
+    const {authUser} = useAuthContext()
     useEffect(() => {
 
       // setTimeout(() => setLoading(true), 3000)
@@ -20,6 +21,9 @@ const Notification = () => {
               {
                 method: "GET",
                 credentials: "include",
+                headers: {
+                  Authorization: `Bearer ${authUser.token}`,
+                },
               }
             );
   

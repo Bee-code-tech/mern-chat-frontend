@@ -3,13 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
 const NewTopic = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
   const [categories, setCategories] = useState("");
   const { register, handleSubmit, reset } = useForm();
-
+  const {authUser} = useAuthContext()
   const navigate = useNavigate();
 
   const onSubmit = (data) => postTopic({ ...data, body: content });
@@ -19,7 +20,9 @@ const NewTopic = () => {
       {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          Authorization: `Bearer ${authUser.token}`,
+          "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       }
     );
@@ -40,6 +43,7 @@ const NewTopic = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/category`,
         {
           method: "GET",
+          Authorization: `Bearer ${authUser.token}`,
           credentials: "include", // This includes cookies and other credentials in the request
         }
       );

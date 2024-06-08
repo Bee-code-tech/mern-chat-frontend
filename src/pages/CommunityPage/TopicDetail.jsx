@@ -8,6 +8,7 @@ import { formatViewCount } from "../../utils/formatNumber";
 import { timeAgo } from "../../utils/timeDifference";
 import defaultImg from '../../assets/hu2.png'
 import { FaCirclePlus } from "react-icons/fa6";
+import { useAuthContext } from "../../context/AuthContext";
 
 const TopicDetail = () => {
   const [topic, setTopic] = useState({});
@@ -17,6 +18,7 @@ const TopicDetail = () => {
   const [showModal, setShowModal] = useState(false);
   const [refetch, setRefetch] = useState(false);
   const [commentText, setCommentText] = useState('')
+  const {authUser} = useAuthContext()
 
   useEffect(() => {
     const getComments = async () => {
@@ -25,6 +27,7 @@ const TopicDetail = () => {
         }/api/community/topics/comment/${id}`,
         {
           method: "GET",
+          Authorization: `Bearer ${authUser.token}`,
           credentials: "include", // This includes cookies and other credentials in the request
         }
       );
@@ -45,6 +48,7 @@ const TopicDetail = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/${id}`,
         {
           method: "GET",
+          Authorization: `Bearer ${authUser.token}`,
           credentials: "include", // This includes cookies and other credentials in the request
         }
       );
@@ -68,6 +72,7 @@ const TopicDetail = () => {
             method: "POST",
             credentials: "include",
             headers: {
+              Authorization: `Bearer ${authUser.token}`,
               "Content-Type": "application/json",
             },
           }
@@ -100,7 +105,9 @@ const TopicDetail = () => {
       {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          Authorization: `Bearer ${authUser.token}`,
+          "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       }
     );
@@ -121,7 +128,9 @@ const TopicDetail = () => {
       {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          Authorization: `Bearer ${authUser.token}`,
+          "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       }
     );
@@ -141,7 +150,9 @@ const TopicDetail = () => {
       {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          Authorization: `Bearer ${authUser.token}`,
+          "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       }
     );

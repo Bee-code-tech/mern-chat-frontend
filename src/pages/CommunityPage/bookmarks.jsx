@@ -3,13 +3,14 @@ import toast from "react-hot-toast";
 import CommunityTopic from "../../components/CommunityTopic/CommunityTopic";
 import TopicSkeleton from "../../components/skeletons/TopicSkeleton";
 import picf from '../../assets/book.png'
+import { useAuthContext } from "../../context/AuthContext";
 
 const Bookmarks = () => {
   const [topics, setTopics] = useState([]);
   console.log("🚀 ~ Bookmarks ~ topics:", topics);
   const [refetchTopics, setRefetchTopics] = useState(false);
   const [loading, setLoading] = useState(false);
-  
+const {authUser} = useAuthContext()  
 
   useEffect(() => {
     const getTopics = async () => {
@@ -19,7 +20,10 @@ const Bookmarks = () => {
         }/api/community/topics?bookmarks=true`,
         {
           method: "GET",
-          credentials: "include", // This includes cookies and other credentials in the request
+          credentials: "include", 
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+          }  // This includes cookies and other credentials in the request
         }
       );
 
@@ -40,7 +44,9 @@ const Bookmarks = () => {
       {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          Authorization: `Bearer ${authUser.token}`,
+          "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       }
     );
@@ -85,7 +91,7 @@ const Bookmarks = () => {
         
 
         </div>
-        <h1 className="text-xl font-bold">No Contributions Yet...</h1>
+        <h1 className="text-xl font-bold">No Bookmarks Yet...</h1>
       </div>
       )}
     </section>

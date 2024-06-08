@@ -5,12 +5,14 @@ import { FaCirclePlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import TopicSkeleton from "../../components/skeletons/TopicSkeleton";
 import picf from '../../assets/community.png'
+import { useAuthContext } from "../../context/AuthContext";
 const CommunityTopics = () => {
   const [topics, setTopics] = useState([]);
   const [refetchTopics, setRefetchTopics] = useState(false);
   const [loading, setLoading] = useState(true);
+  const {authUser} = useAuthContext()
   console.log(
-    "🚀 ~ handleBookmark ~ import.meta.env.VITE_BACKEND_URL:",
+    "🚀 ~ handleBookmark ~ ",
     import.meta.env.VITE_BACKEND_URL
   );
 
@@ -23,7 +25,10 @@ const CommunityTopics = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/community/topics`,
         {
           method: "GET",
-          credentials: "include", // This includes cookies and other credentials in the request
+          credentials: "include",
+          headers : {
+            Authorization: `Bearer ${authUser.token}`,
+          }   
         }
       );
 
@@ -44,7 +49,12 @@ const CommunityTopics = () => {
       {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          Authorization: `Bearer ${authUser.token}`,
+          "Content-Type": "application/json",
+        
+           
+        },
         body: JSON.stringify(payload),
       }
     );

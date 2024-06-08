@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import { FaCirclePlus } from "react-icons/fa6";
 import TopicSkeleton from "../../components/skeletons/TopicSkeleton";
 import picf from '../../assets/community.png'
+import { useAuthContext } from "../../context/AuthContext";
 
 const Contributions = () => {
   const [topics, setTopics] = useState([]);
   const [refetchTopics, setRefetchTopics] = useState(false);
   const [loading, setLoading] = useState(false);
-
+ const {authUser} = useAuthContext()
   useEffect(() => {
     const getTopics = async () => {
       setLoading(true);
@@ -18,7 +19,11 @@ const Contributions = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/me`,
         {
           method: "GET",
-          credentials: "include", // This includes cookies and other credentials in the request
+          credentials: "include", 
+          headers: {
+            Authorization: `Bearer ${authUser.token}`
+          }
+          // This includes cookies and other credentials in the request
         }
       );
 
@@ -38,7 +43,9 @@ const Contributions = () => {
       {
         method: "DELETE",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          Authorization: `Bearer ${authUser.token}` ,
+          "Content-Type": "application/json"} ,
         body: JSON.stringify(payload),
       }
     );
