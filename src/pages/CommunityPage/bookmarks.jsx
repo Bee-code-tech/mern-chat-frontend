@@ -91,7 +91,7 @@ const {authUser} = useAuthContext()
         
 
         </div>
-        <h1 className="text-xl font-bold">No Bookmarks Yet...</h1>
+        <h1 className="text-xl font-bold">No Bookmarks Yet....</h1>
       </div>
       )}
     </section>
