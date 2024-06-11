@@ -73,7 +73,7 @@ const {authUser} = useAuthContext()
   return (
     <section className="space-y-5 px-3">
       {topics.length > 0 ? (
-        <div className="space-y-8">
+        <div className="space-y-8" >
           {topics &&
             topics.map((topic) => (
               <CommunityTopic
