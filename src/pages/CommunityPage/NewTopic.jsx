@@ -44,7 +44,7 @@ const NewTopic = () => {
         {
           method: "GET",
           Authorization: `Bearer ${authUser.token}`,
-          credentials: "include", // This includes cookies and other credentials in the request
+          credentials: "include", 
         }
       );
 
