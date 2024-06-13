@@ -1,10 +1,11 @@
 import { BiLogOut } from "react-icons/bi";
-import { CiBellOn, CiBookmark, CiStar } from "react-icons/ci";
+import { CiBellOn, CiBookmark, CiGlobe, CiStar } from "react-icons/ci";
 import { FiBook, FiUser, FiUsers } from "react-icons/fi";
 import { IoHomeOutline, IoStatsChartOutline } from "react-icons/io5";
 import { NavLink, useLocation } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 import { MdConnectWithoutContact } from "react-icons/md";
+import { BsRocketTakeoff } from "react-icons/bs";
 
 
 const CommunitySidebar = ({ toggleMenu }) => {
@@ -25,7 +26,7 @@ const CommunitySidebar = ({ toggleMenu }) => {
             }
           >
             <div onClick={toggleMenu}>
-              <div className="flex items-center font-medium space-x-4 my-4">
+              <div className="flex items-center font-medium space-x-4 my-[14px]">
                 <span>{item.icon}</span>
                 <span className="!truncate">{item.name}</span>
               </div>
@@ -78,14 +79,19 @@ const sidebarMenuItems = [
     url: "/community/bookmarks",
   },
   {
-    name: "Community Circle",
-    icon: <FiUsers size={24} />,
+    name: "Community ",
+    icon: <CiGlobe size={24} />,
     url: "/chatPage",
   },
   {
     name: "Connect",
     icon: <MdConnectWithoutContact size={24} />,
     url: "/community/connect",
+  },
+  {
+    name: "Requests",
+    icon: <BsRocketTakeoff size={24} />,
+    url: "/community/requests",
   },
   {
     name: 'Statistics',

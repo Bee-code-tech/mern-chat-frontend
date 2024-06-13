@@ -23,6 +23,7 @@ import Statistics from "./pages/Statistics/Statistics";
 import Notification from "./pages/Notification/Notification";
 import Connect from "./pages/Connect/Connect";
 import PublicProfile from "./pages/PublicProfile/PublicProfile";
+import Request from "./pages/Request/Request";
 
 const App = () => {
   const { authUser } = useAuthContext();
@@ -89,6 +90,20 @@ const App = () => {
               <Navigate to='/login' />
             )
           }
+          />
+
+          <Route
+            path="/community/requests"
+            element = {
+
+              authUser ? (
+                <CommunityLayout>
+                  <Request />
+                </CommunityLayout>
+              ) : (
+                <Navigate to='/login' />
+              )
+            }
           />
 
           <Route
