@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaCirclePlus } from 'react-icons/fa6'
+import { MdCancel } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 
 const RequestList = () => {
@@ -19,14 +20,22 @@ const RequestList = () => {
         
         
 
-        <div className="flex items-center  h-full ">
+        <div className="flex gap-3 items-center  h-full ">
             <Link to='/community/topics'
              className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 
              rounded-lg border-[#18BB0C] px-1 lg:px-3 md:px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C]
             hover:text-white text-sm flex items-center justify-center gap-2"
              >
               <FaCirclePlus />
-                 <span className="hidden lg:block md:block">Connect</span>
+                 <span className="hidden lg:block md:block">Accept</span>
+            </Link>
+            <Link to='/community/topics'
+             className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 
+             rounded-lg border-red-500 px-1 lg:px-3 md:px-3 py-2 text-red-500 hover:bg-red-500
+            hover:text-white text-sm flex items-center justify-center gap-2"
+             >
+              <MdCancel />
+                 <span className="hidden lg:block md:block">Reject</span>
             </Link>
         </div>
 

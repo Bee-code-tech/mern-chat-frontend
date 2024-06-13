@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 const Request = () => {
 
-    const [list, setList] = useState([...Array(3)])
+    const [list, setList] = useState([...Array(6)])
     const [loading, setLoading] = useState(false)
 
     return (
