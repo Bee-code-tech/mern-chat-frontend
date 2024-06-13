@@ -4,6 +4,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { isBookmarked } from "../../utils/isBookmarked";
 import { timeAgo } from "../../utils/timeDifference";
 import demo from "../../assets/hu2.png"
+import { Link } from "react-router-dom";
 
 const CommunityTopic = (props) => {
   const { authUser } = useAuthContext();
@@ -62,16 +63,18 @@ const CommunityTopic = (props) => {
           </button>
         )}
       </div>
-      <div className="flex gap-4 my-4">
+      <div className="flex gap-4 my-4 ">
         <img
           className="rounded-full size-16"
           src={author.profilePic || demo}
           alt="profileAvatar"
         />
         <div>
-          <p className="text-[#666666] font-semibold text-lg">
+          <span className="text-[#666666] font-semibold text-lg cursor-pointer hover:underline hover:text-2xl duration-300 transition-all ease-in-out ">
+            <Link to={`/community/userProfile/${author._id}`} >
             {author.fullName}
-          </p>
+            </Link>
+          </span>
           <p className="text-[#666666] font-medium">{author.designation}</p>
           <p className="text-[#999999] font-medium text-sm">
             {timeAgo(createdAt)}

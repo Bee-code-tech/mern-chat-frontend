@@ -43,7 +43,10 @@ const NewTopic = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/category`,
         {
           method: "GET",
+          headers: {
           Authorization: `Bearer ${authUser.token}`,
+
+          },
           credentials: "include", 
         }
       );
