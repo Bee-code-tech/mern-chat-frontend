@@ -1,8 +1,6 @@
 import React from "react";
-import { FaCirclePlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { GoInfo } from "react-icons/go";
-import Conversations from "../../components/sidebar/Conversations";
 import { useState } from "react";
 import ConversationSkeleton from "../../components/skeletons/ConversationSkeleton";
 import ConnectList from "../../components/ConnectList/ConnectList";
