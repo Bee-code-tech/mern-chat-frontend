@@ -24,6 +24,7 @@ import Notification from "./pages/Notification/Notification";
 import Connect from "./pages/Connect/Connect";
 import PublicProfile from "./pages/PublicProfile/PublicProfile";
 import Request from "./pages/Request/Request";
+import UserProfile from "./pages/userProfile/UserProfile";
 
 const App = () => {
   const { authUser } = useAuthContext();
@@ -78,6 +79,17 @@ const App = () => {
             }
           />
 
+          <Route
+          path="/community/userProfile/:userId"
+          element = {
+            authUser ? (
+                <UserProfile/>
+            ) : (
+              <Navigate to='/login' />
+            )
+          }
+          />
+
           <Route 
           path="/community/connect"
           element = {
@@ -105,18 +117,7 @@ const App = () => {
             }
           />
 
-          <Route
-          path="/community/public-profile"
-          element = {
-            authUser ? (
-              <CommunityLayout>
-                <PublicProfile />
-              </CommunityLayout>
-            ) : (
-              <Navigate to='/login' />
-            )
-          }
-          />
+         
 
           <Route 
           path="/community/statistics"
