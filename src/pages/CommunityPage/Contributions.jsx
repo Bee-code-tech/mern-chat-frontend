@@ -31,7 +31,7 @@ const Contributions = () => {
       if (!data.success) {
         return toast.error(data.msg);
       }
-      setTimeout(() => setLoading(false), 3000)
+      setLoading(false)
       setTopics(data.data);
     };
     getTopics();

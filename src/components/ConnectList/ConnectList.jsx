@@ -13,7 +13,9 @@ const ConnectList = () => {
           <div className=" flex flex-col items-start justify-start h-full ">
 
          <p className='text-lg font-bold'>Test 1</p>
-         <p className='font-thin text-[12px] lg:text-[14px] md:text-[14px] leading-6 '>Connect with Test 1 now to get started</p>
+         <p className='font-thin text-[12px] lg:text-[14px] md:text-[14px] leading-6 '>
+          Connect with Test 1 now to get started
+          </p>
         </div>
         </div>
         

@@ -37,7 +37,7 @@ const CommunityTopics = () => {
         return toast.error(data.msg);
       }
       setTopics(data.data);
-      setTimeout(() => setLoading(false) , 2000)
+      setLoading(false) 
     };
     getTopics();
   }, [refetchTopics]);
