@@ -19,6 +19,7 @@ const TopicDetail = () => {
   const [refetch, setRefetch] = useState(false);
   const [commentText, setCommentText] = useState('')
   const {authUser} = useAuthContext()
+  console.log(authUser);
 
   useEffect(() => {
     const getComments = async () => {
@@ -27,12 +28,16 @@ const TopicDetail = () => {
         }/api/community/topics/comment/${id}`,
         {
           method: "GET",
-          Authorization: `Bearer ${authUser.token}`,
+          headers: {
+          Authorization: `Bearer ${authUser?.token}`,
+
+          },
           credentials: "include", // This includes cookies and other credentials in the request
         }
       );
 
       const data = await res.json();
+
       console.log("🚀 ~ getTopicCategory ~ data:", data);
       if (!data.success) {
         return toast.error(data.msg);
@@ -48,7 +53,10 @@ const TopicDetail = () => {
         `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/${id}`,
         {
           method: "GET",
-          Authorization: `Bearer ${authUser.token}`,
+          headers: {
+          Authorization: `Bearer ${authUser?.token}`,
+
+          },
           credentials: "include", // This includes cookies and other credentials in the request
         }
       );
@@ -72,7 +80,7 @@ const TopicDetail = () => {
             method: "POST",
             credentials: "include",
             headers: {
-              Authorization: `Bearer ${authUser.token}`,
+              Authorization: `Bearer ${authUser?.token}`,
               "Content-Type": "application/json",
             },
           }
@@ -143,6 +151,8 @@ const TopicDetail = () => {
     toast.success(data.msg);
     setRefetch(!refetch);
   };
+
+  
   const handleTopicCommentReaction = async (payload) => {
     const res = await fetch(
       `${import.meta.env.VITE_BACKEND_URL
