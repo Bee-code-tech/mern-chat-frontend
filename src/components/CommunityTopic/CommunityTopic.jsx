@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 
 const CommunityTopic = (props) => {
   const { authUser } = useAuthContext();
-  console.log("🚀 ~ CommunityTopic ~ authUser:", authUser);
   const {
     title,
     author,
@@ -23,7 +22,6 @@ const CommunityTopic = (props) => {
   } = props;
   const navigate = useNavigate();
 
-  console.log({'single data' : props});
 
   return (
     <div className="rounded-lg p-6 border ">
