@@ -27,7 +27,6 @@ import Request from "./pages/Request/Request";
 
 const App = () => {
   const { authUser } = useAuthContext();
-  console.log("🚀 ~ App ~ authUser:", authUser);
   return (
     <>
       <div className="">
