@@ -16,6 +16,10 @@ const UserProfile = () => {
     fetchGallerySingleData();
   }, [userId]);
 
+
+  
+  //   TODO: Create endpoints to get all the gallery for userProfile z
+  //   TODO: I dont even know for now
   const fetchGalleryData = async () => {
     try {
       const res = await fetch(
