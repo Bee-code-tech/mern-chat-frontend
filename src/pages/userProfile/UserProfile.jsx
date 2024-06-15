@@ -56,7 +56,7 @@ const UserProfile = () => {
         <div className={`fixed z-[100] p-5 flex items-center justify-center ${showModal ? 'visible opacity-100' : 'invisible opacity-0'}  inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}>
           <div className={`bg-white p-6 rounded-lg shadow-lg w-full max-w-md text-center ${showModal ? 'scale-1 opacity-1 duration-500' : 'scale-0 opacity-0 duration-150'}`}>
             <h3 className="text-2xl font-bold mb-4">Connect with this user</h3>
-            <p className="mb-4">Connect with this user to view their gallery and message them.</p>
+            <p className="mb-4">Connect with this user to view their gallery and message thllem.</p>
             <div className="flex justify-center gap-4 items-center mt-6">
               <button
                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
