@@ -23,7 +23,7 @@ const {authUser} = useAuthContext()
           credentials: "include", 
           headers: {
             Authorization: `Bearer ${authUser.token}`,
-          }  // This includes cookies and other credentials in the request
+          }  
         }
       );
 
