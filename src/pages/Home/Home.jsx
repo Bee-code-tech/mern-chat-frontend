@@ -234,16 +234,16 @@ const data = [
             <Link to="/gallery/">
             
           {!loadingImageData && isEmpty && (
-              <div className="w-full h-[220px] rounded-xl flex flex-col items-center justify-center -mb-4">
-                <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
-                 <img src={fallback} alt="" className="block h-[214px] object-cover" />
+              <div className="w-full h-[240px] rounded-xl flex flex-col items-center justify-center -mb-4">
+                <div className="h-auto overflow-hidden p-4 flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
+                 <img src={fallback} alt="" className="block h-[222px] object-cover" />
                 </div>
                   <h1 className="text-center text-xl font-bold">Click to Upload</h1>
               </div>
             )}
             </Link>
               {/* Pic list */}
-                <div className="grid items-center justify-center w-full h-full grid-cols-1 md:grid-cols-2  lg:grid-cols-3  gap-3 p-3  ">
+                <div className="grid items-center justify-center w-full h-full grid-cols-1 md:grid-cols-2  lg:grid-cols-3  gap-3 p-4  ">
                   {loadingImageData && [...Array(6)].map((_, idx) =>  <GallerySkeleton key={idx}/> ) }
                   {imageData.slice(0, 5).map((image, index) => (
                     <>
