@@ -213,7 +213,7 @@ const data = [
                 </div>
               </div>
             </div>
-          </div>
+          </div>  
           </div>
         </Link>
 
