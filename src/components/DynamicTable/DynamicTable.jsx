@@ -6,7 +6,7 @@ const DynamicTable = ({ data }) => {
 
   
   return (
-    <div className="container mx-auto pb-6  lg:p-4 md:p-4 p-1 shadow-lg rounded-[20px]">
+    <div className="container mx-auto pb-6  lg:p-6 md:p-4 p-1 shadow-lg rounded-[20px]">
       <div className="grid grid-cols-3 mb-3 lg:gap-4 md:gap-4 gap-1 lg:p-4 md:p-4 p-1 rounded-t-lg text-center">
         <div className="font-bold text-left">Topic</div>
         <div className="font-bold  -ml-8">Reactions</div>

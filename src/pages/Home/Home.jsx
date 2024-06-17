@@ -234,7 +234,7 @@ const data = [
             <Link to="/gallery/">
             
           {!loadingImageData && isEmpty && (
-              <div className="w-full h-[240px] rounded-xl flex flex-col items-center justify-center -mb-4">
+              <div className="w-full h-[232px] rounded-xl flex flex-col items-center justify-center -mb-4">
                 <div className="h-auto overflow-hidden p-4 flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
                  <img src={fallback} alt="" className="block h-[222px] object-cover" />
                 </div>
@@ -301,7 +301,7 @@ const data = [
       {/* third grid item  */}
       <div >
             <div className="bg-white  p-2 border border-green-300 rounded-[20px]">
-              <div className="border border-grey-300 rounded-[20px] p-4 ">
+              <div className="border border-grey-300 rounded-[20px] p-6 ">
               {loadingImageData && !isDailyEmpty && [...Array(4)].map((_, idx) =>  <StatsSkeleton key={idx}/> ) }
                 
                 {loadingDailyData && isDailyEmpty && (
