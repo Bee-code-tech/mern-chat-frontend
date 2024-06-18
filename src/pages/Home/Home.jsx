@@ -51,7 +51,6 @@ const Home = () => {
 
 
 
-// Test data for DynamicTable component
 const data = [
   { topic: 'React', contribution: 56, appreciation: '🏆 (15)' },
   { topic: 'Tailwind', contribution: 34, appreciation: '🏆 (13)' },
