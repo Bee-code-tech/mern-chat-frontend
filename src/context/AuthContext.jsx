@@ -11,7 +11,7 @@ export const AuthContextProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("chat-user")) || null
   );
   console.log("🚀 ~ AuthContextProvider ~ authUser:", authUser);
-  const isLoggedIn = !!authUser; // Check if authUser exists
+  const isLoggedIn = !!authUser; 
 
   return (
     <AuthContext.Provider value={{ authUser, setAuthUser, isLoggedIn }}>
