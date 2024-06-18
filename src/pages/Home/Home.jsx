@@ -49,7 +49,6 @@ const Home = () => {
     fetchDailyStats()
   }, []);
 
-  // modal popup for conversations 
 
 
 // Test data for DynamicTable component
