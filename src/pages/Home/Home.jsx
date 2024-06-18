@@ -183,7 +183,6 @@ const data = [
    console.log('toggle modal,' + isModalOpen);
    console.log('selected conv,' + selectedConversation);
   }
-  // console.log(topics, 'topics from home page');
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-12 lg:gap-8 md:gap-8 my-[20px] mx-auto max-w-6xl">
