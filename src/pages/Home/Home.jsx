@@ -266,6 +266,16 @@ const Home = () => {
       </div>
     </div>
   </div>
+
+  
+        {/* Info text  */}
+        <div className="w-full mt-8 flex items-center  justify-between px-6">
+          <div className="flex">
+          <img src={logo} alt="Logo" className="h-5" />
+
+          </div>
+          <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+         </div>
 </div>
 
 
@@ -298,7 +308,6 @@ const Home = () => {
             <div className="flex gap-2 items-center justify-center">
             <p className="text-xl text-gray-400 leading-3">My</p>
             <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
-            <p className="text-xl text-gray-400 leading-3">Community</p>
             </div>
             <Link to='/community/topics'>
             <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
