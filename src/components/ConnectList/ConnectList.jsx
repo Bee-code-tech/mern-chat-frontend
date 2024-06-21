@@ -1,14 +1,19 @@
-import React from 'react';
-import { FaCirclePlus } from 'react-icons/fa6';
+import React, { useState } from 'react';
+import {  FaSpinner, FaPaperPlane } from 'react-icons/fa';
 import { useAuthContext } from '../../context/AuthContext';
 import { MdCancel, MdPendingActions } from 'react-icons/md';
 import { FaCheckCircle } from 'react-icons/fa';
-// import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { FaCirclePlus } from 'react-icons/fa6';
 
 const ConnectList = ({ users }) => {
-  const {authUser} = useAuthContext()
+  const { authUser } = useAuthContext();
+  const [loading, setLoading] = useState({}); // Track loading state for each user
+  const [sent, setSent] = useState({}); // Track which requests have been sent
+
   // Function to handle connect button click
   const handleConnect = async (userId) => {
+    setLoading((prev) => ({ ...prev, [userId]: true }));
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/connect/sendRequest`, {
         method: 'POST',
@@ -16,13 +21,22 @@ const ConnectList = ({ users }) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authUser.token}`
         },
-        body: JSON.stringify({ recipientId : userId }),
+        body: JSON.stringify({ recipientId: userId }),
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to send connect request');
+      }
+
       const data = await response.json();
+      toast.success('Connect request sent');
       console.log('Connect request sent', data);
-      // Handle the response, e.g., updating the UI or state
+      setSent((prev) => ({ ...prev, [userId]: true }));
     } catch (error) {
+      toast.error('Error sending connect request');
       console.error('Error sending connect request', error);
+    } finally {
+      setLoading((prev) => ({ ...prev, [userId]: false }));
     }
   };
 
@@ -43,24 +57,37 @@ const ConnectList = ({ users }) => {
           </div>
 
           <div className="flex items-center h-full">
-            {friendRequestStatus === 'none' ? (
+            {friendRequestStatus === 'none' && !sent[user._id] ? (
               <button
                 onClick={() => handleConnect(user._id)}
                 className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 
                 rounded-lg border-[#18BB0C] px-1 lg:px-3 md:px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C]
                 hover:text-white text-sm flex items-center justify-center gap-2"
+                disabled={loading[user._id]}
               >
-                <FaCirclePlus />
-                <span className="hidden lg:block md:block">Connect</span>
+                {loading[user._id] ? (
+                  <FaSpinner className="animate-spin" />
+                ) : (
+                  <>
+                    <FaCirclePlus />
+                    <span className="hidden lg:block md:block">Connect</span>
+                  </>
+                )}
               </button>
+            ) : sent[user._id] ? (
+              <span className="border border-slate-400 text-slate-400 py-2 px-1 lg:px-2 md:px-2 gap-2 
+              rounded-md capitalize flex items-center justify-center">
+                <FaPaperPlane />
+                <p className='hidden lg:block md:block'>Sent</p>
+              </span>
             ) : (
               <span className={`border border-slate-400 text-slate-400 py-2 px-1 lg:px-2 md:px-2 gap-2 
               rounded-md capitalize flex items-center justify-center`}>
-                  {friendRequestStatus === 'pending' && <MdPendingActions />}
-                  {friendRequestStatus === 'accepted' && <FaCheckCircle />}
-                  {friendRequestStatus === 'rejected' && <MdCancel />}
-                <p className='hidden lg:block md:block'>{friendRequestStatus} </p>
-                </span>
+                {friendRequestStatus === 'pending' && <MdPendingActions />}
+                {friendRequestStatus === 'accepted' && <FaCheckCircle />}
+                {friendRequestStatus === 'rejected' && <MdCancel />}
+                <p className='hidden lg:block md:block'>{friendRequestStatus}</p>
+              </span>
             )}
           </div>
         </div>
