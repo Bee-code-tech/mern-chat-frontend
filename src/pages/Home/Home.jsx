@@ -16,7 +16,6 @@ import useConversation from "../../zustand/useConversation";
 import MessageContainer from "../../components/messages/MessageContainer";
 import vidFallback from '../../assets/vid.png'
 import StatsSkeleton from "../../components/skeletons/StatsSkeleton";
-import moment from "moment";
 import { useAuthContext } from "../../context/AuthContext";
 import { timeAgo } from "../../utils/timeDifference";
 
