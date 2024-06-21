@@ -344,6 +344,7 @@ const Home = () => {
                 <div className=" flex flex-col md:h-[357px] h-auto lg:h-[357px] overflow-auto w-full">
                   {conversations.slice(0,4).reverse().map((conversation, idx) => {
                     const isOnline = onlineUsers?.includes(conversation._id)
+                    // setSelectedConversation(conversation)
                    return  ( <div key={idx}>
                       <div 
                         className={`flex gap-2 mb-2 ${idx < conversations.length - 1 ? 'border-b' : ''} items-center w-full hover:bg-green-50 duration-150 transition-all ease-in rounded-[20px] p-2 py-3 cursor-pointer`}
