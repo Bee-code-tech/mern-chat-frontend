@@ -214,76 +214,60 @@ const Home = () => {
          </div>
       </div>
 
-      {/* second grid item  */}
-     <div className="mb-6" >
-        <div className="p-2 border lg:h-[357px] md:h-[357px] h-auto border-green-300 rounded-[20px]">
-          <div className="bg-white h-full p-2 border rounded-[20px] border-gray-300 ">
-            <Link to="/gallery/">
-            
-          {imageData.length === 0 && !loadingDailyData && (
-              <div className="w-full h-full rounded-xl flex flex-col items-center justify-center -mb-4">
-                <div className="h-auto overflow-hidden p-4 flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
-                 <img src={fallback} alt="" className="block h-[222px] object-cover" />
-                </div>
-                  <h1 className="text-center text-xl font-bold">Click to Upload</h1>
-              </div>
-            )}
-            </Link>
-              {/* Pic list */}
-                <div className="grid items-start justify-center w-full h-full grid-cols-1 md:grid-cols-2  lg:grid-cols-3  gap-3 p-4  ">
-                  {loadingImageData && [...Array(6)].map((_, idx) =>  <GallerySkeleton key={idx}/> ) }
-                  {imageData.slice(0, 5).map((image, index) => (
-                    <>
-                    <Link to={`/galleryDetails/${image?._id}`} key={image?._id.$oid}>
-                      <div className="card card-compact shadow-xl w-full  md:max-w-64 max-h-46">
-                        <figure>
-                          <img
-                            src={image?.image}
-                            alt={`Image ${index + 1}`}
-                            className="h-full rounded-xl object-contain"
-                          />
-                        </figure>
-                      </div>
-                    </Link>
-                    
-                    </>
-                  ))}
-                 
-                  {imageData?.length > 5 && (
-                    <Link to="/gallery/">
-                      <div className="card card-compact bg-base-content shadow-xl rounded-xl image-full bg-none w-full lg:max-w-64 max-h-46">
-                        <figure>
-                          <img
-                            src="https://i.ibb.co/CMLfZkc/pexels-inspiredimages-157543.jpg"
-                            className="rounded-lg w-full object-cover"
-                          />
-                        </figure>
-                        <div className="card-body items-center justify-center">
-                          <div className="avatar placeholder">
-                            <div className="bg-base-content text-lg text-white  rounded-full w-12">
-                              <span>+{imageData.length - 6}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  )}
-                 
-                </div>
-              {/* Video list end */}
-          </div>
-        </div>
-
-         {/* Info text  */}
-         <div className="w-full mt-8 flex items-center justify-between px-6">
-            <div className="flex gap-2 items-center justify-center">
-            <p className="text-xl text-gray-400 leading-3">My</p>
-            <img src={logo} alt="Logo" className="h-5" />
-            <p className="text-xl text-gray-400 leading-3">Pics</p>
+      {/* second grid item */}
+<div className="mb-6">
+  <div className="p-2 border lg:h-[357px] md:h-[357px] h-auto border-green-300 rounded-[20px]">
+    <div className="bg-white h-full p-2 border rounded-[20px] border-gray-300">
+      <Link to="/gallery/">
+        {imageData.length === 0 && !loadingDailyData && (
+          <div className="w-full h-full rounded-xl flex flex-col items-center justify-center -mb-4">
+            <div className="h-auto overflow-hidden p-4 flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition">
+              <img src={fallback} alt="" className="block w-full h-[222px] object-cover" />
             </div>
-            <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
-         </div>
-     </div>
+            <h1 className="text-center text-xl font-bold">Click to Upload</h1>
+          </div>
+        )}
+      </Link>
+      {/* Pic list */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
+        {loadingImageData && [...Array(9)].map((_, idx) => <GallerySkeleton key={idx} />)}
+        {imageData.slice(0, 8).map((image, index) => (
+          <Link to={`/galleryDetails/${image?._id}`} key={index}>
+            <div className="flex items-center flex-shrink-0 shadow-xl w-full md:h-[70px] h-auto lg:h-[70px] overflow-hidden rounded-md">
+              <figure className="w-full h-full">
+                <img
+                  src={image?.image}
+                  alt={`Image ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </figure>
+            </div>
+          </Link>
+        ))}
+        {imageData?.length > 8 && (
+          <Link to="/gallery/">
+            <div className="card card-compact bg-base-content shadow-xl rounded-xl image-full bg-none w-full h-[70px]">
+              <figure className="w-full h-full">
+                <img
+                  src="https://i.ibb.co/CMLfZkc/pexels-inspiredimages-157543.jpg"
+                  className="rounded-lg w-full h-full object-cover"
+                />
+              </figure>
+              <div className="card-body items-center justify-center">
+                <div className="avatar placeholder">
+                  <div className="bg-base-content text-lg text-white rounded-full w-12">
+                    <span>+{imageData.length - 8}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
 
       {/* third grid item  */}
       <div >
@@ -313,7 +297,7 @@ const Home = () => {
          <div className="w-full mt-8 flex items-center justify-between px-6">
             <div className="flex gap-2 items-center justify-center">
             <p className="text-xl text-gray-400 leading-3">My</p>
-            <img src={logo} alt="Logo" className="h-5" />
+            <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
             <p className="text-xl text-gray-400 leading-3">Community</p>
             </div>
             <Link to='/community/topics'>
@@ -396,7 +380,7 @@ const Home = () => {
          <div className="w-full mt-8 flex items-center justify-between px-6">
             <div className="flex gap-2 items-center justify-center">
             <p className="text-xl text-gray-400 leading-3">My</p>
-            <img src={logo} alt="Logo" className="h-5" />
+            <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
             <p className="text-xl text-gray-400 leading-3">Chats</p>
             </div>
             <Link to='/chatpage'>

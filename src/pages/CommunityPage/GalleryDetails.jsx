@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import { Link, useParams } from "react-router-dom";
-import { FaAngleLeft } from "react-icons/fa6";
+import { FaAngleLeft, FaUpload } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import picfallback from '../../assets/upload.png'
 import { useAuthContext } from "../../context/AuthContext";
@@ -58,12 +58,21 @@ const GalleryDetails = () => {
 
   return (
     <>
-      <div className="container mx-auto mt-28 mb-10 flex justify-start items-center">
+      <div className="container mx-auto mt-28 mb-10 flex justify-between items-center">
         <Link to="/">
           <button className="btn bg-[#18BB0C] text-white">
             <span className="flex items-center">
               <FaAngleLeft color="white" size="1.2em" />
               <span>Back</span>
+            </span>
+          </button>
+        </Link>
+
+        <Link to="/gallery/">
+          <button className="btn bg-[#18BB0C] text-white">
+            <span className="flex gap-2 items-center">
+              <FaUpload color="white" size="1.2em" />
+              <span>Upload</span>
             </span>
           </button>
         </Link>

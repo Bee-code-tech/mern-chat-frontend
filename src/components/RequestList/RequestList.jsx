@@ -71,8 +71,8 @@ const RequestList = ({ friendRequests }) => {
       {friendRequests.map((request) => (
         <div key={request._id} className='w-full flex items-center border-b justify-between h-auto lg:p-3 md:p-3 rounded-lg'>
           <div className="h-full flex items-center py-3 gap-4">
-            <div className="w-14 rounded-full">
-              <img src={request.requester.profilePic} alt={`${request.requester.fullName}'s profile`} />
+          <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+              <img src={request.requester.profilePic} alt={request.requester.fullName} className='object-cover w-full h-full' />
             </div>
             <div className="flex flex-col items-start justify-start h-full">
               <p className='text-lg font-bold'>{request.requester.fullName}</p>

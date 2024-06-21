@@ -1,4 +1,4 @@
-import { Col, Row, message } from "antd";
+import { Col, Row, message, Spin } from "antd";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -7,14 +7,13 @@ import { useAuthContext } from "../../context/AuthContext";
 import { FaRegPlayCircle } from "react-icons/fa";
 import picf from '../../assets/upload.png'
 
-
 const Gallery = () => {
   const { authUser } = useAuthContext();
   const [file, setFile] = useState();
   const [descriptions, setDescriptions] = useState("");
   const [galleryData, setGalleryData] = useState([]);
+  const [loading, setLoading] = useState(false);  // Loading state
   
-
   useEffect(() => {
     fetchGalleryData();
   }, []);
@@ -40,9 +39,11 @@ const Gallery = () => {
       console.error("Error fetching gallery data:", error);
     }
   };
+
   const handleTextArea = (e) => {
     setDescriptions(e.target.value);
   };
+
   const upload = async () => {
     if (!file) {
       message.error("No file selected for upload.");
@@ -63,15 +64,11 @@ const Gallery = () => {
 
     if (file.type.startsWith("image/")) {
       formData.append("file", file); // for image
-      uploadUrl = `${
-        import.meta.env.VITE_BACKEND_URL
-      }/api/community/gallery/image/upload/${authUser?._id}`;
+      uploadUrl = `${import.meta.env.VITE_BACKEND_URL}/api/community/gallery/image/upload/${authUser?._id}`;
       successMessage = "Image Uploaded Successfully!";
     } else if (file.type.startsWith("video/")) {
       formData.append("video", file); // for video
-      uploadUrl = `${
-        import.meta.env.VITE_BACKEND_URL
-      }/api/community/gallery/video/upload/${authUser?._id}`;
+      uploadUrl = `${import.meta.env.VITE_BACKEND_URL}/api/community/gallery/video/upload/${authUser?._id}`;
       successMessage = "Video Uploaded Successfully!";
     } else {
       message.error("Unsupported file type.");
@@ -79,6 +76,7 @@ const Gallery = () => {
     }
 
     try {
+      setLoading(true);  // Set loading state to true
       const res = await fetch(uploadUrl, {
         method: "POST",
         credentials: "include",
@@ -103,8 +101,11 @@ const Gallery = () => {
     } catch (error) {
       console.error("Error uploading file:", error);
       message.error("Failed to upload file");
+    } finally {
+      setLoading(false);  // Set loading state to false
     }
   };
+
   return (
     <>
       <div className="container px-4 mx-auto mb-10 flex justify-between items-center mt-28">
@@ -120,12 +121,12 @@ const Gallery = () => {
         <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
           <div className="modal-box">
             <h3 className="font-bold text-lg mb-5 text-center">
-              Uplaod Image or Video!
+              Upload Image or Video!
             </h3>
             <div className="flex flex-col gap-5">
               <input
                 type="file"
-                className="file-input file-input-primary "
+                className="file-input file-input-primary"
                 onChange={(e) => setFile(e.target.files[0])}
                 placeholder="Upload Image or Video(Max:10MB)"
               />
@@ -138,10 +139,12 @@ const Gallery = () => {
               </label>
               <button
                 type="button"
-                className="btn btn-primary btn-outline font-bold"
+                className="btn bg-green-600 text-white font-bold flex items-center justify-center gap-2"
                 onClick={upload}
+                disabled={loading}  // Disable the button when loading
               >
-                Upload
+                {loading && <Spin />}  {/* Show spinner when loading */}
+                {loading ? "Uploading..." : "Upload"}
               </button>
             </div>
             <div className="modal-action">
@@ -156,23 +159,20 @@ const Gallery = () => {
           <IoInformationCircleOutline color="#18BB0C" size="2em" />
         </button>
       </div>
-     <div className="px-4">
-     <div className=" container  mx-auto border-2 border-[#18BB0C] rounded-xl p-3 ">
-        <div className="border-2 rounded-lg px-8 py-9  h-auto">
-          {
-            galleryData.length <= 0 ? (
-             <>
-              <div className="flex justify-center flex-col w-full  items-center">
-                <div className="h-[430px] w-full flex justify-center items-center">
-                <img src={picf} alt="" className="h-[100%]" />
-                
-
+      <div className="px-4">
+        <div className="container mx-auto border-2 border-[#18BB0C] rounded-xl p-3">
+          <div className="border-2 rounded-lg px-8 py-9 h-auto">
+            {galleryData.length <= 0 ? (
+              <>
+                <div className="flex justify-center flex-col w-full items-center">
+                  <div className="h-[430px] w-full flex justify-center items-center">
+                    <img src={picf} alt="" className="h-[100%]" />
+                  </div>
+                  <h1 className="text-xl font-bold">No Gallery Found</h1>
                 </div>
-                <h1 className="text-xl font-bold">No Gallery Found</h1>
-              </div>
-             </>
+              </>
             ) : (
-             <>
+              <>
                 <Row gutter={[24, 16]}>
                   {galleryData?.map((item, index) => {
                     const key = `col-${index}`;
@@ -187,7 +187,7 @@ const Gallery = () => {
                       >
                         {item?.image && (
                           <Link to={`/galleryDetails/${item?._id}`}>
-                            <div className="card card-compact  w-full  shadow-xl max-w-64 ">
+                            <div className="card card-compact w-full shadow-xl max-w-64">
                               <figure>
                                 <img
                                   src={item?.image}
@@ -219,14 +219,12 @@ const Gallery = () => {
                       </Col>
                     );
                   })}
-              </Row>
-             </>
-            )
-          }
-          
+                </Row>
+              </>
+            )}
+          </div>
         </div>
       </div>
-     </div>
     </>
   );
 };
