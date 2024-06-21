@@ -20,10 +20,7 @@ const Conversation = ({ conversation, toggleSidebar }) => {
   const isOnline = onlineUsers.includes(conversation._id);
 
   useEffect(() => {
-    console.log("messages:", messages);
-    console.log("conversation:", conversation);
-    console.log("authUser:", authUser);
-    console.log('latestemessage: ', latestMessage);
+   
   
     const mySenderMessages = messages.filter(
       message => message?.senderId === conversation?._id && message?.receiverId === authUser?._id
@@ -37,7 +34,8 @@ const Conversation = ({ conversation, toggleSidebar }) => {
   }, [messages, conversation, authUser]);
   
 
-  console.log('latestMessage outside:', latestMessage);
+  console.log('conv outside:', conversation);
+  console.log('msg outside:', messages);
 
   return (
     <>
@@ -53,8 +51,8 @@ const Conversation = ({ conversation, toggleSidebar }) => {
         }}
       >
         <div className={`avatar ${isOnline ? "online" : ""}`}>
-          <div className="w-14 rounded-full">
-            <img src={conversation.profilePic} alt={conversation.fullName} />
+          <div className="w-14 h-14 flex-shrink-0 overflow-hidden rounded-full">
+            <img src={conversation.profilePic} alt={conversation.fullName} className="object-cover w-full" />
           </div>
         </div>
 
@@ -62,7 +60,8 @@ const Conversation = ({ conversation, toggleSidebar }) => {
           <div className="flex justify-between">
             <div className="flex gap-3 flex-col">
               <p className="font-bold text-gray-600">{conversation.fullName}</p>
-              <p className="font-thin text-sm text-gray-600">{latestMessage?.message ? `${conversation.fullName} : ${latestMessage.message}` : `Start Chatting  "${conversation.fullName}"`}</p>
+              <p className="font-thin text-sm capitalize text-gray-600">{latestMessage?.message ? `
+               ${latestMessage.message}` : `Start Chatting  "${conversation.fullName}"`}</p>
             </div>
             <div>
               <p className="font-bold text-xs text-gray-600">{

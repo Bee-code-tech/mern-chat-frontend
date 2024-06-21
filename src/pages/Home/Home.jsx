@@ -18,6 +18,7 @@ import vidFallback from '../../assets/vid.png'
 import StatsSkeleton from "../../components/skeletons/StatsSkeleton";
 import moment from "moment";
 import { useAuthContext } from "../../context/AuthContext";
+import { timeAgo } from "../../utils/timeDifference";
 
 
 const data = [
@@ -361,14 +362,14 @@ const Home = () => {
                           <div className="flex justify-between">
                             <div className="flex gap-1 flex-col">
                               <p className="font-bold text-gray-600">{conversation.fullName}</p>
-                              <p className="font-thin text-xs text-gray-600">
-                                {conversation?.lastMessage ? `${conversation?.fullName} : ${conversation?.lastMessage}` : `Start Chatting  "${conversation?.fullName}"`}
+                              <p className="font-thin text-xs capitalize text-gray-600">
+                                {conversation?.lastMessage ? ` ${conversation?.lastMessage}` : `Start Chatting  "${conversation?.fullName}"`}
                                 </p>
                             </div>
                             <div>
                               <p className="font-bold text-xs text-gray-600">{
                                 conversation?.messageSendTime
-                                  ? moment(conversation?.messageSendTime).format('hh : mm : ss a')
+                                   ? timeAgo(conversation?.messageSendTime) 
                                   : ''
                               }</p>
                               {/* <span className="bg-green-400 mt-3 text-white h-3 w-3 rounded-full p-3 flex items-center justify-center text-sm ">

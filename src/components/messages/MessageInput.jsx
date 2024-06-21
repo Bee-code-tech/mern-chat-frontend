@@ -97,7 +97,7 @@ const MessageInput = () => {
 
                 
 
-                  <div className="w-[300px] sm:w-[310px] lg:w-[550px] md:w-[450px]">
+                  <div className="w-[270px]  lg:w-[550px] md:w-[450px]">
                   <InputEmoji
                         value={newMessage}
                         onChange={handleChange}
