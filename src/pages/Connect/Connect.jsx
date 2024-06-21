@@ -5,11 +5,44 @@ import { useState } from "react";
 import ConversationSkeleton from "../../components/skeletons/ConversationSkeleton";
 import ConnectList from "../../components/ConnectList/ConnectList";
 import { CiGlobe } from "react-icons/ci";
+import { useEffect } from "react";
+import { useAuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 const Connect = () => {
   
-    const [list, setList] = useState([...Array(6)])
+    const [list, setList] = useState([...Array(0)])
     const [loading, setLoading] = useState(false)
+    const {authUser} = useAuthContext()
+    useEffect(() => {
+      
+      const getUsers = async () => {
+        try {
+          setLoading(true);
+          const user = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/connect/getStatus`,
+            { 
+              headers: {
+                Authorization: `Bearer ${authUser.token}`,
+              } 
+              }
+          
+          );
+          const userData = user.data;
+          setList(userData) 
+          setLoading(false)
+        } catch (error) {
+          console.log(error.message);
+        }
+     
+      };
+
+
+     
+      getUsers();
+    }, [])
+
+    
 
   return (
    <div className="main">
@@ -39,16 +72,16 @@ const Connect = () => {
 <div className="flex flex-col overflow-auto">
       <div className="py-2 flex flex-col overflow-auto gap-4">
         {list.length === 0 ? (null) : ( 
-            list.map((_, idx) => (
-            <div key={idx}>
-              <ConnectList />
-            </div> )
-        ))}
+          <>
+              <ConnectList users={list} />
+          </>
+           )
+      }
 
         {loading ? (
           <span className="">
             {
-              [...Array(7)].map((_, idx) => <ConversationSkeleton key={idx }/> )
+              [...Array(10)].map((_, idx) => <ConversationSkeleton key={idx }/> )
             }
           </span>
         ) : null}

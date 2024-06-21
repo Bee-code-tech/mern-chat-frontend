@@ -5,11 +5,53 @@ import { Link } from 'react-router-dom';
 import RequestList from '../../components/RequestList/RequestList';
 import ConversationSkeleton from '../../components/skeletons/ConversationSkeleton';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { useAuthContext } from '../../context/AuthContext';
+import axios from 'axios';
+import fallBack from '../../assets/forum.png'
+
 
 const Request = () => {
 
-    const [list, setList] = useState([...Array(6)])
+    const [list, setList] = useState([])
     const [loading, setLoading] = useState(false)
+    const {authUser} = useAuthContext()
+
+    useEffect(() => {
+      
+      const getUsers = async () => {
+        try {
+          setLoading(true);
+          const user = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/connect/recipient`,
+            { 
+              headers: {
+                Authorization: `Bearer ${authUser.token}`,
+              } 
+              }
+          
+          );
+          const userData = user.data;
+
+          console.log(userData);
+
+          setList(userData) 
+          setLoading(false)
+
+          
+        } catch (error) {
+          console.log(error.message);
+        }
+     
+      };
+
+
+     
+      getUsers();
+    }, [])
+
+
+
 
     return (
         <div className="main">
@@ -38,12 +80,10 @@ const Request = () => {
      
      <div className="flex flex-col overflow-auto">
            <div className="py-2 flex flex-col overflow-auto gap-4">
-             {list.length === 0 ? (null) : ( 
-                 list.map((_, idx) => (
-                 <div key={idx}>
-                   <RequestList />
-                 </div> )
-             ))}
+            
+                 <div>
+                   <RequestList friendRequests={list} />
+                 </div> 
      
              {loading ? (
                <span className="">
@@ -52,6 +92,21 @@ const Request = () => {
                  }
                </span>
              ) : null}
+
+             {
+              list.length === 0 && (
+                <div className="flex items-center flex-col justify-center">
+                  <img
+                    src={fallBack}
+                    alt="emoji"
+                    className="w-[450px]"
+                  />
+                  <p className="text-center text-gray-400 text-sm">
+                    You have no friend requests
+                  </p>
+                </div>
+              )
+             }
            </div>
          </div>
      

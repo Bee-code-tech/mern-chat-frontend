@@ -17,7 +17,7 @@ const useGetConversations = () => {
         try {
           setLoading(true);
           const res = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/users`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/connect/acceptedConnections`,
             {
               method: "GET",
               headers: {
@@ -27,7 +27,7 @@ const useGetConversations = () => {
             }
           );
           const data = await res.json();
-          if(data.lenght === 0){
+          if(data.length === 0){
             setIsConvEmpty(true)
           }
           if (data.error) {

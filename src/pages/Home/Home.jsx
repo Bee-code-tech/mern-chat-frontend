@@ -51,23 +51,13 @@ const Home = () => {
 
 
 
-const data = [
-  { topic: 'React', contribution: 56, appreciation: '🏆 (15)' },
-  { topic: 'Tailwind', contribution: 34, appreciation: '🏆 (13)' },
-  { topic: 'JavaScript', contribution: 78, appreciation: '🏆 (33)' },
-  { topic: 'Node.js', contribution: 67, appreciation: '🏆 (50)' },
-];
 
 
 
   const fetchGalleryData = async () => {
     try {
       setLoadingImageData(true);
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error("No token found in localStorage");
-        return;
-      }
+     
       const res = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/community/gallery/data`,
         {
@@ -81,7 +71,7 @@ const data = [
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
-
+      setLoadingImageData(false);
       const data = await res.json();
       const videos = data.filter((item) => item.video);
       const images = data.filter((item) => item.image);
@@ -89,8 +79,8 @@ const data = [
       setImageData(images);
       setGalleryData(data);
 
-      setTimeout(() => setLoadingImageData(false), 2000);
-      if (images.length === 0 || videos.length === 0) {
+      
+      if (imageData.length === 0 || videoData.length === 0) {
         setIsEmpty(true);
       }
       console.log(data);
@@ -190,12 +180,12 @@ const data = [
         {/* Video  */}
         <Link to={`/galleryDetails/${videoData[0]?._id}`}>
           <div className="border border-green-300 p-2 rounded-[20px] ">
-          <div className="card hover:card-compactbg-white  p-4 w-full 
+          <div className="card hover:card-compactbg-white  p-4 w-full h-[340px]
           image-full bg-white border border-gray-300">
             <figure className="bg-transparent">
               <img
                 src={vidFallback}
-                className="rounded-lg w-[200px]  object-cover"
+                className="rounded-lg w-[250px]  object-cover"
               />
             </figure>
             <div className="card-body">
@@ -226,12 +216,12 @@ const data = [
 
       {/* second grid item  */}
      <div className="mb-6" >
-        <div className="p-2 border h-auto border-green-300 rounded-[20px]">
+        <div className="p-2 border lg:h-[357px] md:h-[357px] h-auto border-green-300 rounded-[20px]">
           <div className="bg-white h-full p-2 border rounded-[20px] border-gray-300 ">
             <Link to="/gallery/">
             
-          {!loadingImageData && isEmpty && (
-              <div className="w-full h-[232px] rounded-xl flex flex-col items-center justify-center -mb-4">
+          {imageData.length === 0 && !loadingDailyData && (
+              <div className="w-full h-full rounded-xl flex flex-col items-center justify-center -mb-4">
                 <div className="h-auto overflow-hidden p-4 flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
                  <img src={fallback} alt="" className="block h-[222px] object-cover" />
                 </div>
@@ -240,7 +230,7 @@ const data = [
             )}
             </Link>
               {/* Pic list */}
-                <div className="grid items-center justify-center w-full h-full grid-cols-1 md:grid-cols-2  lg:grid-cols-3  gap-3 p-4  ">
+                <div className="grid items-start justify-center w-full h-full grid-cols-1 md:grid-cols-2  lg:grid-cols-3  gap-3 p-4  ">
                   {loadingImageData && [...Array(6)].map((_, idx) =>  <GallerySkeleton key={idx}/> ) }
                   {imageData.slice(0, 5).map((image, index) => (
                     <>
@@ -301,7 +291,7 @@ const data = [
               <div className="border border-grey-300 rounded-[20px] p-6 ">
               {loadingImageData && !isDailyEmpty && [...Array(4)].map((_, idx) =>  <StatsSkeleton key={idx}/> ) }
                 
-                {loadingDailyData && isDailyEmpty && (
+                { isDailyEmpty && (
                   <div className="w-full h-[300px] rounded-xl flex flex-col items-center justify-center -mb-4">
                   <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
                    <img src={fallbackComm} alt="" className="block h-[214px] object-cover" />
@@ -338,11 +328,11 @@ const data = [
         <div className="bg-white rounded-[20px] p-2 border border-green-300 ">
             <div className="p-2 border border-gray-300 rounded-[20px]">
 
-          <Link to='/chatpage' >
+          <Link to='/community/connect' >
             {!loading && isConvEmpty && (
-              <div className="w-full h-[320px] rounded-xl flex flex-col items-center justify-center -mb-4">
+              <div className="w-full h-[380px] rounded-xl flex flex-col items-center justify-center -mb-4">
                 <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
-                 <img src={fallbackForum} alt="" className="block h-[214px] object-cover" />
+                 <img src={fallbackForum} alt="" className="block h-[300px] object-cover" />
                 </div>
                   <h1 className="text-center text-xl font-bold">Connect with others</h1>
               </div>
@@ -350,7 +340,7 @@ const data = [
           </Link>
            
               <div>
-                <div className=" flex flex-col overflow-auto w-full">
+                <div className=" flex flex-col md:h-[357px] h-auto lg:h-[357px] overflow-auto w-full">
                   {conversations.slice(0,4).reverse().map((conversation, idx) => {
                     const isOnline = onlineUsers?.includes(conversation._id)
                    return  ( <div key={idx}>

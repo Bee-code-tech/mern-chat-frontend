@@ -4,6 +4,7 @@ import { getRandomEmoji } from "../../utils/emojis";
 import ConversationSkeleton from "../skeletons/ConversationSkeleton";
 import useGetConversations from "./../../hooks/useGetConversations";
 import Conversation from "./Conversation";
+import fallBack from '../../assets/forum.png'
 
 const Conversations = ({ toggleSidebar }) => {
   const { loading, conversations } = useGetConversations();
@@ -20,6 +21,8 @@ const Conversations = ({ toggleSidebar }) => {
           />
         ))}
 
+      
+
         {loading ? (
           <span className="">
             {
@@ -27,6 +30,17 @@ const Conversations = ({ toggleSidebar }) => {
             }
           </span>
         ) : null}
+
+          {conversations.length === 0 && (
+                    <div className="flex items-center flex-col justify-center">
+                      <img
+                        src={fallBack}
+                        alt="emoji"
+                        className="w-[450px]"
+                      />
+                      <p className="ml-2">Connect with others to get started!</p>
+                    </div>
+            )}
       </div>
     </div>
   );
