@@ -22,7 +22,6 @@ import GalleryDetails from "./pages/CommunityPage/GalleryDetails";
 import Statistics from "./pages/Statistics/Statistics";
 import Notification from "./pages/Notification/Notification";
 import Connect from "./pages/Connect/Connect";
-import PublicProfile from "./pages/PublicProfile/PublicProfile";
 import Request from "./pages/Request/Request";
 import UserProfile from "./pages/userProfile/UserProfile";
 import ScrollToTop from "./components/Scroll/ScrollToTop";
