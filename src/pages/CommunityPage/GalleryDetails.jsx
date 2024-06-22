@@ -31,6 +31,7 @@ const GalleryDetails = () => {
 
       const data = await res.json();
       setGalleryData(data);
+      console.log('gallery data', data);
     } catch (error) {
       console.error("Error fetching gallery data:", error);
     }
@@ -55,6 +56,7 @@ const GalleryDetails = () => {
       console.error("Error fetching gallery data:", error);
     }
   };
+  console.log('data', gallerySingleData);
 
   return (
     <>
@@ -136,7 +138,14 @@ const GalleryDetails = () => {
             </div>
           )}
            {
-            gallerySingleData?.image && gallerySingleData?.video  && (
+            gallerySingleData?.image  && (
+                <div className="border-2 rounded-lg px-8 py-9 bg-white">
+                 {gallerySingleData?.description}
+                 </div>
+             )
+           }
+           {
+            gallerySingleData?.video  && (
                 <div className="border-2 rounded-lg px-8 py-9 bg-white">
                  {gallerySingleData?.description}
                  </div>
