@@ -113,8 +113,8 @@ const Gallery = () => {
           className="btn bg-[#18BB0C] text-white"
           onClick={() => document.getElementById("my_modal_5").showModal()}
         >
-          <span className="flex items-center">
-            <span>Add Pic</span>
+          <span className="flex items-center gap-2">
+            <span>Upload Pics/Video</span>
             <IoMdAdd color="white" size="1.2em" />
           </span>
         </button>
