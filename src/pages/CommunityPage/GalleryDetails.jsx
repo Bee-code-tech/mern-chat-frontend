@@ -9,7 +9,7 @@ const GalleryDetails = () => {
   const { id } = useParams();
   const [gallerySingleData, setGallerySingleData] = useState();
   const [galleryData, setGalleryData] = useState([]);
-  const { authUser } = useAuthContext()
+  const { authUser } = useAuthContext();
 
   useEffect(() => {
     fetchGalleryData();
@@ -59,7 +59,7 @@ const GalleryDetails = () => {
   console.log('data', gallerySingleData);
 
   return (
-    <>
+    <div className="px-3">
       <div className="container mx-auto mt-28 mb-10 flex justify-between items-center">
         <Link to="/">
           <button className="btn bg-[#18BB0C] text-white">
@@ -80,8 +80,8 @@ const GalleryDetails = () => {
         </Link>
       </div>
 
-      <div className="border-2 border-[#18BB0C] rounded-xl p-5 container mx-auto">
-        <div className="border-2 border-gray-300 p-5 rounded-xl">
+      <div className="border border-[#18BB0C] rounded-xl p-2 container mx-auto">
+        <div className="border border-gray-300 p-5 rounded-xl">
           {!gallerySingleData?.image && !gallerySingleData?.video ? (
             <>
               <div className="flex justify-center flex-col w-full items-center">
@@ -92,8 +92,36 @@ const GalleryDetails = () => {
               </div>
             </>
           ) : (
-            <>
-              <div className="border-2 rounded-lg px-8 py-9 bg-white">
+            < div className="flex flex-col">
+              <div className="order-1 md:order-2 lg:order-2 mt-10 mb-4">
+                {gallerySingleData?.image && (
+                  <div>
+                    <img
+                      src={gallerySingleData?.image}
+                      className="w-full rounded-2xl"
+                    />
+                  </div>
+                )}
+                {gallerySingleData?.video && (
+                  <div>
+                    <video
+                      autoPlay
+                      controls
+                      loop
+                      src={gallerySingleData?.video}
+                      className="w-full aspect-video rounded-2xl shadow-2xl"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {gallerySingleData?.description && (
+                <div className="order-2  md:order-3 lg:order-3 border rounded-lg px-8 py-9 bg-white my-5">
+                  {gallerySingleData?.description}
+                </div>
+              )}
+
+              <div className="order-3 md:order-1 lg:order-1 flex flex-col lg:flex-row border rounded-lg px-8 py-9 bg-white">
                 <Row gutter={[24, 16]}>
                   {galleryData.slice(0, 4)?.map((item, index) => {
                     const key = `col-${index}`;
@@ -128,37 +156,11 @@ const GalleryDetails = () => {
                   })}
                 </Row>
               </div>
-              {gallerySingleData?.image && (
-                <div className="mt-10 mb-4">
-                  <div className="">
-                    <img
-                      src={gallerySingleData?.image}
-                      className="w-full rounded-2xl"
-                    />
-                  </div>
-                </div>
-              )}
-              {gallerySingleData?.video && (
-                <div className="mt-10 mb-4">
-                  <video
-                    autoPlay
-                    controls
-                    loop
-                    src={gallerySingleData?.video}
-                    className="w-full aspect-video rounded-2xl shadow-2xl"
-                  />
-                </div>
-              )}
-              {(gallerySingleData?.image || gallerySingleData?.video) && (
-                <div className="border-2 rounded-lg px-8 py-9 bg-white">
-                  {gallerySingleData?.description}
-                </div>
-              )}
-            </>
+            </ div>
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
