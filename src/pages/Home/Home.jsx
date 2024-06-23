@@ -231,19 +231,30 @@ const Home = () => {
       {/* Pic list */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
         {loadingImageData && [...Array(9)].map((_, idx) => <GallerySkeleton key={idx} />)}
-        {imageData.slice(0, 8).map((image, index) => (
-          <Link to={`/galleryDetails/${image?._id}`} key={index}>
+        {galleryData.slice(0, 8).map((item, index) => (
+          <Link to={`/galleryDetails/${item?._id}`} key={index}>
             <div className="flex items-center flex-shrink-0 shadow-xl w-full md:h-[70px] h-auto lg:h-[70px] overflow-hidden rounded-md">
               <figure className="w-full h-full">
-                <img
-                  src={image?.image}
-                  alt={`Image ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
+                {item?.image ? (
+                  <img
+                    src={item?.image}
+                    alt={`Image ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <video
+                    src={item?.video}
+                    autoPlay
+                    muted
+                    loop
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </figure>
             </div>
           </Link>
-        ))}
+         ))}
+
         {imageData?.length > 8 && (
           <Link to="/gallery/">
             <div className="card card-compact bg-base-content shadow-xl rounded-xl image-full bg-none w-full h-[70px]">
@@ -327,7 +338,7 @@ const Home = () => {
 
           <Link to='/community/connect' >
             {!loading && isConvEmpty && (
-              <div className="w-full h-[380px] rounded-xl flex flex-col items-center justify-center -mb-4">
+              <div className="w-full h-[375px] rounded-xl flex flex-col items-center justify-center -mb-4">
                 <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
                  <img src={fallbackForum} alt="" className="block h-[300px] object-cover" />
                 </div>
@@ -336,6 +347,9 @@ const Home = () => {
             )}
           </Link>
            
+
+           {
+            conversations.length > 0 && (
               <div>
                 <div className=" flex flex-col md:h-[357px] h-auto lg:h-[357px] overflow-auto w-full">
                   {conversations.slice(0,4).reverse().map((conversation, idx) => {
@@ -386,6 +400,9 @@ const Home = () => {
                   ) : null}
                 </div>
               </div>
+            )
+           }
+              
             </div>
         </div>
 

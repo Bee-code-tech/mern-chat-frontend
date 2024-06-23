@@ -197,14 +197,19 @@ const Gallery = () => {
                             </div>
                           </Link>
                         )}
-                        {item?.video && (
-                          <Link to={`/galleryDetails/${item?._id}`}>
-                            <div className="card card-compact bg-base-content shadow-xl image-full bg-none max-w-64 max-h-36">
-                              <figure>
-                                <img
-                                  src="https://i.ibb.co/CMLfZkc/pexels-inspiredimages-157543.jpg"
-                                  className="rounded-lg w-full object-cover"
-                                />
+                       {item?.video && (
+                          <Link to={`/galleryDetails/${item?._id}`} className="cursor-pointer">
+                            <div className="card card-compact cursor-pointer bg-base-content shadow-xl image-full bg-none max-w-64 max-h-36">
+                              <figure className="w-full h-full">
+                                <video
+                                  src={item.video}
+                                  className="rounded-lg w-full h-full object-cover"
+                                  autoPlay
+                                  muted
+                                  loop
+                                >
+                                  Your browser does not support the video tag.
+                                </video>
                               </figure>
                               <div className="card-body items-center justify-center">
                                 <FaRegPlayCircle
@@ -216,6 +221,7 @@ const Gallery = () => {
                             </div>
                           </Link>
                         )}
+
                       </Col>
                     );
                   })}
