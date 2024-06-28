@@ -38,7 +38,7 @@ const Navbar = () => {
 
       
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center">
 
            
          
@@ -113,14 +113,18 @@ const Navbar = () => {
               <>
               
               <div className="flex gap-3"> 
-            <Link to={'/login'} className="px-6 py-3  border border-green-600 rounded-lg text-neutral-500"> Login </Link>
-            <Link to={'/signup'} className="px-6 py-3 text-white border bg-green-600 rounded-lg"> Sign Up </Link>
+            <Link to={'/login'} className="px-4 py-1.5 flex  items-center justify-center  border border-green-600 rounded-lg text-neutral-500"> Login </Link>
+            <Link to={'/signup'} className="px-4 py-1.5 flex items-center justify-center text-white border bg-green-600 rounded-lg"> Sign Up </Link>
             </div>
               </>
             )
           }
 
-          {isMenuOpen ? (
+          
+          {
+            authUser && (
+              <>
+              {isMenuOpen ? (
                       <div className="lg:hidden">
                         <BiX
                           className="w-8 h-8 text-gray-700 cursor-pointer"
@@ -135,6 +139,9 @@ const Navbar = () => {
                         />
                       </div>
                     )}
+              </>
+            )
+          }
           </div>
         </div>
       </nav>

@@ -29,31 +29,31 @@ const Signup = () => {
             <div className="max-w-md w-full space-y-8">
                 <div>
                     <h2 className="mt-14 text-center text-3xl font-extrabold text-gray-900">
-                        Sign up for an account
+                        Create an account
                     </h2>
                 </div>
                 <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
                     <input type="hidden" name="remember" value="true" />
                    
                     <div>
-                        <label for="username" className="block text-sm font-medium text-gray-700">Username</label>
-                        <input id="username" name="username" type="text" autocomplete="username" value={inputs.username}
-                            onChange={(e) => setInputs({ ...inputs, username: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
+                        <label for="username" className="block text-lg font-medium text-gray-700">Username</label>
+                        <input id="username" placeholder='Username' name="username" type="text" autocomplete="username" value={inputs.username}
+                            onChange={(e) => setInputs({ ...inputs, username: e.target.value })} required className="appearance-none rounded-none mt-2 relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
                     </div>
                     <div>
-                        <label for="email" className="block text-sm font-medium text-gray-700">Email</label>
-                        <input id="email" name="email" type="text" autocomplete="email" value={inputs.email}
-                            onChange={(e) => setInputs({ ...inputs, email: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
+                        <label for="email" className="block text-lg font-medium text-gray-700">Email</label>
+                        <input id="email" name="email" placeholder='Email' type="text" autocomplete="email" value={inputs.email}
+                            onChange={(e) => setInputs({ ...inputs, email: e.target.value })} required className="appearance-none rounded-none  mt-2 relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
                     </div>
                     <div>
-                        <label for="password" className="block text-sm font-medium text-gray-700">Password</label>
-                        <input id="password" name="password" type="password" autocomplete="new-password" value={inputs.password}
-                            onChange={(e) => setInputs({ ...inputs, password: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
+                        <label for="password" className="block text-lg font-medium text-gray-700">Password</label>
+                        <input id="password" name="password" placeholder='Password' type="password" autocomplete="new-password" value={inputs.password}
+                            onChange={(e) => setInputs({ ...inputs, password: e.target.value })} required className="appearance-none rounded-none   mt-2 relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
                     </div>
                     <div>
-                        <label for="confirm_password" className="block text-sm font-medium text-gray-700">Confirm Password</label>
-                        <input id="confirm_password" name="confirmPassword" type="password" autocomplete="new-password" value={inputs.confirmPassword}
-                            onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm rounded-b-md " />
+                        <label for="confirm_password" className="block text-lg font-medium text-gray-700">Confirm Password</label>
+                        <input id="confirm_password" name="confirmPassword" placeholder='Confirm Password' type="password" autocomplete="new-password" value={inputs.confirmPassword}
+                            onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })} required className="appearance-none rounded-none  mt-2 relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm rounded-b-md " />
                     </div>
 
                 
