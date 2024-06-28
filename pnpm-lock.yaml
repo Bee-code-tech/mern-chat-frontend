@@ -20,6 +20,12 @@ importers:
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
+      emoji-mart:
+        specifier: ^5.6.0
+        version: 5.6.0
+      emoji-picker-react:
+        specifier: ^4.10.0
+        version: 4.10.0(react@18.3.0)
       firebase:
         specifier: ^10.11.0
         version: 10.11.1
@@ -1145,6 +1151,15 @@ packages:
   emoji-mart@5.5.2:
     resolution: {integrity: sha512-Sqc/nso4cjxhOwWJsp9xkVm8OF5c+mJLZJFoFfzRuKO+yWiN7K8c96xmtughYb0d/fZ8UC6cLIQ/p4BR6Pv3/A==}
 
+  emoji-mart@5.6.0:
+    resolution: {integrity: sha512-eJp3QRe79pjwa+duv+n7+5YsNhRcMl812EcFVwrnRvYKoNPoQb5qxU8DG6Bgwji0akHdp6D4Ln6tYLG58MFSow==}
+
+  emoji-picker-react@4.10.0:
+    resolution: {integrity: sha512-EfvOsGbyweMNcJ1F99XUv+XPdfkpa2NRAYkhwdIeYS6DWeISu3kHWX+iwvFLUVAc533aWbsGpETbxwbhzsiMnw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
 
@@ -1293,6 +1308,9 @@ packages:
 
   firebase@10.11.1:
     resolution: {integrity: sha512-7T6FJJb4PBi6IYR1212/a0djjal6nGph9AQazobWaO75+4zeyEvBDlsofWLEawVAEN2PCp8qXvFe4pMdIB5U1w==}
+
+  flairup@0.0.39:
+    resolution: {integrity: sha512-UVPkzZmZeBWBx1+Ovo++kYKk9Wi32Jxt+c7HsxnEY80ExwFV54w+NyquFziqMLS0BnGVE43yGD4OvIwaAm/WiQ==}
 
   flat-cache@3.2.0:
     resolution: {integrity: sha512-CYcENa+FtcUKLmhhqyctpclsq7QF38pKjZHsGNiSQF5r4FtoKDWabFDl3hzaEQMvT1LHEysw5twgLvpYYb4vbw==}
@@ -3775,6 +3793,13 @@ snapshots:
 
   emoji-mart@5.5.2: {}
 
+  emoji-mart@5.6.0: {}
+
+  emoji-picker-react@4.10.0(react@18.3.0):
+    dependencies:
+      flairup: 0.0.39
+      react: 18.3.0
+
   emoji-regex@8.0.0: {}
 
   emoji-regex@9.2.2: {}
@@ -4082,6 +4107,8 @@ snapshots:
       '@firebase/util': 1.9.5
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
+
+  flairup@0.0.39: {}
 
   flat-cache@3.2.0:
     dependencies:

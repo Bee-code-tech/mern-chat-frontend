@@ -13,10 +13,10 @@ const Message = ({ message }) => {
 
     const fromMe = message.senderId === authUser._id;
     const formattedTime = moment(message.createdAt).calendar();
-    const alignRight = fromMe ? "chat-end" : "chat-start"; // Adjusted alignment logic
+    const alignRight = fromMe ? "justify-end" : "justify-start"; // Adjusted alignment logic
     const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
-    const bubbleBgColor = fromMe ? "bg-green-500" : "bg-gray-200"; // Different background colors for sender and receiver
-    const txtColor = fromMe ? "text-white" : "text-black"; // Different background colors for sender and receiver
+    const bubbleBgColor = fromMe ? "bg-green-500" : "bg-neutral-200"; // Different background colors for sender and receiver
+    const txtColor = fromMe ? "text-white" : "text-stone-500"; // Different background colors for sender and receiver
 
     const isFile = message.file;
     const isImage = message.file && /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(message.file);
@@ -32,8 +32,9 @@ const Message = ({ message }) => {
     return (
         <div>
          
-
-            <div className={`  chat ${alignRight} text-white`}>
+         
+          
+          <div className={` flex ${alignRight} `}>
                 {/* check if it is image  */}
                 
 
@@ -47,10 +48,17 @@ const Message = ({ message }) => {
 
                {!isFile && !isImage && (
                 <>
-                    <div className="chat-header">
-                        <p className="text-xs text-black">{formattedTime}</p>
+                   <div className=" w-1/2">
+                   <div className={`flex flex-col mt-6  max-w-full ${txtColor} w-auto`}>
+                        <div className={`justify-center px-4 py-2 text-lg leading-7 rounded-3xl ${bubbleBgColor} max-md:px-5 max-md:max-w-full`}>
+                           {message.message}
+                        </div>
+                        <div className="mt-3 text-black font-thin leading-6 max-md:max-w-full">
+                            {formattedTime}
+                        </div>
                     </div>
-                    <div className={`chat-bubble ${bubbleBgColor}  `}>
+                   </div>
+                    {/* <div className={`chat-bubble ${bubbleBgColor}  `}>
                         <p className={`lg:text-lg ${textColor} text-[15px]`}>
                         {message.message}
                         </p> 
@@ -60,10 +68,11 @@ const Message = ({ message }) => {
                     </div>
                     <div className="chat-footer text-black ">
                         Delivered
-                    </div>
+                    </div> */}
                 </>
                )}
             </div>
+          
 
             {isImage && (
                     <div className="flex justify-end mb-2 w-full">

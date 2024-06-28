@@ -25,6 +25,7 @@ import Connect from "./pages/Connect/Connect";
 import Request from "./pages/Request/Request";
 import UserProfile from "./pages/userProfile/UserProfile";
 import ScrollToTop from "./components/Scroll/ScrollToTop";
+import Modal from "./pages/tests/Modal";
 
 const App = () => {
   const { authUser } = useAuthContext();
@@ -236,6 +237,14 @@ const App = () => {
                 <Navigate to="/login" />
               )
             }
+          />
+
+          {/* Thsese are screen test routes  */}
+          <Route 
+          path="/modal"
+          element = {
+            <Modal />
+          }
           />
         </Routes>
         <Toaster />
