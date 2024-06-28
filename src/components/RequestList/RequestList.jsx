@@ -72,12 +72,12 @@ const RequestList = ({ friendRequests }) => {
         <div key={request._id} className='w-full flex items-center border-b justify-between h-auto lg:p-3 md:p-3 rounded-lg'>
           <div className="h-full flex items-center py-3 gap-4">
           <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
-              <img src={request.requester.profilePic} alt={request.requester.fullName} className='object-cover w-full h-full' />
+              <img src={request.requester.profilePic} alt={request.requester.username} className='object-cover w-full h-full' />
             </div>
             <div className="flex flex-col items-start justify-start h-full">
-              <p className='text-lg font-bold'>{request.requester.fullName}</p>
+              <p className='text-lg font-bold'>{request.requester.username}</p>
               <p className='font-thin text-[12px] lg:text-[14px] md:text-[14px] leading-6'>
-                {request.requester.fullName} wants to connect with you.
+                {request.requester.username} wants to connect with you.
               </p>
             </div>
           </div>

@@ -5,12 +5,12 @@ import useSignup from '../../hooks/useSignup';
 
 const Signup = () => {
     const [inputs, setInputs] = useState({
-        fullName: "",
+    
         username: "",
         email: "",
         password: "",
         confirmPassword: "",
-        gender: "",
+     
     });
 
     const { loading, signup } = useSignup();
@@ -34,15 +34,11 @@ const Signup = () => {
                 </div>
                 <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
                     <input type="hidden" name="remember" value="true" />
-                    <div>
-                        <label for="full_name" className="block text-sm font-medium text-gray-700">Full Name</label>
-                        <input id="full_name" name="fullName" type="text" autocomplete="name" value={inputs.fullName}
-                            onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
-                    </div>
+                   
                     <div>
                         <label for="username" className="block text-sm font-medium text-gray-700">Username</label>
                         <input id="username" name="username" type="text" autocomplete="username" value={inputs.username}
-                            onChange={(e) => setInputs({ ...inputs, username: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
+                            onChange={(e) => setInputs({ ...inputs, username: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
                     </div>
                     <div>
                         <label for="email" className="block text-sm font-medium text-gray-700">Email</label>
@@ -57,13 +53,13 @@ const Signup = () => {
                     <div>
                         <label for="confirm_password" className="block text-sm font-medium text-gray-700">Confirm Password</label>
                         <input id="confirm_password" name="confirmPassword" type="password" autocomplete="new-password" value={inputs.confirmPassword}
-                            onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" />
+                            onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })} required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm rounded-b-md " />
                     </div>
 
-                    <GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender} />
+                
 
                     <div>
-                        <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 border-b-md marker:">
                             {loading ? <span className='loading loading-spinner'></span> : "Sign Up"}
                         </button>
                     </div>

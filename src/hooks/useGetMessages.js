@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useConversation from "../zustand/useConversation";
@@ -8,7 +6,7 @@ import { useAuthContext } from "../context/AuthContext";
 const useGetMessages = () => {
   const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedConversation } = useConversation();
-  const {authUser} = useAuthContext()
+  const { authUser } = useAuthContext();
 
   useEffect(() => {
     const getMessages = async () => {
@@ -39,8 +37,10 @@ const useGetMessages = () => {
       }
     };
 
-    if (selectedConversation?._id) getMessages();
-  }, [selectedConversation?._id, setMessages]);
+    if (selectedConversation?._id) {
+      getMessages();
+    }
+  }, [authUser.token, selectedConversation?._id]);
 
   const downloadFile = async (filename) => {
     try {

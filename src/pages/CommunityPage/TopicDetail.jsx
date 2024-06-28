@@ -188,7 +188,7 @@ const TopicDetail = () => {
           />
           <div>
             <p className="text-[#666666] font-semibold text-lg">
-              {topic?.author?.fullName}
+              {topic?.author?.username}
             </p>
             <p className="text-[#666666] font-medium">
               {topic?.author?.designation}

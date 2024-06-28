@@ -32,7 +32,7 @@ const Profile = () => {
     setUsersData(userData)
 
 
-      setValue("fullName", userData.fullName);
+      setValue("fullName", userData.username);
       setValue("username", userData.username);
       setValue("gender", userData.gender);
       setValue("designation", userData.designation);
@@ -189,7 +189,7 @@ const Profile = () => {
             <div className="overflow-hidden rounded-full w-full  hover:scale-110 transition ease-in-out duration-300  h-full">
               <img
                 src={usersData?.profilePic}
-                alt={`Profile image of ${usersData?.fullName}`}
+                alt={`Profile image of ${usersData?.username}`}
                 className="block rounded-full  w-full h-full object-cover object-center"
               />
               <input 

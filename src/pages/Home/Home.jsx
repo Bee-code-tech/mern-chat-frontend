@@ -232,7 +232,7 @@ const Home = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
         {loadingImageData && [...Array(9)].map((_, idx) => <GallerySkeleton key={idx} />)}
         {galleryData.slice(0, 8).map((item, index) => (
-          <Link to={`/galleryDetails/${item?._id}`} key={index}>
+          <Link to={`/gallery/`} key={index}>
             <div className="flex items-center flex-shrink-0 shadow-xl w-full md:h-[70px] h-auto lg:h-[70px] overflow-hidden rounded-md">
               <figure className="w-full h-full">
                 {item?.image ? (
@@ -365,16 +365,16 @@ const Home = () => {
                       >
                         <div className={`avatar ${isOnline ? "online" : ""}`}>
                           <div className="w-14 rounded-full">
-                            <img src={conversation.profilePic} alt={conversation.fullName} />
+                            <img src={conversation.profilePic} alt={conversation.username} />
                           </div>
                         </div>
 
                         <div className="flex flex-col flex-1">
                           <div className="flex justify-between">
                             <div className="flex gap-1 flex-col">
-                              <p className="font-bold text-gray-600">{conversation.fullName}</p>
+                              <p className="font-bold text-gray-600">{conversation.username}</p>
                               <p className="font-thin text-xs capitalize text-gray-600">
-                                {conversation?.lastMessage ? ` ${conversation?.lastMessage}` : `Start Chatting  "${conversation?.fullName}"`}
+                                {conversation?.lastMessage ? ` ${conversation?.lastMessage}` : `Start Chatting  "${conversation?.username}"`}
                                 </p>
                             </div>
                             <div>

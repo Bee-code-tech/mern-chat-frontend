@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import { FaArrowRightArrowLeft } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 
 const DynamicTable = ({ data }) => {
 
@@ -28,7 +29,7 @@ const DynamicTable = ({ data }) => {
           condition = 'text-gray-600'
          }
         
-        return ( <div
+        return ( <Link to={'/community/topics'}
           key={index}
           className={`grid grid-cols-3 text-center gap-4 bg-white p-4 ${index < data.length - 1 ? 'border-b' : ''}`}
         >
@@ -44,7 +45,7 @@ const DynamicTable = ({ data }) => {
 
             </span>
           </div>
-        </div>
+        </Link>
         )
       }
 

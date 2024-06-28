@@ -33,7 +33,7 @@ const Comment = ({ comment, handleTopicCommentReaction }) => {
       />
       <div>
         <p className="text-[#666666] font-semibold text-lg">
-          {comment?.author?.fullName}
+          {comment?.author?.username}
         </p>
 
         <p className="text-[#999999] font-medium text-sm">

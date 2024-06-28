@@ -7,7 +7,7 @@ import moment from "moment";
 
 const Messages = () => {
     const { messages, loading } = useGetMessages();
-    console.log(messages);
+    // console.log(messages);
     useListenMessages();
     const lastMessageRef = useRef();
 

@@ -46,12 +46,12 @@ const ConnectList = ({ users }) => {
         <div key={user._id} className='w-full flex items-center border-b justify-between h-auto lg:p-3 md:p-3 rounded-lg'>
           <div className="h-full flex items-center py-3 gap-4">
             <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
-              <img src={user.profilePic} alt={user.fullName} className='object-cover w-full h-full' />
+              <img src={user.profilePic} alt={user.username} className='object-cover w-full h-full' />
             </div>
             <div className="flex flex-col items-start justify-start h-full">
-              <p className='text-lg font-bold'>{user.fullName}</p>
+              <p className='text-lg font-bold'>{user.username}</p>
               <p className='font-thin text-[12px] lg:text-[14px] md:text-[14px] leading-6'>
-                Connect with {user.fullName} now to get started
+                Connect with {user.username} now to get started
               </p>
             </div>
           </div>

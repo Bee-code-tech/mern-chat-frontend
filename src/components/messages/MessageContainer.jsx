@@ -27,7 +27,7 @@ const MessageContainer = () => {
               {/* Info anout the user */}
               <div className="flex flex-col items-center justify-center">
               <span className="text-gray-900 font-bold capitalize">
-                {selectedConversation.fullName}
+                {selectedConversation.username}
               </span>
               <span className="text-gray-900 text-sm font-thin capitalize">
                online

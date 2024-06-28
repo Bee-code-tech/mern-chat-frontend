@@ -39,8 +39,10 @@ const Navbar = () => {
       
 
           <div className="flex items-center space-x-4">
+
+           
          
-            {authUser && (
+            {authUser ? (
               <>
                  <div className="flex items-center justify-center gap-2 border border-gray-300 p-0 lg:p-0.5 rounded-full">
                     {/* Profile picture dropdown menu  */}
@@ -104,10 +106,19 @@ const Navbar = () => {
                       </div> 
 
                      {/* userName     */}
-                     <p className="mr-4 hidden md:block lg:block">{authUser.fullName}</p>
+                     <p className="mr-4 hidden md:block lg:block">{authUser.username}</p>
                   </div>            
               </>
-            )}
+            ) : (
+              <>
+              
+              <div className="flex gap-3"> 
+            <Link to={'/login'} className="px-6 py-3  border border-green-600 rounded-lg text-neutral-500"> Login </Link>
+            <Link to={'/signup'} className="px-6 py-3 text-white border bg-green-600 rounded-lg"> Sign Up </Link>
+            </div>
+              </>
+            )
+          }
 
           {isMenuOpen ? (
                       <div className="lg:hidden">

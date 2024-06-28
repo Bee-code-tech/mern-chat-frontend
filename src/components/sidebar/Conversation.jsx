@@ -20,60 +20,56 @@ const Conversation = ({ conversation, toggleSidebar }) => {
   const isOnline = onlineUsers.includes(conversation._id);
 
   useEffect(() => {
-   
-  
-    const mySenderMessages = messages.filter(
-      message => message?.senderId === conversation?._id && message?.receiverId === authUser?._id
-    );
+    if (authUser?._id) {
+      const relevantMessages = messages.filter(
+        message =>
+          (message.senderId === conversation._id && message.receiverId === authUser._id) ||
+          (message.senderId === authUser._id && message.receiverId === conversation._id)
+      );
 
-    const latest = mySenderMessages.length > 0 
-      ? mySenderMessages[mySenderMessages.length - 1] 
-      : { message: conversation?.lastMessage, createdAt: conversation?.messageSendTime };
+      const latest = relevantMessages.length > 0
+        ? relevantMessages[relevantMessages.length - 1]
+        : { message: conversation?.lastMessage, createdAt: conversation?.messageSendTime };
 
-    setLatestMessage(latest);
+      setLatestMessage(latest);
+    }
   }, [messages, conversation, authUser]);
-  
-
-  console.log('conv outside:', conversation);
-  console.log('msg outside:', messages);
 
   return (
-    <>
-      <div
-        className={`flex md:gap-8 gap-3 lg:gap-8 items-center hover:bg-green-200 
-        border-b
-        rounded-lg md:p-3 p-1 lg:p-3 cursor-pointer
-            ${isSelected ? "" : ""}
-            `}
-        onClick={() => {
-          setSelectedConversation(conversation);
-          toggleSidebar();
-        }}
-      >
-        <div className={`avatar ${isOnline ? "online" : ""}`}>
-          <div className="w-14 h-14 flex-shrink-0 overflow-hidden rounded-full">
-            <img src={conversation.profilePic} alt={conversation.fullName} className="object-cover w-full" />
-          </div>
+    <div
+      className={`flex md:gap-8 gap-3 lg:gap-8 items-center hover:bg-green-200 
+        border-b rounded-lg md:p-3 p-1 lg:p-3 cursor-pointer ${isSelected ? "" : ""}`}
+      onClick={() => {
+        setSelectedConversation(conversation);
+        toggleSidebar();
+      }}
+    >
+      <div className={`avatar ${isOnline ? "online" : ""}`}>
+        <div className="w-14 h-14 flex-shrink-0 overflow-hidden rounded-full">
+          <img src={conversation.profilePic} alt={conversation.username} className="object-cover w-full" />
         </div>
+      </div>
 
-        <div className="flex flex-col mb-2 flex-1">
-          <div className="flex justify-between">
-            <div className="flex gap-3 flex-col">
-              <p className="font-bold text-gray-600">{conversation.fullName}</p>
-              <p className="font-thin text-sm capitalize text-gray-600">{latestMessage?.message ? `
-               ${latestMessage.message}` : `Start Chatting  "${conversation.fullName}"`}</p>
-            </div>
-            <div>
-              <p className="font-bold text-xs text-gray-600">{
-                latestMessage?.createdAt
-                  ? timeAgo(latestMessage.createdAt)
-                  : ''
-              }</p>
-            </div>
+      <div className="flex flex-col mb-2 flex-1">
+        <div className="flex justify-between">
+          <div className="flex gap-3 flex-col">
+            <p className="font-bold text-gray-600">{conversation.username}</p>
+            <p className="font-thin text-sm capitalize text-gray-600">
+              {latestMessage?.message
+                ? latestMessage.message
+                : latestMessage?.file
+                ? `File: ${latestMessage.file}`
+                : `Start Chatting with "${conversation.username}"`}
+            </p>
+          </div>
+          <div>
+            <p className="font-bold text-xs text-gray-600">
+              {latestMessage?.createdAt ? timeAgo(latestMessage.createdAt) : ""}
+            </p>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

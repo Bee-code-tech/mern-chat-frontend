@@ -70,7 +70,7 @@ const CommunityTopic = (props) => {
         <div>
           <span className="text-[#666666] font-semibold text-lg cursor-pointer hover:underline hover:text-2xl duration-300 transition-all ease-in-out ">
             <Link to={`/community/userProfile/${author._id}`} >
-            {author.fullName}
+            {author.username}
             </Link>
           </span>
           <p className="text-[#666666] font-medium">{author.designation}</p>
