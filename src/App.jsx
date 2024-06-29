@@ -26,6 +26,8 @@ import Request from "./pages/Request/Request";
 import UserProfile from "./pages/userProfile/UserProfile";
 import ScrollToTop from "./components/Scroll/ScrollToTop";
 import Modal from "./pages/tests/Modal";
+import GalleryDetailsVids from "./pages/CommunityPage/GalleryDetailsVids";
+import GalleryVids from "./pages/CommunityPage/GalleryVids";
 
 const App = () => {
   const { authUser } = useAuthContext();
@@ -229,10 +231,30 @@ const App = () => {
             }
           />
           <Route
-            path="/galleryDetails/:id"
+            path="/gallery/vids"
+            element={
+              authUser ? (
+                  <GalleryVids />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/galleryDetails/pics/:id"
             element={
               authUser ? (
                   <GalleryDetails />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/galleryDetails/vids/:id"
+            element={
+              authUser ? (
+                  <GalleryDetailsVids />
               ) : (
                 <Navigate to="/login" />
               )

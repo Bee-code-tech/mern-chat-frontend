@@ -31,6 +31,7 @@ const Connect = () => {
           const userData = user.data;
           setList(userData) 
           setLoading(false)
+          console.log(userData);
         } catch (error) {
           console.log(error.message);
         }

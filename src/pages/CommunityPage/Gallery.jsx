@@ -34,7 +34,8 @@ const Gallery = () => {
       const data = await res.json();
       setDescriptions("");
       setFile(null);
-      setGalleryData(data);
+      const images = data.filter((item) => item.image);
+      setGalleryData(images);
     } catch (error) {
       console.error("Error fetching gallery data:", error);
     }
@@ -114,7 +115,7 @@ const Gallery = () => {
           onClick={() => document.getElementById("my_modal_5").showModal()}
         >
           <span className="flex items-center gap-2">
-            <span>Upload Pics/Video</span>
+            <span>Upload Pics</span>
             <IoMdAdd color="white" size="1.2em" />
           </span>
         </button>
@@ -186,41 +187,18 @@ const Gallery = () => {
                         xl={{ span: 6 }}
                       >
                         {item?.image && (
-                          <Link to={`/galleryDetails/${item?._id}`}>
-                            <div className="card card-compact w-full shadow-xl max-w-64">
+                          <Link to={`/galleryDetails/pics/${item?._id}`}>
+                            <div className="card image-full card-compact w-full shadow-xl max-w-64">
                               <figure>
                                 <img
                                   src={item?.image}
-                                  className="rounded-xl object-cover"
+                                  className="rounded-xl object-cover w-full aspect-[1.45]"
                                 />
                               </figure>
                             </div>
                           </Link>
                         )}
-                       {item?.video && (
-                          <Link to={`/galleryDetails/${item?._id}`} className="cursor-pointer">
-                            <div className="card card-compact cursor-pointer bg-base-content shadow-xl image-full bg-none max-w-64 max-h-36">
-                              <figure className="w-full h-full">
-                                <video
-                                  src={item.video}
-                                  className="rounded-lg w-full h-full object-cover"
-                                  autoPlay
-                                  muted
-                                  loop
-                                >
-                                  Your browser does not support the video tag.
-                                </video>
-                              </figure>
-                              <div className="card-body items-center justify-center">
-                                <FaRegPlayCircle
-                                  size="2.5em"
-                                  className="text-white hover:text-green-500"
-                                  style={{ cursor: "pointer" }}
-                                />
-                              </div>
-                            </div>
-                          </Link>
-                        )}
+                       
 
                       </Col>
                     );

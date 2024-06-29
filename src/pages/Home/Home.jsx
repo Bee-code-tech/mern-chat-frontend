@@ -83,7 +83,7 @@ const Home = () => {
       if (imageData.length === 0 || videoData.length === 0) {
         setIsEmpty(true);
       }
-      console.log(data);
+      console.log(' fetcht data', data);
     } catch (error) {
       console.error("Error fetching gallery data:", error);
     }
@@ -172,13 +172,60 @@ const Home = () => {
    console.log('selected conv,' + selectedConversation);
   }
 
+  console.log('videoData', videoData);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-12 lg:gap-8 md:gap-8 my-[20px] mx-auto max-w-6xl">
       
       {/* first grid item  */}
-      <div className="mb-6"> 
+     {
+      videoData.length > 0 ? (
+        <div className="mb-6"> 
         {/* Video  */}
-        <Link to={`/galleryDetails/${videoData[0]?._id}`}>
+        <Link to={`/galleryDetails/vids/${videoData[0]?._id}`}>
+          <div className="border border-green-300 p-2 rounded-[20px] ">
+          <div className="card hover:card-compactbg-white  p-4 w-full h-[340px]
+          image-full bg-white border border-gray-300">
+            <figure className="bg-transparent">
+            <video
+              src={videoData[0].video}
+              className="rounded-lg w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+                  >
+                Your browser does not support the video tag.
+              </video>
+            </figure>
+            <div className="card-body">
+            
+              <div className="card-body items-center justify-center">
+                <div className="card-body items-center justify-center">
+                  <FaRegPlayCircle
+                    size="2.5em"
+                    className="text-white  hover:scale-120  hover:text-green-500"
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>  
+          </div>
+        </Link>
+
+        {/* Info text  */}
+         <div className="w-full mt-8 flex items-center  justify-between px-6">
+          <div className="flex">
+          <img src={logo} alt="Logo" className="h-5" />
+
+          </div>
+          <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+         </div>
+      </div>
+      ) : (
+        <div className="mb-6"> 
+        {/* Video  */}
+        <Link to={`/gallery/`}>
           <div className="border border-green-300 p-2 rounded-[20px] ">
           <div className="card hover:card-compactbg-white  p-4 w-full h-[340px]
           image-full bg-white border border-gray-300">
@@ -213,6 +260,8 @@ const Home = () => {
           <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
          </div>
       </div>
+      )
+     }
 
       {/* second grid item */}
 <div className="mb-6">
@@ -231,7 +280,7 @@ const Home = () => {
       {/* Pic list */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
         {loadingImageData && [...Array(9)].map((_, idx) => <GallerySkeleton key={idx} />)}
-        {galleryData.slice(0, 8).map((item, index) => (
+        {imageData.slice(0, 8).map((item, index) => (
           <Link to={`/gallery/`} key={index}>
             <div className="flex items-center flex-shrink-0 shadow-xl w-full md:h-[70px] h-auto lg:h-[70px] overflow-hidden rounded-md">
               <figure className="w-full h-full">
@@ -242,13 +291,7 @@ const Home = () => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <video
-                    src={item?.video}
-                    autoPlay
-                    muted
-                    loop
-                    className="w-full h-full object-cover"
-                  />
+                 null
                 )}
               </figure>
             </div>

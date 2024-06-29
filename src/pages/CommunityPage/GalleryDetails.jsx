@@ -30,7 +30,8 @@ const GalleryDetails = () => {
       );
 
       const data = await res.json();
-      setGalleryData(data);
+      const images = data.filter(image => image.image)
+      setGalleryData(images);
       console.log('gallery data', data);
     } catch (error) {
       console.error("Error fetching gallery data:", error);
@@ -102,17 +103,7 @@ const GalleryDetails = () => {
                     />
                   </div>
                 )}
-                {gallerySingleData?.video && (
-                  <div>
-                    <video
-                      autoPlay
-                      controls
-                      loop
-                      src={gallerySingleData?.video}
-                      className="w-full aspect-video rounded-2xl shadow-2xl"
-                    />
-                  </div>
-                )}
+               
               </div>
 
               {gallerySingleData?.description && (
@@ -134,19 +125,13 @@ const GalleryDetails = () => {
                         lg={{ span: 6 }}
                         xl={{ span: 6 }}
                       >
-                        <Link to={`/galleryDetails/${item?._id}`}>
+                        <Link to={`/galleryDetails/pics/${item?._id}`}>
                           <div className="card card-compact rounded w-full shadow-xl">
                             <figure className="w-full h-full">
                               {item?.image ? (
-                                <img src={item?.image} className="rounded-lg w-full h-full object-cover" />
+                                <img src={item?.image} className="rounded-lg w-full h-full object-cover  aspect-[1.45]" />
                               ) : (
-                                <video
-                                  src={item?.video}
-                                  className="rounded-lg w-full h-full object-cover"
-                                  autoPlay
-                                  muted
-                                  loop
-                                />
+                               null
                               )}
                             </figure>
                           </div>
