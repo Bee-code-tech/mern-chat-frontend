@@ -197,7 +197,7 @@ const GalleryVids = () => {
                               <figure className="w-full h-full">
                                 <video
                                   src={item.video}
-                                  className="rounded-lg w-full h-full object-cover"
+                                  className="rounded-lg w-full h-full object-cover aspect-[1.45]"
                                   autoPlay
                                   muted
                                   loop

@@ -182,7 +182,7 @@ const Home = () => {
       videoData.length > 0 ? (
         <div className="mb-6"> 
         {/* Video  */}
-        <Link to={`/galleryDetails/vids/${videoData[0]?._id}`}>
+        <Link to={`/gallery/vids`}>
           <div className="border border-green-300 p-2 rounded-[20px] ">
           <div className="card hover:card-compactbg-white  p-4 w-full h-[340px]
           image-full bg-white border border-gray-300">

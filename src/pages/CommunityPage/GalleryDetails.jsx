@@ -71,14 +71,6 @@ const GalleryDetails = () => {
           </button>
         </Link>
 
-        <Link to="/gallery/">
-          <button className="btn bg-[#18BB0C] text-white">
-            <span className="flex gap-2 items-center">
-              <FaUpload color="white" size="1.2em" />
-              <span>Upload</span>
-            </span>
-          </button>
-        </Link>
       </div>
 
       <div className="border border-[#18BB0C] rounded-xl p-2 container mx-auto">

@@ -70,14 +70,7 @@ const GalleryDetailsVids = () => {
         </button>
       </Link>
 
-      <Link to="/gallery/vids">
-        <button className="btn bg-[#18BB0C] text-white">
-          <span className="flex gap-2 items-center">
-            <FaUpload color="white" size="1.2em" />
-            <span>Upload</span>
-          </span>
-        </button>
-      </Link>
+      
     </div>
 
     <div className="border border-[#18BB0C] rounded-xl p-2 container mx-auto">
@@ -98,7 +91,7 @@ const GalleryDetailsVids = () => {
                 <div>
                   <video
               src={gallerySingleData.video}
-              className="rounded-lg w-full h-full object-cover"
+              className="rounded-lg w-full h-full object-cover aspect-[1.45]"
               autoPlay
               controls
               loop

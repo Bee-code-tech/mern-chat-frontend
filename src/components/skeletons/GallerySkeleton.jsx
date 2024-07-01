@@ -2,7 +2,7 @@ import React from 'react';
 
 const GallerySkeleton = () => {
   return (
-    <div className="skeleton w-full h-[100px] md:w-[115px] lg:w-[115px]"></div>
+    <div className="skeleton w-full h-[85px] md:w-[110px] lg:w-[110px]"></div>
   );
 };
 
