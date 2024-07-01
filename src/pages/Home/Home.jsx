@@ -188,7 +188,7 @@ const Home = () => {
           image-full bg-white border border-gray-300">
             <figure className="bg-transparent">
             <video
-              src={videoData[0].video}
+              src={videoData.reverse()[0].video}
               className="rounded-lg w-full h-full object-cover"
               autoPlay
               muted
