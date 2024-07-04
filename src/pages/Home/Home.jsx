@@ -214,7 +214,7 @@ const Home = () => {
         </Link>
 
         {/* Info text  */}
-         <div className="w-full mt-8 flex items-center  justify-between px-6">
+         <div className="w-full mt-4 flex items-center  justify-between px-6">
           <div className="flex">
           <img src={logo} alt="Logo" className="h-5" />
 
@@ -252,7 +252,7 @@ const Home = () => {
         </Link>
 
         {/* Info text  */}
-         <div className="w-full mt-8 flex items-center  justify-between px-6">
+         <div className="w-full mt-4 flex items-center  justify-between px-6">
           <div className="flex">
           <img src={logo} alt="Logo" className="h-5" />
 
@@ -323,7 +323,7 @@ const Home = () => {
 
   
          {/* Info text  */}
-         <div className="w-full mt-8 flex items-center justify-between px-6">
+         <div className="w-full mt-4 flex items-center justify-between px-6">
             <div className="flex gap-2 items-center justify-center">
           
             <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
@@ -361,7 +361,7 @@ const Home = () => {
               </div>
             </div>
              {/* Info text  */}
-         <div className="w-full mt-8 flex items-center justify-between px-6">
+         <div className="w-full mt-4 flex items-center justify-between px-6">
             <div className="flex gap-2 items-center justify-center">
            
             <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
@@ -450,7 +450,7 @@ const Home = () => {
         </div>
 
          {/* Info text  */}
-         <div className="w-full mt-8 flex items-center justify-between px-6">
+         <div className="w-full mt-4 flex items-center justify-between px-6">
             <div className="flex gap-2 items-center justify-center">
           
             <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
