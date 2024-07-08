@@ -16,7 +16,6 @@ const Home = () => {
         className="flex lg:max-w-6xl mx-auto gap-5 mt-2 lg:mt-8  rounded-lg"
         style={{ height: "calc(100vh - 10px)" }}
       >
-        {/* cha */}
         <div
           className={`w-full !h-full  ${isSidebarOpen ? "" : "lg:block"
             } `}
