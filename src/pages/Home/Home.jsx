@@ -21,18 +21,9 @@ import { timeAgo } from "../../utils/timeDifference";
 import ThankYou from "../../components/Modal/ThankYou";
 
 
-const data = [
-  { topic: 'React', contribution: 56,  appreciation: '🏆 (15)' },
-  { topic: 'Tailwind', contribution: 34,  appreciation: '🏆 (13)' },
-  { topic: 'JavaScript', contribution: 78,  appreciation: '🏆 (33)' },
-  { topic: 'Node.js', contribution: 67,  appreciation: '🏆 (50)' },
-];
-const token = localStorage.getItem('token');
-
 const Home = () => {
   const [galleryData, setGalleryData] = useState([]);
   const { authUser } = useAuthContext()
-  
   const [videoData, setVideoData] = useState([]);
   const [imageData, setImageData] = useState([]);
   const [loadingImageData, setLoadingImageData] = useState(false);
@@ -41,8 +32,12 @@ const Home = () => {
   const [isDailyEmpty, setIsDailyEmpty] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isThanksOpen, setIsThanksOpen] = useState(false)
   const {onlineUsers} = useSocketContext
   const {selectedConversation, setSelectedConversation} = useConversation()
+  const [modalUserName, setModalUserName] = useState(null)
+  const [modalId, setModalId] = useState(null)
+  const [modalProfilePicture, setModalProfilePicture] = useState(null)
 
 
   useEffect(() => {
@@ -146,6 +141,18 @@ const Home = () => {
     }
   };
 
+  const handleModalClose = () => {
+    console.log('modal clsoed')
+    setIsThanksOpen(false)
+  } 
+
+  const handleModalOpen = ( username, id, profilePic ) => {
+    setModalUserName(username)
+    setModalId(id)
+    setModalProfilePicture(profilePic)
+    setIsThanksOpen(true)
+  }
+
  
 
 
@@ -167,7 +174,6 @@ const Home = () => {
    
   }
 
-  console.log('videoData', videoData);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-12 lg:gap-8 md:gap-8 my-[20px] mx-auto max-w-6xl">
@@ -394,13 +400,13 @@ const Home = () => {
                     const isOnline = onlineUsers?.includes(conversation._id)
                     // setSelectedConversation(conversation)
                    return  ( <div key={idx}>
-                    <ThankYou isOpen={isThanksOpen} onClose={handleModalClose} />
                       <div 
                         className={`flex gap-2 mb-2 ${idx < conversations.length - 1 ? 'border-b' : ''} items-center w-full hover:bg-green-50 duration-150 transition-all ease-in rounded-[20px] p-2 py-3 cursor-pointer`}
                         onClick={() => {
                           setSelectedConversation(conversation);
                           toggleModal();
                         }}
+                        onMouseEnter={ () => handleModalOpen(conversation.username, conversation._id, conversation.profilePic)}
                       >
                         <div className={`avatar ${isOnline ? "online" : ""}`}>
                           <div className="w-14 rounded-full">
@@ -476,6 +482,13 @@ const Home = () => {
       </div>
    </div>
 
+   {/* Thank you modal  */}
+   <ThankYou 
+   isOpen={isThanksOpen} 
+   onClose={handleModalClose} 
+   img={modalProfilePicture} 
+   id={modalId} 
+   name={modalUserName} />
     </div>
   );
 };

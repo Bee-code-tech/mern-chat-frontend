@@ -155,14 +155,16 @@ const UserProfile = () => {
       )}
 
       <div className="container mx-auto mt-28 mb-10 flex justify-start items-center">
-        <Link to="/community/topics">
+        <div 
+        onClick={handleBack}
+        >
           <button className="btn bg-[#18BB0C] text-white">
             <span className="flex items-center">
               <FaAngleLeft color="white" size="1.2em" />
               <span>Back</span>
             </span>
           </button>
-        </Link>
+        </div>
       </div>
 
       <div className="border-2 border-[#18BB0C] rounded-xl p-3 container mx-auto">
