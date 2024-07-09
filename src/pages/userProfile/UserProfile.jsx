@@ -193,7 +193,7 @@ const UserProfile = () => {
                         <Link to={userExists ? `/galleryDetails/${item?._id}` : '#'}>
                           <div className="card card-compact rounded w-full shadow-xl">
                             <figure>
-                              <img src={item?.image} className="rounded-lg w-full h-full object-cover" />
+                              <img src={item?.image} className="rounded-lg w-full h-full object-cover aspect-[1.45]" />
                             </figure>
                           </div>
                         </Link>

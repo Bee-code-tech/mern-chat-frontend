@@ -1,5 +1,5 @@
 import { BiLogOut } from "react-icons/bi";
-import { CiBellOn, CiBookmark, CiGlobe, CiStar } from "react-icons/ci";
+import { CiBellOn, CiBookmark, CiGlobe, CiSettings, CiStar } from "react-icons/ci";
 import { FiBook, FiUser, FiUsers } from "react-icons/fi";
 import { IoHomeOutline, IoStatsChartOutline } from "react-icons/io5";
 import { NavLink, useLocation } from "react-router-dom";
@@ -104,8 +104,8 @@ const sidebarMenuItems = [
     url: "/notification",
   },
   {
-    name: "My Profile",
-    icon: <FiUser size={24} />,
+    name: "Settings",
+    icon: <CiSettings size={24} />,
     url: "/community/profile",
   },
 ];
