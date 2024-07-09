@@ -18,6 +18,7 @@ import vidFallback from '../../assets/vid.png'
 import StatsSkeleton from "../../components/skeletons/StatsSkeleton";
 import { useAuthContext } from "../../context/AuthContext";
 import { timeAgo } from "../../utils/timeDifference";
+import ThankYou from "../../components/Modal/ThankYou";
 
 
 const data = [
@@ -168,8 +169,7 @@ const Home = () => {
 
   const toggleModal = () => {
    setIsModalOpen(!isModalOpen);
-   console.log('toggle modal,' + isModalOpen);
-   console.log('selected conv,' + selectedConversation);
+   
   }
 
   console.log('videoData', videoData);
@@ -399,6 +399,7 @@ const Home = () => {
                     const isOnline = onlineUsers?.includes(conversation._id)
                     // setSelectedConversation(conversation)
                    return  ( <div key={idx}>
+                    <ThankYou isOpen={isThanksOpen} onClose={handleModalClose} />
                       <div 
                         className={`flex gap-2 mb-2 ${idx < conversations.length - 1 ? 'border-b' : ''} items-center w-full hover:bg-green-50 duration-150 transition-all ease-in rounded-[20px] p-2 py-3 cursor-pointer`}
                         onClick={() => {
