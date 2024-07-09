@@ -45,6 +45,16 @@ const Home = () => {
     fetchDailyStats()
   }, []);
 
+  useEffect(() => {
+    
+    if (isModalOpen && !isThanksOpen) {
+      setIsThanksOpen(false)
+      setIsModalOpen(true) 
+      console.log(isThanksOpen , isModalOpen);
+    }
+
+  }, [isModalOpen])
+
   const fetchGalleryData = async () => {
     try {
       setLoadingImageData(true);
@@ -142,7 +152,6 @@ const Home = () => {
   };
 
   const handleModalClose = () => {
-    console.log('modal clsoed')
     setIsThanksOpen(false)
   } 
 

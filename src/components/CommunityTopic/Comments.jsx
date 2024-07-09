@@ -46,11 +46,7 @@ const Comment = ({ comment, handleTopicCommentReaction }) => {
           onClick={() => handleTopicCommentReaction({ commentId: comment._id })}
           className="flex items-center justify-center px-[20px] py-2 gap-2 border rounded-[40px] mt-4"
         >
-          <img
-            src="../../../public/32px-Emoji_u1f64f.svg.png"
-            className="size-[20px]"
-            alt=""
-          />
+          <p className="text-2xl"> 🙏 </p>
           <div className="flex space-x-1">
             <p>{comment?.reactions?.length}</p>
             {/* <span className="text-[#18BB0C]"> 6+</span> */}
