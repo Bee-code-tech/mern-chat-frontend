@@ -39,8 +39,8 @@ const Home = () => {
   const [dailyData, setDailyData] = useState([]);
   const [loadingDailyData, setLoadingDailyData] = useState(false);
   const [isDailyEmpty, setIsDailyEmpty] = useState(false);
- const [isEmpty, setIsEmpty] = useState(false)
- const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isEmpty, setIsEmpty] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const {onlineUsers} = useSocketContext
   const {selectedConversation, setSelectedConversation} = useConversation()
 
@@ -49,11 +49,6 @@ const Home = () => {
     fetchGalleryData();
     fetchDailyStats()
   }, []);
-
-
-
-
-
 
   const fetchGalleryData = async () => {
     try {
