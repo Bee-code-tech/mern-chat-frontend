@@ -415,7 +415,7 @@ const Home = () => {
                           setSelectedConversation(conversation);
                           toggleModal();
                         }}
-                        onMouseEnter={ () => handleModalOpen(conversation.username, conversation._id, conversation.profilePic)}
+                        
                       >
                         <div className={`avatar ${isOnline ? "online" : ""}`}>
                           <div className="w-14 rounded-full">
@@ -423,7 +423,9 @@ const Home = () => {
                           </div>
                         </div>
 
-                        <div className="flex flex-col flex-1">
+                        <div 
+                        onMouseEnter={ () => handleModalOpen(conversation.username, conversation._id, conversation.profilePic)}
+                        className="flex flex-col flex-1">
                           <div className="flex justify-between">
                             <div className="flex gap-1 flex-col">
                               <p className="font-bold text-gray-600">{conversation.username}</p>

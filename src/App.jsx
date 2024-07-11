@@ -35,7 +35,9 @@ const App = () => {
     <>
       <div className="">
         <Navbar />
+        
         <ScrollToTop />
+
         <Routes>
           <Route
             path="/"
@@ -269,6 +271,7 @@ const App = () => {
           }
           />
         </Routes>
+        
         <Toaster />
       </div>
     </>
