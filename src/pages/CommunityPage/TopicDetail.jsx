@@ -19,7 +19,6 @@ const TopicDetail = () => {
   const [refetch, setRefetch] = useState(false);
   const [commentText, setCommentText] = useState('')
   const {authUser} = useAuthContext()
-  console.log(authUser);
 
   useEffect(() => {
     const getComments = async () => {
@@ -228,9 +227,11 @@ const TopicDetail = () => {
           Comments
         </p>
         <div className="size-1 bg-[#999999] rounded-full"></div>
+
+        <div className=" relative">
         <button
-          onClick={() => handleTopicReaction({ topicId: topic._id })}
-          className="flex items-center justify-center px-[20px] py-2 gap-2 border rounded-[40px]"
+          
+          className="flex items-center justify-center px-[24px] py-1 gap-2 border rounded-[40px]"
         >
           <p className="text-2xl"> 🙏 </p>
           <div className="flex space-x-1">
@@ -238,6 +239,40 @@ const TopicDetail = () => {
             {/* <span className="text-[#18BB0C]"> 6+</span> */}
           </div>
         </button>
+
+        {/* modal  */}
+        <div className="absolute bg-white shadow-lg px-2 flex gap-1 z-30 h-auto w-auto rounded-lg -bottom-12 -right-24">
+          <button
+            onClick={() => handleTopicReaction({ topicId: topic._id })}
+            className="flex items-center hover:scale-110 duration-150 transition ease-in-out justify-center px-2 py-2  "
+          >
+            <p className="text-2xl"> 🙏 </p>
+          
+          </button>
+          <button
+            onClick={() => handleTopicReaction({ topicId: topic._id })}
+            className="flex items-center justify-center px-2 py-2 gap-2  hover:scale-110 duration-150 transition ease-in-out"
+          >
+            <p className="text-2xl"> 🙏🏽 </p>
+          
+          </button>
+          <button
+            onClick={() => handleTopicReaction({ topicId: topic._id })}
+            className="flex items-center justify-center px-2 py-2 gap-2  hover:scale-110 duration-150 transition ease-in-out"
+          >
+            <p className="text-2xl"> 🙏🏿 </p>
+          
+          </button>
+          <button
+            onClick={() => handleTopicReaction({ topicId: topic._id })}
+            className="flex items-center justify-center px-2 py-2 gap-2  hover:scale-110 duration-150 transition ease-in-out"
+          >
+            <p className="text-2xl"> 🙏🏾 </p>
+          
+          </button>
+        </div>
+        </div>
+
       </div>
       <hr className="my-8" />
       <div className="my-8 flex justify-between items-center">
