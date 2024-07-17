@@ -5,11 +5,11 @@ const ThankYou = ({isOpen, onClose, img, id, name}) => {
     if (!isOpen) return null;
 
     return (
-     <div className="w-fit max-w-5xl container mx-auto z-[100]">
+     <div className="w-fit max-w-5xl container mx-auto z-50">
          <div className="fixed inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm duration-100 cursor-pointer" onClick={onClose}>
         <div 
-            className="bg-green-500 relative 
-            flex items-center justify-center flex-col w-[400px] p-10 rounded-lg" 
+            className="bg-green-500 relative z-100
+            flex items-center justify-center flex-col w-[350px] p-10 rounded-lg" 
             onClick={(e) => e.stopPropagation()}>
                 <div className="flex flex-col items-center justify-center ">
                     <div className="w-[100px] h-[100px] overflow-hidden rounded-full ">

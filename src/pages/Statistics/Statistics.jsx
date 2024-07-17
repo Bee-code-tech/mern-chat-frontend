@@ -158,8 +158,8 @@ const Statistics = () => {
   }, [])
 
   return (
-    <div className="max-full mx-auto">
-      <div className="justify-between flex w-full border-b border-gray-200">
+    <div className="max-w-full mx-auto">
+      <div className="justify-between flex w-full mb-8 shadow-md border-gray-200">
         {tabs.map((tab, index) => (
           <button
             key={tab}

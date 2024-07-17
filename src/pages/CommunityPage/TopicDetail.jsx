@@ -1,24 +1,31 @@
 import { format, parseISO } from "date-fns";
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Comments from "../../components/CommunityTopic/Comments";
 import { formatViewCount } from "../../utils/formatNumber";
 import { timeAgo } from "../../utils/timeDifference";
 import defaultImg from '../../assets/hu2.png';
-import { FaCirclePlus } from "react-icons/fa6";
+import { FaAngleLeft, FaCirclePlus } from "react-icons/fa6";
 import { useAuthContext } from "../../context/AuthContext";
+import ThankYou from "../../components/Modal/ThankYou";
 
 const TopicDetail = () => {
   const [topic, setTopic] = useState({});
   const { id } = useParams();
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [isThanksOpen, setIsThanksOpen] = useState(false)
   const [refetch, setRefetch] = useState(false);
   const [commentText, setCommentText] = useState('');
   const { authUser } = useAuthContext();
   const [showThanks, setShowThanks] = useState(false);
+  const [modalUserName, setModalUserName] = useState('');
+  const [modalId, setModalId] = useState('');
+  const [modalProfilePicture, setModalProfilePicture] = useState('');
   const modalRef = useRef(null);
+  const navigate = useNavigate()
+
 
   useEffect(() => {
     const getComments = async () => {
@@ -104,6 +111,11 @@ const TopicDetail = () => {
     };
   }, [showThanks]);
 
+
+  const handleModalClose = () => {
+    setIsThanksOpen(false)
+  } 
+
   const handleInputChange = (e) => {
     setCommentText(e.target.value);
   };
@@ -112,6 +124,15 @@ const TopicDetail = () => {
     setShowThanks(true);
   };
 
+  
+  const handleModalOpen = (  ) => {
+    
+    setIsThanksOpen(true)
+  }
+  
+  const handleBack = () => {
+    navigate(-1)
+  }
  
 
   const postComment = async () => {
@@ -189,12 +210,35 @@ const TopicDetail = () => {
     setRefetch(!refetch);
   };
 
+
   return (
+    <>
+      <div className="container mx-auto ml-10  flex justify-start items-center">
+        <div 
+        onClick={handleBack}
+        >
+          <button className="btn bg-[#18BB0C] text-white">
+            <span className="flex items-center">
+              <FaAngleLeft color="white" size="1.2em" />
+              <span>Back</span>
+            </span>
+          </button>
+        </div>
+      </div>
     <div className="shadow-lg rounded-lg p-6 mb-5 lg:mx-10">
+      <ThankYou
+      isOpen={isThanksOpen}
+      onClose={handleModalClose}
+      id={topic?.author?._id}
+      img={topic?.author?.profilePic}
+      name={topic?.author?.username}
+      />
+     
       <div className="rounded-lg border p-6">
         <h2 className="font-bold text-xl">{topic?.title}</h2>
         <div className="flex gap-4 my-4">
           <img
+          onMouseEnter={() => handleModalOpen( )}
             className="rounded-full size-16"
             src={topic?.author?.profilePic || defaultImg}
             alt="profileAvatar"
@@ -217,6 +261,8 @@ const TopicDetail = () => {
           dangerouslySetInnerHTML={{ __html: topic?.body }}
         />
       </div>
+
+
       <div className="my-6 font-medium text-[#999999] text-[15px] flex flex-row flex-wrap lg:flex-row md:flex-row gap-4 items-center">
         {topic.createdAt && (
           <p>{format(parseISO(topic.createdAt), "h:mm a")}</p>
@@ -251,7 +297,7 @@ const TopicDetail = () => {
           </button>
 
           {showThanks && (
-            <div className="absolute bg-white shadow-lg px-2 flex gap-1 z-30 h-auto w-auto rounded-lg -bottom-12 -right-24">
+            <div className="absolute bg-white shadow-lg px-2 flex gap-1 z-10 h-auto w-auto rounded-lg -bottom-12 -right-24">
               <button
                 onClick={() => handleTopicReaction({ topicId: topic._id })}
                 className="flex items-center hover:scale-110 duration-150 transition ease-in-out justify-center px-2 py-2"
@@ -280,6 +326,7 @@ const TopicDetail = () => {
           )}
         </div>
       </div>
+
       <hr className="my-8" />
       <div className="my-8 flex justify-between items-center">
         <p className="font-medium text-2xl">Comments ({comments.length}):</p>
@@ -318,6 +365,7 @@ const TopicDetail = () => {
         </div>
       </dialog>
     </div>
+    </>
   );
 };
 
