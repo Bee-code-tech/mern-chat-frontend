@@ -11,9 +11,9 @@ const Home = () => {
 
 
   return (
-    <div className="container mx-auto max-w-5xl">
+    <div className="container mx-auto max-w-5xl ">
       <div
-        className="flex lg:max-w-6xl mx-auto gap-5 mt-2 lg:mt-8  rounded-lg"
+        className="flex lg:w-full mx-auto gap-5 mt-2 lg:mt-8  rounded-lg"
         style={{ height: "calc(100vh - 10px)" }}
       >
         <div

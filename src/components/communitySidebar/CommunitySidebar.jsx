@@ -13,10 +13,10 @@ const CommunitySidebar = ({ toggleMenu }) => {
   const { pathname } = useLocation();
   return (
     <div
-      className="flex z-40 flex-col items-center -ml-8 pt-10 justify-between top-20 bottom-0 fixed border-r lg:w-[350px] w-[330px]  xl:w-[450px] bg-white"
+      className="flex z-40 flex-col items-center -ml-8 pt-10 justify-between top-20 bottom-0 fixed border-r lg:w-[370px] w-[330px]  "
       style={{ height: "calc(100vh - 80px)" }}
     >
-      <div className="flex flex-col gap-1">
+      <div className="flex items-start justify-center flex-col gap-1">
         {sidebarMenuItems.map((item) => (
           <NavLink
             to={item.url}
@@ -79,7 +79,7 @@ const sidebarMenuItems = [
     url: "/community/bookmarks",
   },
   {
-    name: "Community ",
+    name: "Community Circle ",
     icon: <FiUsers size={24} />,
     url: "/chatPage",
   },
