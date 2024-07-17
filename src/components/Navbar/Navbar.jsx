@@ -125,14 +125,14 @@ const Navbar = () => {
             authUser && (
               <>
               {isMenuOpen ? (
-                      <div className="ml-4">
+                      <div className="ml-4 lg:hidden">
                         <BiX
                           className="w-8 h-8 text-gray-700 cursor-pointer"
                           onClick={toggleMenu}
                         />
                       </div>
                     ) : (
-                      <div className="ml-4">
+                      <div className="ml-4 lg:hidden">
                         <BiMenu
                           className="w-8 h-8 text-gray-700 cursor-pointer"
                           onClick={toggleMenu}

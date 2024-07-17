@@ -5,7 +5,7 @@ const StatsTable = ({data}) => {
 
     
     return (
-        <div className="w-full mx-auto pb-6 mt-12 lg:p-4 md:p-4 p-1 border rounded-[20px]">
+        <div className="w-full mx-auto pb-6 mt-4 lg:p-4 md:p-4 p-1 border rounded-[20px]">
           <div className="grid grid-cols-4 mb-3 lg:gap-4 md:gap-4 gap-1 lg:p-4 md:p-4 p-3 rounded-t-lg text-center">
             <div className="font-bold text-left">S/N</div>
             <div className="font-bold text-left">Topic</div>

@@ -185,7 +185,7 @@ const Home = () => {
 
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-12 lg:gap-8 md:gap-8 my-[20px] mx-auto max-w-6xl">
+    <div className="grid grid-cols-1 my-24 sm:grid-cols-2 md:grid-cols-2 gap-12 lg:gap-8 md:gap-8 mx-auto max-w-6xl">
       
       {/* first grid item  */}
      {
@@ -235,7 +235,7 @@ const Home = () => {
       ) : (
         <div className="mb-6"> 
         {/* Video  */}
-        <Link to={`/gallery/`}>
+        <Link to={`/gallery/vids`}>
           <div className="border border-green-300 p-2 rounded-[20px] ">
           <div className="card hover:card-compactbg-white  p-4 w-full h-[340px]
           image-full bg-white border border-gray-300">
@@ -292,7 +292,7 @@ const Home = () => {
         {loadingImageData && [...Array(9)].map((_, idx) => <GallerySkeleton key={idx} />)}
         {imageData.slice(0, 8).map((item, index) => (
           <Link to={`/gallery/`} key={index}>
-            <div className="flex items-center flex-shrink-0 shadow-xl w-full md:h-[70px] h-auto lg:h-[70px] overflow-hidden rounded-md">
+            <div className="flex items-center flex-shrink-0 shadow-xl w-full md:h-[70px] h-auto lg:h-[80px] overflow-hidden rounded-md">
               <figure className="w-full h-full">
                 {item?.image ? (
                   <img

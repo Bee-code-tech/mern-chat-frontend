@@ -13,7 +13,7 @@ const Statistics = () => {
   const [occurrences, setOccurrences] = useState(0)
   const {authUser} = useAuthContext()
 
-  const tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly'];
+  const tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly', 'All Time'];
  
   const contents = {
     'Daily': <StatsTable data={dailyData} />,
@@ -173,11 +173,9 @@ const Statistics = () => {
         ))}
       </div>
 
-      <div className="flex item-center mx-auto justify-between mt-8 md:lg-16 lg:mt-16 flex-col lg:flex-row md:flex-row">
-      <h2 className="text-2xl w-full mb-6 lg:mb-0 md:mb-0 font-bold">
-        Search Topics
-      </h2>
-        <form onSubmit={handleSubmit} className='md:w-[60rem] w-full lg:w-[60rem] relative flex items-center justify-center gap-2'>
+      <div className="flex item-center mx-auto justify-between mt-2 md:lg-16 lg:mt-4 flex-col lg:flex-row md:flex-row">
+      
+        <form onSubmit={handleSubmit} className='md:w-[500px] lg:absolute mt-4 lg:mt-0  top-4 lg:w-[600px] z-[99999] flex items-center justify-center gap-2'>
           <input
            type="text" placeholder='Search for topics'
           className='w-full p-4 rounded-lg border
@@ -191,7 +189,9 @@ const Statistics = () => {
         </form>
       </div>
 
-      <div className="mt-8">
+      {
+        input && (
+          <div className="mt-2">
         <h1 className='font-bold text-3xl capitalize'>{input}</h1>
         <p className='font-thin leading-7 mt-2'>{
           input && (` 
@@ -199,6 +199,8 @@ const Statistics = () => {
           )
         }</p>
       </div>
+        )
+      }
 
       
       <div className="mt-4">
