@@ -80,7 +80,7 @@ const sidebarMenuItems = [
   },
   {
     name: "Community ",
-    icon: <CiGlobe size={24} />,
+    icon: <FiUsers size={24} />,
     url: "/chatPage",
   },
   {
