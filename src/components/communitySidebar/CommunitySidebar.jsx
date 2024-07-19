@@ -83,26 +83,28 @@ const sidebarMenuItems = [
     icon: <FiUsers size={24} />,
     url: "/chatPage",
   },
-  {
-    name: "Connect",
-    icon: <MdConnectWithoutContact size={24} />,
-    url: "/community/connect",
-  },
-  {
-    name: "Requests",
-    icon: <BsRocketTakeoff size={24} />,
-    url: "/community/requests",
-  },
-  {
-    name: 'Statistics',
-    icon:  <IoStatsChartOutline size={24} />,
-    url: "/community/statistics",
-  },
+  // {
+  //   name: "Connect",
+  //   icon: <MdConnectWithoutContact size={24} />,
+  //   url: "/community/connect",
+  // },
+  // {
+  //   name: "Requests",
+  //   icon: <BsRocketTakeoff size={24} />,
+  //   url: "/community/requests",
+  // },
+
   {
     name: "Notifications",
     icon: <CiBellOn size={24} />,
     url: "/notification",
   },
+  {
+    name: 'Profile (community)',
+    icon:  <FiUser size={24} />,
+    url: "/community/statistics",
+  },
+  
   {
     name: "Settings",
     icon: <CiSettings size={24} />,
