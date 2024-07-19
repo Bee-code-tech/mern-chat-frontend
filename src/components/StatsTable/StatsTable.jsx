@@ -1,11 +1,13 @@
 import React from 'react'
 import { FaArrowDown, FaArrowRightArrowLeft, FaArrowUp } from 'react-icons/fa6';
 
-const StatsTable = ({data}) => {
+const StatsTable = ({data, handleSearch}) => {
 
     
     return (
-        <div className="w-full mx-auto pb-6 mt-4 lg:p-4 md:p-4 p-1 border rounded-[20px]">
+        <div 
+       
+        className="w-full mx-auto pb-6 mt-4 lg:p-4 md:p-4 p-1 border rounded-[20px]">
           
           {data.map((row, index) => {
             let condition = ''
@@ -24,7 +26,8 @@ const StatsTable = ({data}) => {
             
            return (   <div
               key={index}
-              className={`${ 'bg-white border'} grid grid-cols-4 text-left gap-3 bg-white p-3  border-gray-200 rounded-lg mb-2 `}
+              onClick={()=> handleSearch(row.topic)}
+              className={`${ 'bg-white border'} hover:scale-95 cursor-pointer duration-300 ease-in-out grid grid-cols-4 text-left gap-3 bg-white p-3  border-gray-200 rounded-lg mb-2 `}
             >
               <div className="font-thin text-sm  text-left">{index + 1}</div>
               <div className="font-thin text-sm  text-left">{row.topic}</div>

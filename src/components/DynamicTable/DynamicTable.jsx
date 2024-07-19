@@ -29,7 +29,7 @@ const DynamicTable = ({ data }) => {
           condition = 'text-gray-600'
          }
         
-        return ( <Link to={'/community/topics'}
+        return ( <Link to={'/community/statistics'}
           key={index}
           className={`grid grid-cols-3 text-center gap-4 bg-white p-4 ${index < data.length - 1 ? 'border-b' : ''}`}
         >

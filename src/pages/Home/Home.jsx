@@ -377,7 +377,7 @@ const Home = () => {
             <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
             <p className="text-xl text-gray-400 leading-3">Community</p>
             </div>
-            <Link to='/community/topics'>
+            <Link to='/community/statistics'>
             <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
             </Link>
          </div>
@@ -418,13 +418,13 @@ const Home = () => {
                         
                       >
                         <div className={`avatar ${isOnline ? "online" : ""}`}>
-                          <div className="w-14 rounded-full">
+                          <div onMouseEnter={ () => handleModalOpen(conversation.username, conversation._id, conversation.profilePic)}className="w-14 rounded-full">
                             <img src={conversation.profilePic} alt={conversation.username} />
                           </div>
                         </div>
 
                         <div 
-                        onMouseEnter={ () => handleModalOpen(conversation.username, conversation._id, conversation.profilePic)}
+                        
                         className="flex flex-col flex-1">
                           <div className="flex justify-between">
                             <div className="flex gap-1 flex-col">

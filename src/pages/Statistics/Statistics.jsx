@@ -17,14 +17,45 @@ const Statistics = () => {
 
   const tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly', 'All Time'];
  
+  const search = (query) => {
+
+   
+    const fetchSearch = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/community/topics/search?query=${query}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              Authorization: `Bearer ${authUser.token}`,
+            },
+          }
+        );
+       const result = await res.json()
+
+       setOccurrences(result.occurrences)
+       console.log(result);
+       setSearchedTopics(result.topics)
+      
+      } catch (error) {
+        console.error("Error fetching gallery data:", error);
+      }
+    };
+    setInput(query)
+    fetchSearch()
+  }
+
   const contents = {
-    'Daily': <StatsTable data={dailyData} />,
-    'Weekly': <StatsTable data={weeklyData} />,
-    'Monthly': <StatsTable data={monthlyData} />,
-    'Yearly': <StatsTable data={yearlyData} />,
-    'All Time': <StatsTable data={dailyData} />,
+    'Daily': <StatsTable data={dailyData} handleSearch={search}  />,
+    'Weekly': <StatsTable data={weeklyData} handleSearch={search} />,
+    'Monthly': <StatsTable data={monthlyData} handleSearch={search} />,
+    'Yearly': <StatsTable data={yearlyData} handleSearch={search} />,
+    'All Time': <StatsTable data={dailyData} handleSearch={search} />,
     
   };
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -179,7 +210,7 @@ const Statistics = () => {
 
       <div className="flex item-center mx-auto justify-between mt-2 md:lg-16 lg:mt-4 flex-col lg:flex-row md:flex-row">
       
-        <form onSubmit={handleSubmit} className='md:w-[500px] lg:absolute mt-4 lg:mt-0  top-4 lg:w-[600px] z-[99999] flex items-center justify-center gap-2'>
+        <form onSubmit={handleSubmit} className='md:w-[500px] lg:absolute mt-4 lg:mt-0  top-4 lg:w-[600px] lg:z-[99999] flex items-center justify-center gap-2'>
           <input
            type="text" placeholder='Search for topics'
           className='w-full p-4 rounded-lg border

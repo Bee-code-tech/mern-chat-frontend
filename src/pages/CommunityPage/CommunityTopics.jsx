@@ -6,41 +6,41 @@ import { Link } from "react-router-dom";
 import TopicSkeleton from "../../components/skeletons/TopicSkeleton";
 import picf from '../../assets/community.png'
 import { useAuthContext } from "../../context/AuthContext";
+import Pagination from "../../components/Pagination/Pagination";
+
 const CommunityTopics = () => {
   const [topics, setTopics] = useState([]);
   const [refetchTopics, setRefetchTopics] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const {authUser} = useAuthContext()
-  console.log(
-    "🚀 ~ handleBookmark ~ ",
-    import.meta.env.VITE_BACKEND_URL
-  );
 
-  console.log(topics, 'all topics here');
+  const getTopics = async (page = 1) => {
+    setLoading(true);
+    const res = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/community/topics?page=${page}&limit=8`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers : {
+          Authorization: `Bearer ${authUser.token}`,
+        }   
+      }
+    );
+
+    const data = await res.json();
+    if (!data.success) {
+      return toast.error(data.msg);
+    }
+    setTopics(data.data);
+    setTotalPages(data.totalPages);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const getTopics = async () => {
-      setLoading(true);
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/community/topics`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers : {
-            Authorization: `Bearer ${authUser.token}`,
-          }   
-        }
-      );
-
-      const data = await res.json();
-      if (!data.success) {
-        return toast.error(data.msg);
-      }
-      setTopics(data.data);
-      setLoading(false) 
-    };
-    getTopics();
-  }, [refetchTopics]);
+    getTopics(currentPage);
+  }, [refetchTopics, currentPage]);
 
   const handleBookmark = async (payload) => {
     const res = await fetch(
@@ -52,8 +52,6 @@ const CommunityTopics = () => {
         headers: { 
           Authorization: `Bearer ${authUser.token}`,
           "Content-Type": "application/json",
-        
-           
         },
         body: JSON.stringify(payload),
       }
@@ -66,8 +64,6 @@ const CommunityTopics = () => {
     toast.success(data.msg);
     setRefetchTopics(!refetchTopics);
   };
-
-  console.log(topics);
 
   if (loading) {
     return (
@@ -92,27 +88,30 @@ const CommunityTopics = () => {
         </Link>
       </div>
       {topics.length > 0 ? (
-        <div className="space-y-8">
-          {topics &&
-            topics.map((topic) => (
-              <CommunityTopic
-                key={topic._id}
-                {...topic}
-                handleBookmark={handleBookmark}
-                showBookMark={true}
-              />
-            ))}
+        <div className="space-y-8 pb-16 ">
+          {topics.map((topic, index) => (
+            <CommunityTopic
+              key={topic._id}
+              {...topic}
+              handleBookmark={handleBookmark}
+              showBookMark={true}
+              className={index === topics.length - 1 ? "mb-24 bg-red-300" : ""}
+            />
+          ))}
         </div>
       ) : (
         <div className="flex h-[600px] justify-center flex-col w-full  items-center">
-                <div className="h-full overflow-hidden md:w-[50%] lg:w-[60%] w-[100%] mx-auto flex justify-center items-center">
-                <img src={picf} alt="" className="w-[100% ]  object-cover" />
-                
-
-                </div>
-                <h1 className="text-xl font-bold">No Topics Yet...</h1>
-              </div>
+          <div className="h-full overflow-hidden md:w-[50%] lg:w-[60%] w-[100%] mx-auto flex justify-center items-center">
+            <img src={picf} alt="" className="w-[100% ] object-cover" />
+          </div>
+          <h1 className="text-xl font-bold">No Topics Yet...</h1>
+        </div>
       )}
+      <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={setCurrentPage} 
+      />
     </section>
   );
 };

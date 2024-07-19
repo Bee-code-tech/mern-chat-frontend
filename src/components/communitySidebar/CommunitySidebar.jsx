@@ -13,7 +13,7 @@ const CommunitySidebar = ({ toggleMenu }) => {
   const { pathname } = useLocation();
   return (
     <div
-      className="flex z-40 flex-col items-center -ml-8 pt-10 justify-between top-20 bottom-0 fixed border-r lg:w-[370px] w-[330px]  "
+      className="flex z-40 flex-col items-center bg-white -ml-8 pt-10 justify-between top-20 bottom-0 fixed border-r lg:w-[370px] w-[330px]  "
       style={{ height: "calc(100vh - 80px)" }}
     >
       <div className="flex items-start justify-center flex-col gap-1">
