@@ -96,9 +96,7 @@ const App = () => {
           path="/community/connect"
           element = {
             authUser ? (
-              <CommunityLayout>
                 <Connect />
-              </CommunityLayout>
             ) : (
               <Navigate to='/login' />
             )
