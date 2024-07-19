@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import StatsTable from '../../components/StatsTable/StatsTable';
 import { FaSearch } from 'react-icons/fa';
 import { useAuthContext } from '../../context/AuthContext';
+import CommunityTopic from '../../components/CommunityTopic/CommunityTopic';
 
 const Statistics = () => {
   const [activeTab, setActiveTab] = useState('Daily');
@@ -12,6 +13,7 @@ const Statistics = () => {
   const [input, setInput] = useState('')
   const [occurrences, setOccurrences] = useState(0)
   const {authUser} = useAuthContext()
+  const [searchedTopics, setSearchedTopics] = useState([])
 
   const tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly', 'All Time'];
  
@@ -42,6 +44,8 @@ const Statistics = () => {
        const result = await res.json()
 
        setOccurrences(result.occurrences)
+       console.log(result);
+       setSearchedTopics(result.topics)
       
       } catch (error) {
         console.error("Error fetching gallery data:", error);
@@ -179,7 +183,7 @@ const Statistics = () => {
           <input
            type="text" placeholder='Search for topics'
           className='w-full p-4 rounded-lg border
-           border-slate-300 bg-transparent focus:outline-green-300 h-12'
+           border-slate-300 bg-transparent focus:outline-green-500 h-12'
            onChange={(e) => setInput(e.target.value)}
            />
           
@@ -193,19 +197,41 @@ const Statistics = () => {
         input && (
           <div className="mt-2">
         <h1 className='font-bold text-3xl capitalize'>{input}</h1>
+        <div className="flex gap-1 items-start justify-start">
         <p className='font-thin leading-7 mt-2'>{
           input && (` 
-            Search result (${occurrences} ${occurrences <= 1 ? 'outcome' : 'outcomes'})`
+            Search result `
           )
         }</p>
+        <span className='font-thin leading-7 mt-2'>{
+          occurrences && (`(${occurrences} ${occurrences <= 1 ? 'outcome' : 'outcomes'})`)
+          }</span>
+        </div>
       </div>
         )
       }
 
       
-      <div className="mt-4">
-        {contents[activeTab]}
-      </div>
+      {
+        searchedTopics.length > 0 ? (
+          <div className="space-y-8 mt-8">
+          {searchedTopics &&
+            searchedTopics.map((topic) => (
+              <CommunityTopic
+                key={topic._id}
+                {...topic}
+                showBookMark={false}
+              />
+            ))}
+        </div>
+       ) : (
+       <>
+          <div className="mt-4">
+           {contents[activeTab]}
+          </div>
+        </>
+        )
+      }
     </div>
   );
 }
