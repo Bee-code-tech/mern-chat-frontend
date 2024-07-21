@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import {  FaSpinner, FaPaperPlane } from 'react-icons/fa';
-import { useAuthContext } from '../../context/AuthContext';
-import { MdCancel, MdPendingActions } from 'react-icons/md';
-import { FaCheckCircle } from 'react-icons/fa';
+import { FaSpinner, FaUserMinus } from 'react-icons/fa';
+import { MdPendingActions, MdCancel } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
+import { useAuthContext } from '../../context/AuthContext';
+import ConnectModal from '../Modal/ConnectModal';
 import { FaCirclePlus } from 'react-icons/fa6';
 
 const ConnectList = ({ users }) => {
   const { authUser } = useAuthContext();
-  const [loading, setLoading] = useState({}); // Track loading state for each user
-  const [sent, setSent] = useState({}); // Track which requests have been sent
+  const [loading, setLoading] = useState({});
+  const [sent, setSent] = useState({});
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  // Function to handle connect button click
   const handleConnect = async (userId) => {
     setLoading((prev) => ({ ...prev, [userId]: true }));
     try {
@@ -30,23 +31,63 @@ const ConnectList = ({ users }) => {
 
       const data = await response.json();
       toast.success('Connect request sent');
-      console.log('Connect request sent', data);
       setSent((prev) => ({ ...prev, [userId]: true }));
+      setModalOpen(false);
     } catch (error) {
       toast.error('Error sending connect request');
-      console.error('Error sending connect request', error);
     } finally {
       setLoading((prev) => ({ ...prev, [userId]: false }));
     }
+  };
+
+  const handleUnfollow = async (userId) => {
+    setLoading((prev) => ({ ...prev, [userId]: true }));
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/connect/unfollow`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authUser.token}`
+        },
+        body: JSON.stringify({ userId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to unfollow');
+      }
+
+      const data = await response.json();
+      toast.success('Unfollowed successfully');
+      setSent((prev) => ({ ...prev, [userId]: false }));
+      setModalOpen(false);
+    } catch (error) {
+      toast.error('Error unfollowing');
+    } finally {
+      setLoading((prev) => ({ ...prev, [userId]: false }));
+    }
+  };
+
+  const openModal = (user, status) => {
+    setSelectedUser({ ...user, status });
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedUser(null);
+    setModalOpen(false);
   };
 
   return (
     <>
       {users.map(({ user, friendRequestStatus }) => (
         <div key={user._id} className='w-full flex items-center border-b justify-between h-auto lg:p-3 md:p-3 rounded-lg'>
-          <div className="h-full flex items-center py-3 gap-4">
-            <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
-              <img src={user.profilePic} alt={user.username} className='object-cover w-full h-full' />
+          <div
+            className="h-full flex items-center py-3 gap-4 cursor-pointer"
+            onClick={() => openModal(user, friendRequestStatus)}
+          >
+            <div className="relative w-14 h-14 rounded-full  flex-shrink-0">
+              <img src={user.profilePic} alt={user.username} className='object-cover rounded-full w-full h-full' />
+              <div className={`status-indicator ${friendRequestStatus}`}></div>
             </div>
             <div className="flex flex-col items-start justify-start h-full">
               <p className='text-lg font-bold'>{user.username}</p>
@@ -55,43 +96,56 @@ const ConnectList = ({ users }) => {
               </p>
             </div>
           </div>
+        </div>
+      ))}
 
-          <div className="flex items-center h-full">
-            {friendRequestStatus === 'none' && !sent[user._id] ? (
+      <ConnectModal isOpen={modalOpen} onClose={closeModal}>
+        {selectedUser && (
+          <>
+            <h2 className="text-lg font-bold mb-4">Connect with {selectedUser.username}</h2>
+            <p className="mb-4">Connect with {selectedUser.username} now to get started.</p>
+            {selectedUser.status === 'pending' ? (
               <button
-                onClick={() => handleConnect(user._id)}
-                className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 
-                rounded-lg border-[#18BB0C] px-1 lg:px-3 md:px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C]
-                hover:text-white text-sm flex items-center justify-center gap-2"
-                disabled={loading[user._id]}
+                className="bg-gray-400 flex   items-center justify-center text-white px-4 py-2 rounded-lg shadow-md float-right cursor-not-allowed"
+                disabled
               >
-                {loading[user._id] ? (
+                <MdPendingActions className="mr-2" />
+                Request Sent
+              </button>
+            ) : selectedUser.status === 'accepted' ? (
+              <button
+                onClick={() => handleUnfollow(selectedUser._id)}
+                className="bg-red-500 flex  items-center justify-center text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition ease-in-out duration-300 float-right"
+                disabled={loading[selectedUser._id]}
+              >
+                {loading[selectedUser._id] ? (
                   <FaSpinner className="animate-spin" />
                 ) : (
                   <>
-                    <FaCirclePlus />
-                    <span className="hidden lg:block md:block">Connect</span>
+                    <FaUserMinus className="mr-2" />
+                    Unfollow
                   </>
                 )}
               </button>
-            ) : sent[user._id] ? (
-              <span className="border border-slate-400 text-slate-400 py-2 px-1 lg:px-2 md:px-2 gap-2 
-              rounded-md capitalize flex items-center justify-center">
-                <FaPaperPlane />
-                <p className='hidden lg:block md:block'>Sent</p>
-              </span>
             ) : (
-              <span className={`border border-slate-400 text-slate-400 py-2 px-1 lg:px-2 md:px-2 gap-2 
-              rounded-md capitalize flex items-center justify-center`}>
-                {friendRequestStatus === 'pending' && <MdPendingActions />}
-                {friendRequestStatus === 'accepted' && <FaCheckCircle />}
-                {friendRequestStatus === 'rejected' && <MdCancel />}
-                <p className='hidden lg:block md:block'>{friendRequestStatus}</p>
-              </span>
+              <button
+                onClick={() => handleConnect(selectedUser._id)}
+                className="bg-green-500 flex items-center justify-center text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition ease-in-out duration-300 float-right"
+                disabled={loading[selectedUser._id]}
+              >
+                {loading[selectedUser._id] ? (
+                  <FaSpinner className="animate-spin" />
+                ) : (
+                  <>
+                    <FaCirclePlus className="mr-2" />
+                    Send Request
+                  </>
+                )}
+              </button>
             )}
-          </div>
-        </div>
-      ))}
+          </>
+        )}
+      </ConnectModal>
     </>
   );
 };

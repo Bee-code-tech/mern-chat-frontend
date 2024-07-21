@@ -10,3 +10,19 @@ body {
 .card.image-full:before {
     opacity: 0.5;
 }
+
+.status-indicator {
+  @apply absolute bottom-1 -right-[2px] w-4 h-4 rounded-full z-20 shadow-lg;
+}
+
+.status-indicator.accepted {
+  @apply bg-green-500;
+}
+
+.status-indicator.pending {
+  @apply bg-orange-500;
+}
+
+.status-indicator.none {
+  background: conic-gradient(from 45deg, #10b981 0deg, #10b981 180deg, #ef4444 180deg, #ef4444 360deg);
+}
