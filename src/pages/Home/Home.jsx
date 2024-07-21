@@ -389,7 +389,7 @@ const Home = () => {
         <div className="bg-white rounded-[20px] p-2 border border-green-300 ">
             <div className="p-2 border border-gray-300 rounded-[20px]">
 
-          <Link to='/community/connect' >
+          <Link to='/chatPage' >
             {!loading && isConvEmpty && (
               <div className="w-full h-[375px] rounded-xl flex flex-col items-center justify-center -mb-4">
                 <div className="h-auto overflow-hidden flex items-center my-3 cursor-pointer hover:-translate-y-1 hover:scale-110 duration-300 transition ">
@@ -469,7 +469,7 @@ const Home = () => {
             <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
             <p className="text-xl text-gray-400 leading-3">Chats</p>
             </div>
-            <Link to='/chatpage'>
+            <Link to='/chatPage'>
             <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
             </Link>
          </div>

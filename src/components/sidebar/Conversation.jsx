@@ -44,7 +44,7 @@ const Conversation = ({ conversation, toggleSidebar }) => {
         toggleSidebar();
       }}
     >
-      <div className={`avatar ${isOnline ? "online" : ""}`}>
+      <div className={`avatar ${isOnline ? "onliney" : ""}`}>
         <div className="w-14 h-14 flex-shrink-0 overflow-hidden rounded-full">
           <img src={conversation.profilePic} alt={conversation.username} className="object-cover w-full" />
         </div>

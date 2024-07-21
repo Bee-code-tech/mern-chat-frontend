@@ -81,7 +81,7 @@ const sidebarMenuItems = [
   {
     name: "Community Circle ",
     icon: <FiUsers size={24} />,
-    url: "/chatPage",
+    url: "/community/connect",
   },
   // {
   //   name: "Connect",
