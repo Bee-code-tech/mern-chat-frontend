@@ -123,7 +123,7 @@ const ConnectList = ({ users }) => {
                 ) : (
                   <>
                     <FaUserMinus className="mr-2" />
-                    Unfollow
+                    Disconnect
                   </>
                 )}
               </button>
