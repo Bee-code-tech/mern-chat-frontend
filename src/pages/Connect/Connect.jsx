@@ -36,10 +36,10 @@ const Connect = () => {
   }, [authUser.token]);
 
   return (
-    <div className="container mx-auto w-[95%] flex-wrap mt-24">
+    <div className="container md:px-32 lg:px-32 mx-auto w-[95%] flex-wrap mt-24">
       <div className="flex justify-between items-center mb-2 p-4">
         <Link
-          to="/community/chatPage"
+          to="/community/statistics"
           className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 
             rounded-lg border-[#18BB0C] px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C]
             hover:text-white text-sm flex items-center justify-center gap-2"

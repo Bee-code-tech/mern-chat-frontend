@@ -43,7 +43,7 @@ const ConnectList = ({ users }) => {
   const handleUnfollow = async (userId) => {
     setLoading((prev) => ({ ...prev, [userId]: true }));
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/connect/unfollow`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/connect/reject`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
