@@ -438,9 +438,7 @@ const Home = () => {
                                    ? timeAgo(conversation?.messageSendTime) 
                                   : ''
                               }</p>
-                              {/* <span className="bg-green-400 mt-3 text-white h-3 w-3 rounded-full p-3 flex items-center justify-center text-sm ">
-                                8
-                              </span> */}
+                              
                             </div>
                           </div>
                         </div>
