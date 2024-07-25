@@ -236,7 +236,7 @@ const Home = () => {
         {/* Video  */}
         <Link to={`/gallery/vids`}>
           <div className="border border-green-300 p-2 rounded-[20px] ">
-          <div className="card hover:card-compactbg-white  p-4 w-full h-[340px]
+          <div className="card hover:card-compact p-4 w-full h-[340px]
           image-full bg-white border border-gray-300">
             <figure className="bg-transparent">
               <img
