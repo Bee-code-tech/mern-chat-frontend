@@ -37,6 +37,10 @@ const Home = () => {
   const [modalUserName, setModalUserName] = useState(null)
   const [modalId, setModalId] = useState(null)
   const [modalProfilePicture, setModalProfilePicture] = useState(null)
+  const [infoModal, setInfoModal] = useState(false)
+  const [firstInfo, setFirstInfo] = useState(false)
+  const [secondInfo, setSecondInfo] = useState(false)
+  const [thirdInfo, setThirdInfo] = useState(false)
 
 
   useEffect(() => {
@@ -161,6 +165,38 @@ const Home = () => {
     setIsThanksOpen(true)
   }
 
+  const handleInfoModalOpen = (id) => {
+    switch (id) {
+      case 'first':
+        setFirstInfo(true);
+        break;
+      case 'second':
+        setSecondInfo(true);
+        break;
+      case 'third':
+        setThirdInfo(true);
+        break;
+      default:
+        setInfoModal(true);
+    }
+  }
+
+  const handleInfoModalClose = (id) => {
+    switch (id) {
+      case 'first':
+        setFirstInfo(false);
+        break;
+      case 'second':
+        setSecondInfo(false);
+        break;
+      case 'third':
+        setThirdInfo(false);
+        break;
+      default:
+        setInfoModal(false);
+    }
+  }
+
  
 
 
@@ -223,12 +259,21 @@ const Home = () => {
         </Link>
 
         {/* Info text  */}
-         <div className="w-full mt-4 flex items-center  justify-between px-6">
-          <div className="flex">
-          <img src={logo} alt="Logo" className="h-5" />
+         <div className="relative w-full mt-4 flex items-center  justify-between px-6">
+              <div className="flex">
+              <img src={logo} alt="Logo" className="h-5" />
 
-          </div>
-          <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+              </div>
+              <GoInfo 
+              onMouseLeave={() => handleInfoModalClose('first')}
+              onMouseEnter={() => handleInfoModalOpen('first')} className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+             {
+              firstInfo && (
+                <div className="absolute -bottom-12 right-12 p-3 w-[400px] auto bg-white shadow-lg rounded-lg">
+                <p className="text-thin text-black text-sm">Discover a unique social experience on Biopic, where connections flourish and stories unfold freely.</p>
+             </div>
+              )
+             }
          </div>
       </div>
       ) : (
@@ -261,12 +306,21 @@ const Home = () => {
         </Link>
 
         {/* Info text  */}
-         <div className="w-full mt-4 flex items-center  justify-between px-6">
-          <div className="flex">
-          <img src={logo} alt="Logo" className="h-5" />
+        <div className="relative w-full mt-4 flex items-center  justify-between px-6">
+              <div className="flex">
+              <img src={logo} alt="Logo" className="h-5" />
 
-          </div>
-          <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+              </div>
+              <GoInfo 
+              onMouseLeave={() => handleInfoModalClose('first')}
+              onMouseEnter={() =>handleInfoModalOpen('first')} className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+             {
+              firstInfo && (
+                <div className="absolute -bottom-12 right-12 p-3 w-[400px] auto bg-white shadow-lg rounded-lg">
+                <p className="text-thin text-black text-sm">Discover a unique social experience on Biopic, where connections flourish and stories unfold freely.</p>
+             </div>
+              )
+             }
          </div>
       </div>
       )
@@ -332,14 +386,23 @@ const Home = () => {
 
   
          {/* Info text  */}
-         <div className="w-full mt-4 flex items-center justify-between px-6">
+         <div className="relative w-full mt-4 flex items-center justify-between px-6">
             <div className="flex gap-2 items-center justify-center">
           
             <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
             <p className="text-xl text-gray-400 leading-3">Pics</p>
             </div>
             <Link to='/chatpage'>
-            <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+            <GoInfo 
+              onMouseLeave={() => handleInfoModalClose('second')}
+              onMouseEnter={() => handleInfoModalOpen('second')} className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+             {
+              secondInfo && (
+                <div className="absolute -bottom-12 right-12 p-3 w-[400px] auto bg-white shadow-lg rounded-lg">
+                <p className="text-thin text-black text-sm">Capture and share your moments with Biopic Pics. A visual journey through your life's highlights.</p>
+             </div>
+              )
+             }
             </Link>
          </div>
 </div>
@@ -370,14 +433,23 @@ const Home = () => {
               </div>
             </div>
              {/* Info text  */}
-         <div className="w-full mt-4 flex items-center justify-between px-6">
+         <div className=" relative w-full mt-4 flex items-center justify-between px-6">
             <div className="flex gap-2 items-center justify-center">
            
             <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
             <p className="text-xl text-gray-400 leading-3">Community</p>
             </div>
             <Link to='/community/statistics'>
-            <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+            <GoInfo 
+              onMouseLeave={() => handleInfoModalClose('third')}
+              onMouseEnter={() => handleInfoModalOpen('third')} className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+             {
+              thirdInfo && (
+                <div className="absolute -bottom-12 right-12 p-3 w-[400px] auto bg-white shadow-lg rounded-lg">
+                <p className="text-thin text-black text-sm"> Join the Biopic Community to connect with like-minded individuals and explore diverse interests.</p>
+             </div>
+              )
+             }
             </Link>
          </div>
       </div>
@@ -460,14 +532,23 @@ const Home = () => {
         </div>
 
          {/* Info text  */}
-         <div className="w-full mt-4 flex items-center justify-between px-6">
+         <div className="relative w-full mt-4 flex items-center justify-between px-6">
             <div className="flex gap-2 items-center justify-center">
           
             <img src={logo} alt="Logo" className="h-5 mt-[4px]" />
             <p className="text-xl text-gray-400 leading-3">Chats</p>
             </div>
             <Link to='/chatPage'>
-            <GoInfo className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+            <GoInfo 
+              onMouseLeave={() => handleInfoModalClose('last') }
+              onMouseEnter={() => handleInfoModalOpen('last') } className="text-xl cursor-pointer hover:text-2xl hover:text-green-300 transition-all ease-in" />
+             {
+              infoModal && (
+                <div className="absolute -bottom-12 right-12 p-3 w-[400px] auto bg-white shadow-lg rounded-lg">
+                <p className="text-thin text-black text-sm"> Engage in real-time conversations on Biopic Chat. Connect, communicate, and share instantly.</p>
+             </div>
+              )
+             }
             </Link>
          </div>
         
