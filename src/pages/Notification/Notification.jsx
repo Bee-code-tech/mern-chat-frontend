@@ -59,7 +59,7 @@ const Notification = () => {
           <div className="h-full overflow-hidden md:w-[50%] lg:w-[60%] w-[100%] mx-auto flex justify-center items-center">
             <img src={picf} alt="" className="w-[100% ]  object-cover" />
           </div>
-          <h1 className="text-xl font-bold">You have no notifications yet</h1>
+          <h1 className="text-xl -mt-32 font-bold">You have no notifications yet</h1>
         </div>
       )}
     </section>

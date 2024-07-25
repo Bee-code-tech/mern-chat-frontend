@@ -3,6 +3,7 @@ import StatsTable from '../../components/StatsTable/StatsTable';
 import { FaSearch } from 'react-icons/fa';
 import { useAuthContext } from '../../context/AuthContext';
 import CommunityTopic from '../../components/CommunityTopic/CommunityTopic';
+import { CiFilter } from 'react-icons/ci';
 
 const Statistics = () => {
   const [activeTab, setActiveTab] = useState('Daily');
@@ -15,7 +16,7 @@ const Statistics = () => {
   const {authUser} = useAuthContext()
   const [searchedTopics, setSearchedTopics] = useState([])
 
-  const tabs = ['Daily', 'Weekly', 'Monthly', 'Yearly', 'All Time'];
+  const tabs = ['Daily (99+)', 'Weekly (56+)', 'Monthly (45+)', 'Yearly (47+)', 'All Time (99+)'];
  
   const search = (query) => {
 
@@ -55,7 +56,7 @@ const Statistics = () => {
     
   };
 
-  
+  console.log('search results', searchedTopics);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -221,6 +222,9 @@ const Statistics = () => {
           <button type='submit'  className='absolute right-5 cursor-pointer ease-in-out hover:scale-110 duration-300 transition'>
             <FaSearch />
           </button>
+          <button   className='absolute right-11 cursor-pointer ease-in-out hover:scale-110 duration-300 transition'>
+            <CiFilter className='text-2xl' />
+          </button>
         </form>
       </div>
 
@@ -230,9 +234,7 @@ const Statistics = () => {
         <h1 className='font-bold text-3xl capitalize'>{input}</h1>
         <div className="flex gap-1 items-start justify-start">
         <p className='font-thin leading-7 mt-2'>{
-          input && (` 
-            Search result `
-          )
+          input && (`  Search result `)
         }</p>
         <span className='font-thin leading-7 mt-2'>{
           occurrences && (`(${occurrences} ${occurrences <= 1 ? 'outcome' : 'outcomes'})`)

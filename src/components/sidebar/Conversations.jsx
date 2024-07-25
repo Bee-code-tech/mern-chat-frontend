@@ -9,7 +9,6 @@ import fallBack from '../../assets/forum.png'
 const Conversations = ({ toggleSidebar }) => {
   const { loading, conversations } = useGetConversations();
 
-  console.log('conversations', conversations);
   
 
   return (

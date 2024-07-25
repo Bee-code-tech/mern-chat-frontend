@@ -72,14 +72,14 @@ const Contributions = () => {
     <section className="space-y-5 px-3">
       <div className="flex justify-end mt-4">
         
-       <Link to='/community/topics'
+       {/* <Link to='/community/topics'
        className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 
        rounded-lg border-[#18BB0C] px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C]
         hover:text-white text-xl flex items-center justify-center gap-2"
      >
        <FaCirclePlus />
        Create new
-     </Link>
+     </Link> */}
       </div>
       {topics.length > 0 ? (
         <div className="space-y-8">

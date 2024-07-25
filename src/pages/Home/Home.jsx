@@ -32,7 +32,7 @@ const Home = () => {
   const [isEmpty, setIsEmpty] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isThanksOpen, setIsThanksOpen] = useState(false)
-  const {onlineUsers} = useSocketContext
+  const {onlineUsers} = useSocketContext()
   const {selectedConversation, setSelectedConversation} = useConversation()
   const [modalUserName, setModalUserName] = useState(null)
   const [modalId, setModalId] = useState(null)
@@ -478,21 +478,30 @@ const Home = () => {
                 <div className=" flex flex-col md:h-[357px] h-auto lg:h-[357px] overflow-auto w-full">
                   {conversations.slice(0,4).reverse().map((conversation, idx) => {
                     const isOnline = onlineUsers?.includes(conversation._id)
+                    console.log('online', onlineUsers);
                     // setSelectedConversation(conversation)
                    return  ( <div key={idx}>
                       <div 
-                        className={`flex gap-2 mb-2 ${idx < conversations.length - 1 ? 'border-b' : ''} items-center w-full hover:bg-green-50 duration-150 transition-all ease-in rounded-[20px] p-2 py-3 cursor-pointer`}
+                        className={`flex  gap-2 mb-2 ${idx < conversations.length - 1 ? 'border-b' : ''} items-center w-full hover:bg-green-50 duration-150 transition-all ease-in rounded-[20px] p-2 py-3 cursor-pointer`}
                         onClick={() => {
                           setSelectedConversation(conversation);
                           toggleModal();
                         }}
                         
                       >
-                        <div className={`avatar ${isOnline ? "online" : ""}`}>
+                        {/* <div className={`avatar ${isOnline ? "online" : ""}`}>
                           <div onMouseEnter={ () => handleModalOpen(conversation.username, conversation._id, conversation.profilePic)}className="w-14 rounded-full">
                             <img src={conversation.profilePic} alt={conversation.username} />
                           </div>
-                        </div>
+                        </div> */}
+
+                      <div className={`avatar ${isOnline ? "onliney" : "offline-stat"}`}>
+                              <div onMouseEnter={ () => handleModalOpen(conversation.username, conversation._id, conversation.profilePic)}className="w-14 rounded-full">
+                                <img src={conversation.profilePic} alt={conversation.username} className="object-cover w-full" />
+                              </div>
+                            </div>
+
+
 
                         <div 
                         
