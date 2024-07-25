@@ -241,7 +241,7 @@ const Home = () => {
             <figure className="bg-transparent">
               <img
                 src={vidFallback}
-                className="rounded-lg w-[250px]  object-cover"
+                className="rounded-lg w-[250px] object-cover"
               />
             </figure>
             <div className="card-body">
