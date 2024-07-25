@@ -494,12 +494,7 @@ const Home = () => {
    </div>
 
    {/* Thank you modal  */}
-   {/* <ThankYou 
-   isOpen={isThanksOpen} 
-   onClose={handleModalClose} 
-   img={modalProfilePicture} 
-   id={modalId} 
-   name={modalUserName} /> */}
+ 
     </div>
   );
 };
