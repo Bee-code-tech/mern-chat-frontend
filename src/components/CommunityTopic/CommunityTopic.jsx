@@ -64,16 +64,16 @@ const CommunityTopic = (props) => {
       <div className="flex gap-4 my-4 ">
         <img
           className="rounded-full size-16"
-          src={author.profilePic || demo}
+          src={author?.profilePic || demo}
           alt="profileAvatar"
         />
         <div>
           <span className="text-[#666666] font-semibold text-lg cursor-pointer hover:underline hover:text-2xl duration-300 transition-all ease-in-out ">
-            <Link to={`/community/userProfile/${author._id}`} >
-            {author.username}
+            <Link to={`/community/userProfile/${author?._id}`} >
+            {author?.username}
             </Link>
           </span>
-          <p className="text-[#666666] font-medium">{author.designation}</p>
+          <p className="text-[#666666] font-medium">{author?.designation}</p>
           <p className="text-[#999999] font-medium text-sm">
             {timeAgo(createdAt)}
           </p>

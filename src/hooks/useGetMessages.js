@@ -26,7 +26,7 @@ const useGetMessages = () => {
           }
         );
         const data = await res.json();
-        console.log("Fetched messages:", data); // Add this debug log
+        // console.log("Fetched messages:", data); 
 
         if (data.error) throw new Error(data.error);
         setMessages(data);

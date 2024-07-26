@@ -4,9 +4,12 @@ import { useAuthContext } from "../../context/AuthContext";
 import useConversation from "../../zustand/useConversation";
 import MessageInput from "./MessageInput";
 import Messages from "./Messages";
+import { useSocketContext } from "../../context/SocketContext";
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
+  const { onlineUsers } = useSocketContext();
+  const isOnline = onlineUsers.includes(selectedConversation?._id);
 
   useEffect(() => {
     // cleanup function (unmounts)
@@ -20,17 +23,29 @@ const MessageContainer = () => {
           {/* Header */}
           <div className="bg-neutral-100 flex justify-between px-4 py-4 mb-2">
             <div className="flex gap-4">
-              <img
+              {/* <img
                 src={selectedConversation.profilePic}
                 style={{ height: "60px", width: "60px" }}
-              />
-              {/* Info anout the user */}
+              /> */}
+
+              <div className={`relative avatar ${isOnline ? "onliney" : "offline-stat"}`}>
+                    <div className="w-14 h-14 flex-shrink-0 overflow-hidden rounded-full">
+                      <img src={selectedConversation.profilePic} alt={selectedConversation.username} className="object-cover w-full" />
+                    </div>
+                
+              </div>
+
+              {/* Info about the user */}
               <div className="flex flex-col items-center justify-center">
               <span className="text-gray-900 font-bold capitalize">
                 {selectedConversation.username}
               </span>
               <span className="text-gray-900 text-sm font-thin capitalize">
-               online
+              {
+                `
+                ${isOnline ? 'Online' : 'Offline'}
+                `
+              }
               </span>
               </div>
             </div>

@@ -15,17 +15,13 @@ const TopicDetail = () => {
   const { id } = useParams();
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [isThanksOpen, setIsThanksOpen] = useState(false)
+  const [isThanksOpen, setIsThanksOpen] = useState(false);
   const [refetch, setRefetch] = useState(false);
   const [commentText, setCommentText] = useState('');
   const { authUser } = useAuthContext();
   const [showThanks, setShowThanks] = useState(false);
-  const [modalUserName, setModalUserName] = useState('');
-  const [modalId, setModalId] = useState('');
-  const [modalProfilePicture, setModalProfilePicture] = useState('');
   const modalRef = useRef(null);
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getComments = async () => {
@@ -111,10 +107,9 @@ const TopicDetail = () => {
     };
   }, [showThanks]);
 
-
   const handleModalClose = () => {
-    setIsThanksOpen(false)
-  } 
+    setIsThanksOpen(false);
+  };
 
   const handleInputChange = (e) => {
     setCommentText(e.target.value);
@@ -124,16 +119,13 @@ const TopicDetail = () => {
     setShowThanks(true);
   };
 
-  
-  const handleModalOpen = (  ) => {
-    
-    setIsThanksOpen(true)
-  }
-  
+  const handleModalOpen = () => {
+    setIsThanksOpen(true);
+  };
+
   const handleBack = () => {
-    navigate(-1)
-  }
- 
+    navigate(-1);
+  };
 
   const postComment = async () => {
     if (!commentText) {
@@ -210,13 +202,14 @@ const TopicDetail = () => {
     setRefetch(!refetch);
   };
 
+  const sendThanks = async () => {
+    await handleTopicReaction({ topicId: topic._id });
+  };
 
   return (
     <>
       <div className="container mx-auto ml-10  flex justify-start items-center">
-        <div 
-        onClick={handleBack}
-        >
+        <div onClick={handleBack}>
           <button className="btn bg-[#18BB0C] text-white">
             <span className="flex items-center">
               <FaAngleLeft color="white" size="1.2em" />
@@ -225,146 +218,146 @@ const TopicDetail = () => {
           </button>
         </div>
       </div>
-    <div className="shadow-lg rounded-lg p-6 mb-5 lg:mx-10">
-      <ThankYou
-      isOpen={isThanksOpen}
-      onClose={handleModalClose}
-      id={topic?.author?._id}
-      img={topic?.author?.profilePic}
-      name={topic?.author?.username}
-      />
-     
-      <div className="rounded-lg border p-6">
-        <h2 className="font-bold text-xl">{topic?.title}</h2>
-        <div className="flex gap-4 my-4">
-          <img
-          onMouseEnter={() => handleModalOpen( )}
-            className="rounded-full size-16"
-            src={topic?.author?.profilePic || defaultImg}
-            alt="profileAvatar"
+      <div className="shadow-lg rounded-lg p-6 mb-5 lg:mx-10">
+        <ThankYou
+          isOpen={isThanksOpen}
+          onClose={handleModalClose}
+          id={topic?.author?._id}
+          img={topic?.author?.profilePic}
+          name={topic?.author?.username}
+          sendThanks={sendThanks}
+        />
+
+        <div className="rounded-lg border p-6">
+          <h2 className="font-bold text-xl">{topic?.title}</h2>
+          <div className="flex gap-4 my-4">
+            <img
+              onMouseEnter={handleModalOpen}
+              className="rounded-full size-16"
+              src={topic?.author?.profilePic || defaultImg}
+              alt="profileAvatar"
+            />
+            <div>
+              <p className="text-[#666666] font-semibold text-lg">
+                {topic?.author?.username}
+              </p>
+              <p className="text-[#666666] font-medium">
+                {topic?.author?.designation}
+              </p>
+              <p className="text-[#999999] font-medium text-sm">
+                {timeAgo(topic?.createdAt)}
+              </p>
+            </div>
+          </div>
+
+          <p
+            className="text-[#999999] font-medium text-base"
+            dangerouslySetInnerHTML={{ __html: topic?.body }}
           />
-          <div>
-            <p className="text-[#666666] font-semibold text-lg">
-              {topic?.author?.username}
-            </p>
-            <p className="text-[#666666] font-medium">
-              {topic?.author?.designation}
-            </p>
-            <p className="text-[#999999] font-medium text-sm">
-              {timeAgo(topic?.createdAt)}
-            </p>
-          </div>
         </div>
 
-        <p
-          className="text-[#999999] font-medium text-base"
-          dangerouslySetInnerHTML={{ __html: topic?.body }}
-        />
-      </div>
-
-
-      <div className="my-6 font-medium text-[#999999] text-[15px] flex flex-row flex-wrap lg:flex-row md:flex-row gap-4 items-center">
-        {topic.createdAt && (
-          <p>{format(parseISO(topic.createdAt), "h:mm a")}</p>
-        )}
-        <div className="size-1 bg-[#999999] rounded-full"></div>
-        {topic.createdAt && (
-          <p>{format(parseISO(topic.createdAt), "MMM d, yyyy")}</p>
-        )}
-        <div className="size-1 bg-[#999999] rounded-full"></div>
-        <p>
-          <span className="text-[#666666] text-[17px]">
-            {formatViewCount(topic?.viewedBy?.length)}
-          </span>{" "}
-          views
-        </p>
-        <div className="size-1 bg-[#999999] rounded-full"></div>
-        <p>
-          <span className="text-[#666666] text-[17px]">{comments?.length}</span>{" "}
-          Comments
-        </p>
-        <div className="size-1 bg-[#999999] rounded-full"></div>
-
-        <div className="relative" ref={modalRef}>
-          <button
-            onMouseEnter={handleModal}
-            className="flex items-center justify-center px-[24px] py-1 gap-2 border rounded-[40px]"
-          >
-            <p className="text-2xl"> 🙏 </p>
-            <div className="flex space-x-1">
-              <p>{topic?.reactions?.length}</p>
-            </div>
-          </button>
-
-          {showThanks && (
-            <div className="absolute bg-white shadow-lg px-2 flex gap-1 z-10 h-auto w-auto rounded-lg -bottom-12 -right-24">
-              <button
-                onClick={() => handleTopicReaction({ topicId: topic._id })}
-                className="flex items-center hover:scale-110 duration-150 transition ease-in-out justify-center px-2 py-2"
-              >
-                <p className="text-2xl"> 🙏 </p>
-              </button>
-              <button
-                onClick={() => handleTopicReaction({ topicId: topic._id })}
-                className="flex items-center justify-center px-2 py-2 gap-2 hover:scale-110 duration-150 transition ease-in-out"
-              >
-                <p className="text-2xl"> 🙏🏽 </p>
-              </button>
-              <button
-                onClick={() => handleTopicReaction({ topicId: topic._id })}
-                className="flex items-center justify-center px-2 py-2 gap-2 hover:scale-110 duration-150 transition ease-in-out"
-              >
-                <p className="text-2xl"> 🙏🏿 </p>
-              </button>
-              <button
-                onClick={() => handleTopicReaction({ topicId: topic._id })}
-                className="flex items-center justify-center px-2 py-2 gap-2 hover:scale-110 duration-150 transition ease-in-out"
-              >
-                <p className="text-2xl"> 🙏🏾 </p>
-              </button>
-            </div>
+        <div className="my-6 font-medium text-[#999999] text-[15px] flex flex-row flex-wrap lg:flex-row md:flex-row gap-4 items-center">
+          {topic.createdAt && (
+            <p>{format(parseISO(topic.createdAt), "h:mm a")}</p>
           )}
-        </div>
-      </div>
+          <div className="size-1 bg-[#999999] rounded-full"></div>
+          {topic.createdAt && (
+            <p>{format(parseISO(topic.createdAt), "MMM d, yyyy")}</p>
+          )}
+          <div className="size-1 bg-[#999999] rounded-full"></div>
+          <p>
+            <span className="text-[#666666] text-[17px]">
+              {formatViewCount(topic?.viewedBy?.length)}
+            </span>{" "}
+            views
+          </p>
+          <div className="size-1 bg-[#999999] rounded-full"></div>
+          <p>
+            <span className="text-[#666666] text-[17px]">{comments?.length}</span>{" "}
+            Comments
+          </p>
+          <div className="size-1 bg-[#999999] rounded-full"></div>
 
-      <hr className="my-8" />
-      <div className="my-8 flex justify-between items-center">
-        <p className="font-medium text-2xl">Comments ({comments.length}):</p>
-        <button
-          className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 rounded-lg border-[#18BB0C] px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C] hover:text-white text-sm flex items-center justify-center gap-2"
-          onClick={() => document.getElementById('my_modal_1').showModal()}
-        >
-          <FaCirclePlus /> Add Comment
-        </button>
-      </div>
-      <div>
-        <Comments
-          comments={comments}
-          handleTopicCommentReaction={handleTopicCommentReaction}
-        />
-      </div>
+          <div className="relative" ref={modalRef}>
+            <button
+              onMouseEnter={handleModal}
+              className="flex items-center justify-center px-[24px] py-1 gap-2 border rounded-[40px]"
+            >
+              <p className="text-2xl"> 🙏 </p>
+              <div className="flex space-x-1">
+                <p>{topic?.reactions?.length}</p>
+              </div>
+            </button>
 
-      <dialog id="my_modal_1" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Comment</h3>
-          <div className="modal-action flex-col">
-            <form method="dialog">
-              <textarea
-                className="bg-gray-50 mb-3 w-full h-[150px] border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5"
-                value={commentText}
-                onChange={handleInputChange}
-              ></textarea>
-              <button
-                onClick={postComment}
-                className="bg-[#18BB0C] mt-2 transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 px-4 py-2 rounded-md text-white ml-[270px]"
-              >
-                Add
-              </button>
-            </form>
+            {showThanks && (
+              <div className="absolute bg-white shadow-lg px-2 flex gap-1 z-10 h-auto w-auto rounded-lg -bottom-12 -right-24">
+                <button
+                  onClick={() => handleTopicReaction({ topicId: topic._id })}
+                  className="flex items-center hover:scale-110 duration-150 transition ease-in-out justify-center px-2 py-2"
+                >
+                  <p className="text-2xl"> 🙏 </p>
+                </button>
+                <button
+                  onClick={() => handleTopicReaction({ topicId: topic._id })}
+                  className="flex items-center justify-center px-2 py-2 gap-2 hover:scale-110 duration-150 transition ease-in-out"
+                >
+                  <p className="text-2xl"> 🙏🏽 </p>
+                </button>
+                <button
+                  onClick={() => handleTopicReaction({ topicId: topic._id })}
+                  className="flex items-center justify-center px-2 py-2 gap-2 hover:scale-110 duration-150 transition ease-in-out"
+                >
+                  <p className="text-2xl"> 🙏🏿 </p>
+                </button>
+                <button
+                  onClick={() => handleTopicReaction({ topicId: topic._id })}
+                  className="flex items-center justify-center px-2 py-2 gap-2 hover:scale-110 duration-150 transition ease-in-out"
+                >
+                  <p className="text-2xl"> 🙏🏾 </p>
+                </button>
+              </div>
+            )}
           </div>
         </div>
-      </dialog>
-    </div>
+
+        <hr className="my-8" />
+        <div className="my-8 flex justify-between items-center">
+          <p className="font-medium text-2xl">Comments ({comments.length}):</p>
+          <button
+            className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 rounded-lg border-[#18BB0C] px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C] hover:text-white text-sm flex items-center justify-center gap-2"
+            onClick={() => document.getElementById('my_modal_1').showModal()}
+          >
+            <FaCirclePlus /> Add Comment
+          </button>
+        </div>
+        <div>
+          <Comments
+            comments={comments}
+            handleTopicCommentReaction={handleTopicCommentReaction}
+          />
+        </div>
+
+        <dialog id="my_modal_1" className="modal">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Comment</h3>
+            <div className="modal-action flex-col">
+              <form method="dialog">
+                <textarea
+                  className="bg-gray-50 mb-3 w-full h-[150px] border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5"
+                  value={commentText}
+                  onChange={handleInputChange}
+                ></textarea>
+                <button
+                  onClick={postComment}
+                  className="bg-[#18BB0C] mt-2 transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 px-4 py-2 rounded-md text-white ml-[270px]"
+                >
+                  Add
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+      </div>
     </>
   );
 };
