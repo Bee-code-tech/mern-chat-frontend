@@ -16,7 +16,7 @@ importers:
         version: 1.6.8
       chat-application:
         specifier: file:..
-        version: BIOpIC 2@file:..
+        version: Workspace@file:..
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -868,7 +868,7 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0
 
-  BIOpIC 2@file:..:
+  Workspace@file:..:
     resolution: {directory: .., type: directory}
 
   acorn-jsx@5.3.2:
@@ -3441,7 +3441,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  BIOpIC 2@file:..: {}
+  Workspace@file:..: {}
 
   acorn-jsx@5.3.2(acorn@8.11.3):
     dependencies:
