@@ -55,11 +55,10 @@ const Notification = () => {
           ))}
         </div>
       ) : (
-        <div className="flex h-auto mt-12 justify-center flex-col w-full items-center">
-          <div className="h-full overflow-hidden md:w-[50%] lg:w-[60%] w-[100%] mx-auto flex justify-center items-center">
-            <img src={picf} alt="" className="w-[100% ]  object-cover" />
+        <div className="flex h-screen -mt-[100px] justify-center flex-col w-full items-center">
+          <div className="rounded-lg p-8 border border-slate-300 ">
+          <h1 className="text-xl  font-bold">You have no notifications yet</h1>
           </div>
-          <h1 className="text-xl -mt-32 font-bold">You have no notifications yet</h1>
         </div>
       )}
     </section>
