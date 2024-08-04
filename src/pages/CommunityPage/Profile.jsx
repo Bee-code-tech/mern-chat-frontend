@@ -34,7 +34,6 @@ const Profile = () => {
 
       setValue("fullName", userData.username);
       setValue("username", userData.username);
-      setValue("gender", userData.gender);
       setValue("designation", userData.designation);
       setValue(
         "DateOfBirth",
@@ -263,20 +262,7 @@ const Profile = () => {
               {...register("designation")}
             />
           </div>
-          <div className="mb-5">
-            <label htmlFor="gender" className="block mb-2 text-sm font-medium ">
-              Gender
-            </label>
-            <select
-              name="gender"
-              type="text"
-              className="bg-gray-50 border border-gray-[#18BB0C] text-gray-900 text-sm rounded-lg focus:ring-green-400 focus:border-green-400 block w-full p-2.5 "
-              {...register("gender")}
-            >
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
+        
           <div className="mb-5">
             <label
               htmlFor="DateOfBirth"
