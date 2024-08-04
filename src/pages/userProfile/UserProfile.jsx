@@ -1,17 +1,14 @@
-import { Col, Row } from "antd";
+import { Col, Row, Spin } from "antd";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { FaAngleLeft, FaLock } from "react-icons/fa6";
+import { FaAngleLeft, FaInfoCircle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import picfallback from '../../assets/upload.png';
-import pic from '../../assets/demo.avif';
 import { useAuthContext } from "../../context/AuthContext";
 import { CiLock } from "react-icons/ci";
-import { Spin } from "antd";
 import { toast } from 'react-hot-toast';
 
 const UserProfile = () => {
   const { userId } = useParams();
-  const [gallerySingleData, setGallerySingleData] = useState({ image: pic });
   const [galleryData, setGalleryData] = useState([]);
   const { authUser } = useAuthContext();
   const navigate = useNavigate();
@@ -19,8 +16,8 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(true);
   const [connectLoading, setConnectLoading] = useState(false);
   const [isFriend, setIsFriend] = useState(false);
-
- 
+  const [timerFinished, setTimerFinished] = useState(false);
+  const [countdown, setCountdown] = useState(30);
 
   useEffect(() => {
     const fetchGalleryData = async () => {
@@ -64,37 +61,51 @@ const UserProfile = () => {
         );
 
         if (!res.ok) {
-          toast.error('Error accepting connect request');
+          toast.error('Error fetching friendship status');
         }
 
         const data = await res.json();
         setIsFriend(data.status);
 
-        if (data.status === 'none') {
+        if (data.status === 'none' || data.status === 'rejected') {
           setShowModal(true);
-        }
-        if (data.status === 'pending') {
+        } else {
           setShowModal(false);
         }
-        if (data.status === 'accepted') {
-          setShowModal(false);
-        }
-        if (data.status === 'rejected') {
-          setShowModal(true);
-        }
-        
 
       } catch (error) {
         console.error("Error fetching friendship status:", error);
       }
     };
 
-    fetchFriendshipStatus();
-
+    // Fetch gallery data immediately
     fetchGalleryData();
 
-    
-  }, [authUser._id]);
+    // Set a timer for 30 seconds before checking friendship status
+    const timer = setTimeout(() => {
+      fetchFriendshipStatus();
+      setTimerFinished(true);
+    }, 30000);
+
+    // Countdown logic
+    const countdownInterval = setInterval(() => {
+      setCountdown((prevCountdown) => {
+        if (prevCountdown > 0) {
+          return prevCountdown - 1;
+        } else {
+          clearInterval(countdownInterval);
+          return 0;
+        }
+      });
+    }, 1000);
+
+    // Cleanup timers on component unmount
+    return () => {
+      clearTimeout(timer);
+      clearInterval(countdownInterval);
+    };
+
+  }, [authUser.token, userId]);
 
   const handleConnect = async (id) => {
     setConnectLoading(true);
@@ -112,21 +123,20 @@ const UserProfile = () => {
         throw new Error('Failed to send connect request');
       }
       toast.success('Connect request sent');
-      setShowModal(false)
+      setShowModal(false);
     
     } catch (error) {
       toast.error('Error sending connect request');
       console.error('Error sending connect request', error);
     } finally {
-      setLoading( false );
+      setLoading(false);
+      setConnectLoading(false);
     }
   };
 
   const handleBack = () => {
     navigate(-1);
   };
-
- 
 
   return (
     <div className="px-4">
@@ -154,10 +164,8 @@ const UserProfile = () => {
         </div>
       )}
 
-      <div className="container mx-auto mt-28 mb-10 flex justify-start items-center">
-        <div 
-        onClick={handleBack}
-        >
+      <div className="container mx-auto mt-28 mb-10 flex flex-col items-start">
+        <div onClick={handleBack}>
           <button className="btn bg-[#18BB0C] text-white">
             <span className="flex items-center">
               <FaAngleLeft color="white" size="1.2em" />
@@ -165,6 +173,22 @@ const UserProfile = () => {
             </span>
           </button>
         </div>
+        {isFriend !== 'accepted' && (
+          <div className="mt-4 flex gap-4 rounded-lg p-4 bg-yellow-100 border-l-4 border-yellow-300 text-yellow-700">
+            <div className="flex items-center">
+              <FaInfoCircle className="mr-2" size="1.5em" />
+              <div>
+                <p>The user is not in your connect list. You can view the gallery content for <span className="font-bold">{countdown}</span> seconds. To have permanent access, please connect with the user.</p>
+              </div>
+            </div>
+            <button
+              className="mt-2 px-4 py-2 bg-[#18BB0C] text-white rounded hover:bg-green-600"
+              onClick={() => setShowModal(true)}
+            >
+              Connect
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="border-2 border-[#18BB0C] rounded-xl p-3 container mx-auto">
@@ -181,7 +205,7 @@ const UserProfile = () => {
               <Row gutter={[24, 16]}>
                 {galleryData.map((item, index) => {
                   const key = `col-${index}`;
-                  const userExists = isFriend === 'accepted' ? true : false;
+                  const userExists = isFriend === 'accepted' || !timerFinished;
                   return (
                     <Col
                       key={key}

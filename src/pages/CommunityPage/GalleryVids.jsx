@@ -168,11 +168,10 @@ const GalleryVids = () => {
               <div className="border-2 rounded-lg px-8 py-9 h-auto">
                 {galleryData.length <= 0 ? (
                   <>
-                    <div className="flex justify-center flex-col w-full items-center">
-                      <div className="h-[430px] w-full flex justify-center items-center">
-                        <img src={picf} alt="" className="h-[100%]" />
-                      </div>
-                      <h1 className="text-xl font-bold">No Gallery Found</h1>
+                    <div className="flex justify-center flex-col w-full items-center h-[500px]">
+                    <div className="rounded-lg p-8  border border-slate-300 ">
+          <h1 className="text-xl  font-bold">No Video Found</h1>
+          </div>
                     </div>
                   </>
                 ) : (

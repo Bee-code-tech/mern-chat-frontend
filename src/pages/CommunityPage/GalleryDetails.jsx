@@ -77,12 +77,11 @@ const GalleryDetails = () => {
         <div className="border border-gray-300 p-5 rounded-xl">
           {!gallerySingleData?.image && !gallerySingleData?.video ? (
             <>
-              <div className="flex justify-center flex-col w-full items-center">
-                <div className="h-[430px] w-full flex justify-center items-center">
-                  <img src={picfallback} alt="" className="h-[100%]" />
-                </div>
-                <h1 className="text-xl font-bold">No Gallery Found</h1>
-              </div>
+              <div className="flex justify-center flex-col w-full items-center h-[500px]">
+                    <div className="rounded-lg p-8  border border-slate-300 ">
+          <h1 className="text-xl  font-bold">No Pictures Found</h1>
+          </div>
+                    </div>
             </>
           ) : (
             < div className="flex flex-col">
