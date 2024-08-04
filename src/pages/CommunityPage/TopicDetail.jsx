@@ -1,4 +1,4 @@
-import { format, parseISO } from "date-fns";
+import { format, parseISO, set } from "date-fns";
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -6,7 +6,7 @@ import Comments from "../../components/CommunityTopic/Comments";
 import { formatViewCount } from "../../utils/formatNumber";
 import { timeAgo } from "../../utils/timeDifference";
 import defaultImg from '../../assets/hu2.png';
-import { FaAngleLeft, FaCirclePlus } from "react-icons/fa6";
+import { FaAngleLeft, FaCirclePlus, FaSpinner } from "react-icons/fa6";
 import { useAuthContext } from "../../context/AuthContext";
 import ThankYou from "../../components/Modal/ThankYou";
 
@@ -15,8 +15,10 @@ const TopicDetail = () => {
   const { id } = useParams();
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [commentLoading, setCommentLoading] = useState(false)
   const [isThanksOpen, setIsThanksOpen] = useState(false);
   const [refetch, setRefetch] = useState(false);
+  const [showCommentModal, setShowCommentModal] = useState(false);
   const [commentText, setCommentText] = useState('');
   const { authUser } = useAuthContext();
   const [showThanks, setShowThanks] = useState(false);
@@ -126,11 +128,18 @@ const TopicDetail = () => {
   const handleBack = () => {
     navigate(-1);
   };
+   const handleCommentModalShow = () => {
+    setShowCommentModal(true);
+   }
+   const handleCommentModalClose = () => {
+    setShowCommentModal(false);
+   }
 
   const postComment = async () => {
     if (!commentText) {
       return toast.error("Comment cannot be empty");
     }
+    setCommentLoading(true);
 
     const payload = { comment: commentText, topicId: id };
 
@@ -153,6 +162,9 @@ const TopicDetail = () => {
     }
 
     toast.success(data.msg);
+    setCommentText("");
+    setCommentLoading(false);
+    setShowCommentModal(false)
     setRefetch(!refetch);
   };
 
@@ -208,6 +220,36 @@ const TopicDetail = () => {
 
   return (
     <>
+    {showCommentModal && (
+  <div 
+  onClick={()=> handleCommentModalClose()}
+  className={`fixed z-[100] p-5 flex items-center justify-center ${showCommentModal ? 'visible opacity-100' : 'invisible opacity-0'} inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}
+  
+  >
+    <div 
+     onClick={(e) => e.stopPropagation()}
+    className={`bg-white p-6 rounded-lg shadow-lg w-full max-w-md ${showCommentModal ? 'scale-1 opacity-1 duration-500' : 'scale-0 opacity-0 duration-150'}`}>
+      <h3 className="text-2xl font-bold mb-4 text-center">Comment on this post</h3>
+      <textarea
+        className="w-full p-4 border rounded-md mb-4 h-32"
+        placeholder="Write a comment..."
+        value={commentText}
+        onChange={(e) => handleInputChange(e)}
+      ></textarea>
+      <div className="flex justify-end items-center mt-4">
+        <button
+          className={`px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 ${commentLoading ? 'cursor-not-allowed opacity-50' : ''}`}
+          onClick={postComment}
+          disabled={commentLoading}
+        >
+          {commentLoading ? <FaSpinner className="animate-spin" /> : "Post Comment"}
+        </button>
+      
+      </div>
+    </div>
+  </div>
+)}
+
       <div className="container mx-auto ml-10  flex justify-start items-center">
         <div onClick={handleBack}>
           <button className="btn bg-[#18BB0C] text-white">
@@ -325,7 +367,7 @@ const TopicDetail = () => {
           <p className="font-medium text-2xl">Comments ({comments.length}):</p>
           <button
             className="border transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 rounded-lg border-[#18BB0C] px-3 py-2 text-[#18BB0C] hover:bg-[#18BB0C] hover:text-white text-sm flex items-center justify-center gap-2"
-            onClick={() => document.getElementById('my_modal_1').showModal()}
+            onClick={() => handleCommentModalShow()}
           >
             <FaCirclePlus /> Add Comment
           </button>
@@ -337,26 +379,9 @@ const TopicDetail = () => {
           />
         </div>
 
-        <dialog id="my_modal_1" className="modal">
-          <div className="modal-box">
-            <h3 className="font-bold text-lg">Comment</h3>
-            <div className="modal-action flex-col">
-              <form method="dialog">
-                <textarea
-                  className="bg-gray-50 mb-3 w-full h-[150px] border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2.5"
-                  value={commentText}
-                  onChange={handleInputChange}
-                ></textarea>
-                <button
-                  onClick={postComment}
-                  className="bg-[#18BB0C] mt-2 transition ease-in-out duration-300 hover:-translate-y-1 hover:scale-110 px-4 py-2 rounded-md text-white ml-[270px]"
-                >
-                  Add
-                </button>
-              </form>
-            </div>
-          </div>
-        </dialog>
+      
+
+       
       </div>
     </>
   );
